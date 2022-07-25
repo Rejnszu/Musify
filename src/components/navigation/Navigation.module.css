@@ -1,0 +1,21 @@
+.navigation {
+  position: fixed;
+  width: 600px;
+  max-width: 90%;
+  left: 50%;
+  top: 5%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.507);
+  border-radius: 30px;
+}
+.navigation__list {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  color: white;
+  padding: 1rem 0;
+}
