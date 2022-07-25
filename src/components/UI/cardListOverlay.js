@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 export default function CardListOverlay(props) {
   const overlayRef = useRef(null);
-  console.log(overlayRef.current);
+
   function scrollRight() {
     if (window.innerWidth > 1200) {
       overlayRef.current.scrollLeft += window.innerWidth / 3;

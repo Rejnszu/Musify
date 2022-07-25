@@ -4,9 +4,9 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/navigation/Navigation";
 import MusicPage from "./pages/musicPage";
 import PlaylistPage from "./pages/playlistPage";
+import SongFilter from "./components/filterMusic/SongFilter";
 
 function App() {
-  console.log("hey");
   return (
     <React.Fragment>
       <Navigation />

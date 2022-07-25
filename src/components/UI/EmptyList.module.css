@@ -1,0 +1,11 @@
+.emptyList {
+  margin: auto;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 10rem;
+  padding: 1rem 0;
+  color: var(--main-color);
+  background-color: var(--dimmed-background-black);
+  box-shadow: var(--main-box-shadow);
+}

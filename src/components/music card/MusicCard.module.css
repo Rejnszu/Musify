@@ -5,6 +5,7 @@
   background-color: var(--dimmed-background-black);
   border-radius: 15px;
   overflow: hidden;
+  min-height: 25rem;
   color: white;
   text-align: left;
   transition: transform 0.5s;
