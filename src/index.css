@@ -4,13 +4,18 @@
   scroll-behavior: smooth;
   font-family: "Montserrat", sans-serif;
 }
+:root {
+  --main-color: rgb(0, 255, 171);
+  --dimmed-background-black: rgba(0, 0, 0, 0.6);
+  --main-box-shadow: 2px 2px 5px black;
+}
 body {
   position: relative;
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
-  background: rgb(0, 255, 171);
+  background: var(--main-color);
   background: radial-gradient(
     circle,
     rgba(0, 255, 171, 1) 0%,

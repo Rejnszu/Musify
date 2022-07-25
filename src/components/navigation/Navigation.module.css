@@ -1,21 +1,30 @@
 .navigation {
-  position: fixed;
-  width: 600px;
-  max-width: 90%;
-  left: 50%;
-  top: 5%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.507);
+  width: 800px;
+  max-width: 95%;
+  margin: 1rem auto;
+  background-color: var(--dimmed-background-black);
   border-radius: 30px;
+  box-shadow: var(--main-box-shadow);
 }
 .navigation__list {
   display: flex;
   list-style: none;
   justify-content: space-around;
-  font-size: 1rem;
+  font-size: clamp(0.5rem, 2vw, 1rem);
   font-weight: 600;
   margin: 0;
   text-transform: uppercase;
   color: white;
   padding: 1rem 0;
+  text-decoration: none;
+}
+
+.navigation__list a {
+  text-decoration: none;
+  color: white;
+}
+.navigation__list a:hover,
+.navigation__list a:active,
+.navigation__list a.active {
+  color: var(--main-color);
 }

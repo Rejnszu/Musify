@@ -1,0 +1,25 @@
+.music-card {
+  width: 300px;
+  background-color: var(--dimmed-background-black);
+  border-radius: 15px;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+
+  box-shadow: var(--main-box-shadow);
+}
+.music-card img {
+  max-width: 100%;
+}
+.music-card__title {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.music-card__author {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.music-card__album {
+  font-weight: 500;
+  font-size: 1rem;
+}
