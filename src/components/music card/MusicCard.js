@@ -3,13 +3,10 @@ import styles from "./MusicCard.module.css";
 export default function MusicCard(props) {
   return (
     <div className={styles["music-card"]}>
-      <img
-        src="https://i1.sndcdn.com/artworks-000105604285-me2956-t500x500.jpg"
-        alt="img"
-      />
-      <p className={styles["music-card__title"]}>Title: Numb</p>
-      <p className={styles["music-card__author"]}>Author: Linkin Park</p>
-      <p className={styles["music-card__album"]}>Album: Minutes to Midnight</p>
+      <img src={props.img} alt={props.id} />
+      <p className={styles["music-card__title"]}>Title: {props.title}</p>
+      <p className={styles["music-card__author"]}>Author: {props.author}</p>
+      <p className={styles["music-card__album"]}>Album: {props.album}</p>
     </div>
   );
 }

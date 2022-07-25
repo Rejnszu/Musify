@@ -1,25 +1,51 @@
+:root {
+  --card-width: calc(16.666666666% - 30px);
+}
 .music-card {
-  width: 300px;
   background-color: var(--dimmed-background-black);
   border-radius: 15px;
   overflow: hidden;
   color: white;
-  text-align: center;
-
+  text-align: left;
+  transition: transform 0.5s;
   box-shadow: var(--main-box-shadow);
+  flex: 0 0 var(--card-width);
+}
+.music-card:hover {
+  transform: translateY(-20px);
+}
+.music-card p {
+  margin-left: 1rem;
 }
 .music-card img {
-  max-width: 100%;
+  width: 100%;
+  aspect-ratio: 16/14;
 }
 .music-card__title {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: clamp(0.6rem, 5vw, 1.2rem);
 }
 .music-card__author {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: clamp(0.5rem, 5vw, 1.1rem);
 }
 .music-card__album {
   font-weight: 500;
-  font-size: 1rem;
+  font-size: clamp(0.4rem, 5vw, 1rem);
+}
+
+@media (max-width: 1300px) {
+  :root {
+    --card-width: calc(33.3333333% - 30px);
+  }
+}
+@media (max-width: 800px) {
+  :root {
+    --card-width: calc(50% - 30px);
+  }
+}
+@media (max-width: 500px) {
+  :root {
+    --card-width: 90%;
+  }
 }

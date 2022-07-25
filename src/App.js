@@ -6,6 +6,7 @@ import MusicPage from "./pages/musicPage";
 import PlaylistPage from "./pages/playlistPage";
 
 function App() {
+  console.log("hey");
   return (
     <React.Fragment>
       <Navigation />

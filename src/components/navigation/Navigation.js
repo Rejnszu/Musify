@@ -17,7 +17,7 @@ export default function Navigation(props) {
         </li>
         <li>Something else</li>
         <li>
-          Music cart <i class="bi bi-music-note-list"></i>
+          Music cart <i className="bi bi-music-note-list"></i>
         </li>
       </ul>
       {props.children}
