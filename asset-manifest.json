@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Musify/static/css/main.7ecf7525.css",
+    "main.js": "/Musify/static/js/main.5c458939.js",
+    "index.html": "/Musify/index.html",
+    "main.7ecf7525.css.map": "/Musify/static/css/main.7ecf7525.css.map",
+    "main.5c458939.js.map": "/Musify/static/js/main.5c458939.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7ecf7525.css",
+    "static/js/main.5c458939.js"
+  ]
+}
