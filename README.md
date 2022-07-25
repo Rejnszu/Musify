@@ -1,0 +1,2 @@
+# Musify
+Sample music app
