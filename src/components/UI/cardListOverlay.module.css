@@ -15,7 +15,7 @@
   display: none;
 }
 .scroll-button {
-  border: 1px solid black;
+  border: none;
   color: var(--main-color);
   box-shadow: var(--main-box-shadow);
   padding: 0.5rem 1rem;
@@ -24,19 +24,12 @@
   font-size: 1.5rem;
   cursor: pointer;
   background-color: var(--dimmed-background-black);
+  position: absolute;
+  top: 50%;
 }
 .scroll-button--left {
-  position: absolute;
   left: 10px;
-  top: 50%;
 }
 .scroll-button--right {
-  position: absolute;
   right: 10px;
-  top: 50%;
 }
-/* @media (max-width: 800px) {
-  .overlay {
-    justify-content: center;
-  }
-} */
