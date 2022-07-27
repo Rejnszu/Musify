@@ -1,0 +1,19 @@
+.playlist {
+  background-color: var(--dimmed-background-black);
+  flex: 0 0 20%;
+  color: white;
+  border-radius: var(--main-border-radius);
+}
+.playlist__title {
+  color: var(--main-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+.playlist__list {
+  list-style: none;
+  padding-left: 1rem;
+}
+.playlist__list li {
+  padding: 0.5rem 0;
+}

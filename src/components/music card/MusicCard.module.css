@@ -3,36 +3,35 @@
 }
 .music-card {
   background-color: var(--dimmed-background-black);
-  border-radius: 15px;
+  border-radius: var(--main-border-radius);
   overflow: hidden;
-  min-height: 25rem;
+  min-height: 23rem;
   color: white;
   text-align: left;
   transition: transform 0.5s;
   box-shadow: var(--main-box-shadow);
   flex: 0 0 var(--card-width);
 }
-.music-card:hover {
-  transform: translateY(-20px);
-}
+
 .music-card p {
   margin-left: 1rem;
 }
 .music-card img {
   width: 100%;
   aspect-ratio: 16/14;
+  box-shadow: 0px 3px 10px black;
 }
 .music-card__title {
   font-weight: 700;
-  font-size: clamp(0.6rem, 5vw, 1.2rem);
+  font-size: clamp(0.6rem, 5vw, 1rem);
 }
 .music-card__author {
   font-weight: 600;
-  font-size: clamp(0.5rem, 5vw, 1.1rem);
+  font-size: clamp(0.5rem, 5vw, 0.9rem);
 }
 .music-card__album {
   font-weight: 500;
-  font-size: clamp(0.4rem, 5vw, 1rem);
+  font-size: clamp(0.4rem, 5vw, 0.8rem);
 }
 
 @media (max-width: 1300px) {
@@ -47,6 +46,6 @@
 }
 @media (max-width: 500px) {
   :root {
-    --card-width: 90%;
+    --card-width: 80%;
   }
 }

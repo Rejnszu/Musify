@@ -1,12 +1,12 @@
 import React from "react";
 import MusicCard from "../components/music card/MusicCard";
-import Overlay from "../components/UI/cardListOverlay";
+import Overlay from "../components/UI/CardListOverlay";
 import { useSelector } from "react-redux/es/exports";
 import { useState } from "react";
 import SongFilter from "../components/filterMusic/SongFilter";
 import EmptyList from "../components/UI/EmptyList";
 export default function MusicPage() {
-  const songsList = useSelector((state) => state.songCards.songsList);
+  const songsList = useSelector((state) => state.songsList.songsList);
   const [filteredSongs, setFilteredSongs] = useState(songsList);
   const isEmpty = filteredSongs.length === 0;
   function filterSongs(value) {
@@ -42,7 +42,9 @@ export default function MusicPage() {
           })}
         </Overlay>
       )}
-      {isEmpty && <EmptyList />}
+      {isEmpty && (
+        <EmptyList> Couldn't find any song matching your filters!</EmptyList>
+      )}
     </React.Fragment>
   );
 }

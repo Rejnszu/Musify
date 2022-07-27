@@ -6,6 +6,7 @@
   scrollbar-width: none;
   margin: 0 auto;
   display: flex;
+  flex-direction: row;
   gap: 30px;
   justify-content: flex-start;
   overflow-x: scroll;
@@ -26,10 +27,16 @@
   background-color: var(--dimmed-background-black);
   position: absolute;
   top: 50%;
+  z-index: 100;
 }
 .scroll-button--left {
   left: 10px;
 }
 .scroll-button--right {
   right: 10px;
+}
+@media (max-width: 1000px) {
+  .scroll-button {
+    display: none;
+  }
 }

@@ -6,7 +6,7 @@ export default function Navigation(props) {
     <nav className={styles.navigation}>
       <ul className={styles["navigation__list"]}>
         <li>
-          <NavLink activeClassName={styles.active} to="/music">
+          <NavLink activeClassName={styles.active} to="/Musify">
             All music
           </NavLink>
         </li>

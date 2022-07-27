@@ -3,7 +3,7 @@
   max-width: 95%;
   margin: 1rem auto;
   background-color: var(--dimmed-background-black);
-  border-radius: 30px;
+  border-radius: var(--main-border-radius);
   box-shadow: var(--main-box-shadow);
 }
 .navigation__list {

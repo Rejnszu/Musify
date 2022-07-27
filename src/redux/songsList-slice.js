@@ -22,7 +22,7 @@ const initialSongsState = {
     },
     {
       img: "https://lastfm.freetls.fastly.net/i/u/770x0/76f24edfa206442286bd5df4cd050d51.jpg",
-      title: "Wrecing Ball",
+      title: "Wrecking Ball",
       author: "Miley Cyrus",
       album: "Bangerz",
     },
@@ -34,27 +34,27 @@ const initialSongsState = {
     },
     {
       img: "https://i1.sndcdn.com/artworks-000147977064-e261r7-t500x500.jpg",
-      title: "Master of the puppers",
+      title: "Master of the puppets",
       author: "Metallica",
       album: "Master of the puppets",
     },
     {
-      img: "https://lastfm.freetls.fastly.net/i/u/770x0/76f24edfa206442286bd5df4cd050d51.jpg",
-      title: "Wrecing Ball",
-      author: "Miley Cyrus",
-      album: "Bangerz",
+      img: "https://s3.party.pl/newsy/katy-perry-roar-81141-1_1.jpg",
+      title: "Roar",
+      author: "Katy Perry",
+      album: "Prism",
     },
     {
-      img: "https://cdns-images.dzcdn.net/images/cover/d59ba2295d91292a8bcb372bad9d88be/500x500.jpg",
-      title: "Call me maybe",
-      author: "Carly Rae Jepsen",
-      album: "Kiss",
+      img: "https://image.ceneostatic.pl/data/products/2724310/i-britney-spears-oops-i-did-it-again.jpg",
+      title: "Britney Spears Oops!... I Did It Again",
+      author: "Britney Spears",
+      album: "Britney Spears",
     },
     {
-      img: "https://i1.sndcdn.com/artworks-000147977064-e261r7-t500x500.jpg",
-      title: "Master of the puppers",
-      author: "Metallica",
-      album: "Master of the puppets",
+      img: "https://ecsmedia.pl/c/encore-b-iext104790646.jpg",
+      title: "Just lose it",
+      author: "Eminem",
+      album: "Encore",
     },
     {
       img: "https://lastfm.freetls.fastly.net/i/u/770x0/76f24edfa206442286bd5df4cd050d51.jpg",
@@ -78,7 +78,7 @@ const initialSongsState = {
 };
 
 const songsSlice = createSlice({
-  name: "boosts",
+  name: "songs",
   initialState: initialSongsState,
   reducers: {},
 });
