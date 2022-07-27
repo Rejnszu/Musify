@@ -7,8 +7,30 @@
   border-radius: 10px;
   cursor: pointer;
   display: block;
-  transition: all 0.3s;
+  /* transition: all 0.5s; */
 }
-.button:hover {
-  box-shadow: 3px 3px 3px rgb(0, 0, 0);
+.button:focus {
+  animation: buttonRipple 0.4s forwards linear;
+}
+@keyframes buttonRipple {
+  0% {
+    box-shadow: none;
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 10px 5px var(--main-color);
+    transform: scale(0.95);
+  }
+  50% {
+    box-shadow: 0 0 10px 10px var(--main-color);
+    transform: scale(0.9);
+  }
+  75% {
+    box-shadow: 0 0 10px 5px var(--main-color);
+    transform: scale(0.95);
+  }
+  100% {
+    box-shadow: none;
+    transform: scale(1);
+  }
 }

@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: row;
   max-width: 90%;
+  flex-wrap: wrap;
   margin: auto;
   padding: 5rem 0;
+  justify-content: center;
+  gap: 20px;
 }

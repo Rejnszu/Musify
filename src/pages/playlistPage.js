@@ -1,13 +1,24 @@
 import React from "react";
-import Playlists from "../components/playlists/Playlists";
+import Playlist from "../components/playlists/Playlist";
 import EmptyList from "../components/UI/EmptyList";
-import Overlay from "../components/UI/Overlay";
+import PlaylistOverlay from "../components/UI/PlaylistOverlay";
 import { useSelector } from "react-redux";
+import CreatePlaylist from "../components/playlists/CreatePlaylist";
+
 export default function PlaylistPage() {
-  const isEmpty = useSelector((state) => state.playlist.playlist).length === 0;
+  const isEmpty = useSelector((state) => state.playlist.playlists).length === 0;
+  const playlists = useSelector((state) => state.playlist.playlists);
+  console.log(playlists);
   return (
     <React.Fragment>
-      <Overlay>{!isEmpty && <Playlists />}</Overlay>
+      <CreatePlaylist />
+      {!isEmpty && (
+        <PlaylistOverlay>
+          {playlists.map((playlist, i) => {
+            return <Playlist id={playlist.id} key={i} name={playlist.name} />;
+          })}
+        </PlaylistOverlay>
+      )}
       {isEmpty && <EmptyList>Couldn't find any playlists.</EmptyList>}
     </React.Fragment>
   );

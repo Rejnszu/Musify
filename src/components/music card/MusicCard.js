@@ -24,7 +24,11 @@ export default function MusicCard(props) {
       <p className={styles["music-card__title"]}>Title: {props.title}</p>
       <p className={styles["music-card__author"]}>Author: {props.author}</p>
       <p className={styles["music-card__album"]}>Album: {props.album}</p>
-      <Button onClick={addSong}>
+      <Button
+        type={"button"}
+        styles={styles["button--music-card"]}
+        onClick={addSong}
+      >
         Add to Playlist <i className="bi bi-music-note-list"></i>
       </Button>
     </div>

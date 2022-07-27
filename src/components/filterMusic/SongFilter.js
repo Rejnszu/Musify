@@ -6,9 +6,9 @@ export default function SongFilter(props) {
   }
 
   return (
-    <form className={styles["filter-form"]}>
+    <div className={styles["filter-form"]}>
       <label htmlFor="songFilter">Search For Songs</label>
       <input onInput={filterSongs} id="songFilter"></input>
-    </form>
+    </div>
   );
 }

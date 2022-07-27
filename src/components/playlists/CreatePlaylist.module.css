@@ -1,10 +1,10 @@
-.filter-form {
+.playlist-form {
   margin: 2rem auto;
   width: 500px;
   max-width: 95%;
   text-align: center;
 }
-.filter-form input {
+.playlist-form input {
   background-color: var(--dimmed-background-black);
   box-shadow: var(--main-box-shadow);
   border-radius: var(--main-border-radius);
@@ -15,15 +15,15 @@
   padding-left: 20px;
   font-size: 16px;
 }
-.filter-form input:focus {
+.playlist-form input:focus {
   border: none;
   outline: none;
 }
-.filter-form label {
+.playlist-form label {
   font-weight: 700;
   color: black;
   font-size: 1.5rem;
   text-transform: uppercase;
-  padding-bottom: 1rem;
   display: block;
+  padding-bottom: 1rem;
 }

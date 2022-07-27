@@ -5,11 +5,14 @@
   background-color: var(--dimmed-background-black);
   border-radius: var(--main-border-radius);
   overflow: hidden;
-  min-height: 23rem;
+  min-height: 27rem;
   color: white;
   text-align: left;
   transition: transform 0.5s;
   box-shadow: var(--main-box-shadow);
+  display: flex;
+  flex-direction: column;
+
   flex: 0 0 var(--card-width);
 }
 
@@ -33,7 +36,9 @@
   font-weight: 500;
   font-size: clamp(0.4rem, 5vw, 0.8rem);
 }
-
+.button--music-card {
+  margin-top: auto;
+}
 @media (max-width: 1300px) {
   :root {
     --card-width: calc(33.3333333% - 30px);
