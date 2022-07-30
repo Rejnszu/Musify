@@ -2,9 +2,10 @@
   --card-width: calc(16.666666666% - 30px);
 }
 .music-card {
+  position: relative;
   background-color: var(--dimmed-background-black);
   border-radius: var(--main-border-radius);
-  overflow: hidden;
+  /* overflow: hidden; */
   min-height: 27rem;
   color: white;
   text-align: left;
@@ -21,6 +22,7 @@
 }
 .music-card img {
   width: 100%;
+  border-radius: var(--main-border-radius) var(--main-border-radius) 0 0;
   aspect-ratio: 16/14;
   box-shadow: 0px 3px 10px black;
 }
@@ -36,8 +38,21 @@
   font-weight: 500;
   font-size: clamp(0.4rem, 5vw, 0.8rem);
 }
+.music-card__badge {
+  font-size: 2rem;
+  color: var(--main-color);
+  background-color: var(--dimmed-background-black);
+  border-radius: 5px;
+  width: 40px;
+  padding: 5px;
+  z-index: 150;
+  box-shadow: var(--main-box-shadow);
+  position: absolute;
+  top: -50px;
+  right: 5px;
+}
 .button--music-card {
-  margin-top: auto;
+  margin-top: auto !important;
 }
 @media (max-width: 1300px) {
   :root {

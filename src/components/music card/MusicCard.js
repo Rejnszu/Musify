@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./MusicCard.module.css";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { playlistActions } from "../../redux/playlist-slice";
+import { songsActions } from "../../redux/songsList-slice";
 
 export default function MusicCard(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
-  const playlist = useSelector((state) => state.playlist.playlist);
+
+  const [isInPlaylist, setIsInPlaylist] = useState(false);
 
   const dispatch = useDispatch();
   const addSong = () => {
+    dispatch(playlistActions.openModal());
     const song = songsList.find((song) => song.title === props.title);
-    if (playlist.includes(song)) {
-      return;
-    } else {
-      dispatch(playlistActions.addSongToPlaylist(song));
-    }
+    dispatch(songsActions.selectSongAddToPlaylist(song));
+    // setIsInPlaylist(true);
+
+    // dispatch(playlistActions.addSongToPlaylist(song));
   };
 
   return (
@@ -24,6 +26,11 @@ export default function MusicCard(props) {
       <p className={styles["music-card__title"]}>Title: {props.title}</p>
       <p className={styles["music-card__author"]}>Author: {props.author}</p>
       <p className={styles["music-card__album"]}>Album: {props.album}</p>
+      {isInPlaylist && (
+        <p className={styles["music-card__badge"]}>
+          <i className="bi bi-bookmark-check"></i>
+        </p>
+      )}
       <Button
         type={"button"}
         styles={styles["button--music-card"]}

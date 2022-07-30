@@ -1,0 +1,31 @@
+.playlist-item {
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  border-bottom: 1px solid var(--main-color);
+}
+.playlist-item__badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.playlist-item__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.playlist-item__input__label {
+  display: inline-block;
+
+  margin-right: 1rem;
+}
+.playlist-item__input:checked ~ .playlist-item__badge {
+  opacity: 1;
+}

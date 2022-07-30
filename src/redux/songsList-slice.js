@@ -75,12 +75,17 @@ const initialSongsState = {
       album: "Viva Hits 6",
     },
   ],
+  selectedSong: undefined,
 };
 
 const songsSlice = createSlice({
   name: "songs",
   initialState: initialSongsState,
-  reducers: {},
+  reducers: {
+    selectSongAddToPlaylist(state, action) {
+      state.selectedSong = action.payload;
+    },
+  },
 });
 export const songsActions = songsSlice.actions;
 export default songsSlice.reducer;

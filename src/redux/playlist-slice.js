@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialPlaylistState = {
   playlists: [],
-  playlist: [],
+  openModal: false,
 };
 const playlistSlice = createSlice({
   name: "playlists",
@@ -22,12 +22,27 @@ const playlistSlice = createSlice({
       );
     },
     addSongToPlaylist(state, action) {
-      state.playlist = [...state.playlist, action.payload];
+      let selectedPlaylists = [...action.payload.playlists];
+
+      const newList = selectedPlaylists.map((obj) => {
+        return { ...obj, items: [...obj.items, action.payload.song] };
+      });
+      console.log(newList);
+      console.log(state.playlists);
     },
-    removeSongFromPlaylist(state, action) {
-      state.playlist = state.playlist.filter(
-        (song) => song.title !== action.payload
-      );
+    // addSongToPlaylist(state, action) {
+    //   state.playlist = [...state.playlist, action.payload];
+    // },
+    // removeSongFromPlaylist(state, action) {
+    //   state.playlist = state.playlist.filter(
+    //     (song) => song.title !== action.payload
+    //   );
+    // },
+    openModal(state) {
+      state.openModal = true;
+    },
+    closeModal(state) {
+      state.openModal = false;
     },
   },
 });

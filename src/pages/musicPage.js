@@ -5,10 +5,16 @@ import { useSelector } from "react-redux/es/exports";
 import { useState } from "react";
 import SongFilter from "../components/filterMusic/SongFilter";
 import EmptyList from "../components/UI/EmptyList";
+
+import AnimatedPages from "../components/UI/AnimatedPages";
+
 export default function MusicPage() {
   const songsList = useSelector((state) => state.songsList.songsList);
+
   const [filteredSongs, setFilteredSongs] = useState(songsList);
+
   const isEmpty = filteredSongs.length === 0;
+
   function filterSongs(value) {
     if (value.trim().length === 0) {
       setFilteredSongs(songsList);
@@ -24,7 +30,7 @@ export default function MusicPage() {
     }
   }
   return (
-    <React.Fragment>
+    <AnimatedPages>
       <SongFilter filterSongs={filterSongs} />
       {!isEmpty && (
         <Overlay>
@@ -45,6 +51,6 @@ export default function MusicPage() {
       {isEmpty && (
         <EmptyList> Couldn't find any song matching your filters!</EmptyList>
       )}
-    </React.Fragment>
+    </AnimatedPages>
   );
 }

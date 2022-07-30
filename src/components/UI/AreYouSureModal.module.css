@@ -1,0 +1,14 @@
+.confirm-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--dimmed-background-black-1);
+  padding: 1rem;
+  width: 20rem;
+  border-radius: var(--main-border-radius);
+}
+.confirm-modal__button-wrapper {
+  display: flex;
+  gap: 10px;
+}

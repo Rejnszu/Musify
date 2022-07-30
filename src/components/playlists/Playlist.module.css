@@ -1,7 +1,7 @@
 .playlist {
   position: relative;
   background-color: var(--dimmed-background-black);
-  flex: 0 0 calc(25% - 30px);
+  flex: 0 0 calc(25% - 15px);
   color: white;
   border-radius: var(--main-border-radius);
 }
@@ -23,10 +23,13 @@
   font-size: 1rem;
   padding: 0.5rem;
 }
-
+.isEmpty {
+  color: var(--main-color);
+  text-align: center;
+}
 @media (max-width: 1100px) {
   .playlist {
-    flex: 0 0 calc(50% - 30px);
+    flex: 0 0 calc(50% - 15px);
     color: white;
   }
 }
