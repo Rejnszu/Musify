@@ -1,0 +1,31 @@
+.add-song__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--dimmed-background-black-1);
+  padding: 2rem;
+  border-radius: var(--main-border-radius);
+}
+.add-song__form {
+  display: flex;
+  flex-direction: column;
+  color: var(--main-color);
+}
+.add-song__form label {
+  margin: 1rem 0;
+}
+.add-song__form input {
+  background-color: var(--dimmed-background-black);
+  color: var(--main-color);
+  font-size: 16px;
+  padding: 0.3rem;
+  border-radius: var(--main-border-radius);
+}
+.add-song__form input:focus {
+  outline: none;
+}
+.add-song__button-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
