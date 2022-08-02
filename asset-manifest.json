@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Musify/static/css/main.59572c9c.css",
-    "main.js": "/Musify/static/js/main.70484c9d.js",
+    "main.css": "/Musify/static/css/main.1f9580b2.css",
+    "main.js": "/Musify/static/js/main.72e5062d.js",
     "index.html": "/Musify/index.html",
-    "main.59572c9c.css.map": "/Musify/static/css/main.59572c9c.css.map",
-    "main.70484c9d.js.map": "/Musify/static/js/main.70484c9d.js.map"
+    "main.1f9580b2.css.map": "/Musify/static/css/main.1f9580b2.css.map",
+    "main.72e5062d.js.map": "/Musify/static/js/main.72e5062d.js.map"
   },
   "entrypoints": [
-    "static/css/main.59572c9c.css",
-    "static/js/main.70484c9d.js"
+    "static/css/main.1f9580b2.css",
+    "static/js/main.72e5062d.js"
   ]
 }
