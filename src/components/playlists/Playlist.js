@@ -6,7 +6,7 @@ import { playlistActions } from "../../redux/playlist-slice";
 import Button from "../UI/Button";
 import { motion } from "framer-motion";
 import AreYouSureModal from "../UI/AreYouSureModal";
-
+import { AnimatePresence } from "framer-motion";
 export default function Playlist(props) {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -30,12 +30,24 @@ export default function Playlist(props) {
       className={styles.playlist}
     >
       <p className={styles["playlist__title"]}>{props.name}</p>
-      <ul className={styles["playlist__list"]}></ul>
       {isEmpty && <p className={styles.isEmpty}>Your playlist is empty</p>}
-      {!isEmpty &&
-        props.items.map((item) => {
-          return <PlaylistItem title={item.title} />;
-        })}
+
+      <ul className={styles["playlist__list"]}>
+        <AnimatePresence>
+          {!isEmpty &&
+            props.items.map((item, i) => {
+              return (
+                <PlaylistItem
+                  key={i}
+                  id={i}
+                  title={item.title}
+                  playlistId={props.id}
+                />
+              );
+            })}
+        </AnimatePresence>
+      </ul>
+
       <Button
         onClick={openModal}
         styles={styles["button--playlist-close"]}

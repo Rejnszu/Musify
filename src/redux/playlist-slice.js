@@ -13,6 +13,7 @@ const playlistSlice = createSlice({
         id: state.playlists.length,
         items: [],
       };
+
       const newPlaylistList = [...state.playlists, newPlaylist];
       state.playlists = newPlaylistList;
     },
@@ -23,9 +24,10 @@ const playlistSlice = createSlice({
     },
     addSongToPlaylist(state, action) {
       let selectedPlaylists = [...action.payload.playlists];
-
+      let selectedSong = action.payload.song;
       const newList = selectedPlaylists.map((obj) => {
-        return { ...obj, items: [...obj.items, action.payload.song] };
+        if (obj.items.includes)
+          return { ...obj, items: [...obj.items, selectedSong] };
       });
       const newListIds = newList.map((item) => item.id);
 
@@ -35,7 +37,26 @@ const playlistSlice = createSlice({
       state.playlists = [...filterOutList, ...newList];
     },
 
-    removeSongFromPlaylist(state, action) {},
+    removeSongFromPlaylist(state, action) {
+      const songToDelete = action.payload.title;
+
+      const correctPlaylist = state.playlists.filter(
+        (playList) => playList.id === action.payload.id
+      );
+
+      const newSongsList = correctPlaylist[0].items.filter(
+        (song) => song.title !== songToDelete
+      );
+
+      correctPlaylist[0].items = [...newSongsList];
+
+      const replacedPlaylist = [...state.playlists].splice(
+        action.payload.id,
+        1,
+        correctPlaylist
+      );
+    },
+
     openModal(state) {
       state.openModal = true;
     },

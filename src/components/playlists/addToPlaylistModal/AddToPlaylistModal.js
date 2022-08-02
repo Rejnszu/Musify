@@ -12,8 +12,14 @@ export default function AddToPlaylistModal() {
   function closeModal() {
     dispatch(playlistActions.closeModal());
   }
+
   const playlists = useSelector((state) => state.playlist.playlists);
+
   const selectedSong = useSelector((state) => state.songsList.selectedSong);
+
+  const songExistInList = playlists.filter(
+    (playlist) => !playlist.items.includes(selectedSong)
+  );
   function addSongToPlaylists(e) {
     e.preventDefault();
 
@@ -23,8 +29,7 @@ export default function AddToPlaylistModal() {
         song: selectedSong,
       })
     );
-    let closeTimeout = setTimeout(closeModal, 1000);
-    closeTimeout(closeTimeout);
+    closeModal();
   }
   function selectedPlaylistsAddHandler(playlist) {
     setSelectedPlaylists((previousSelectedPlaylists) => {
@@ -50,7 +55,7 @@ export default function AddToPlaylistModal() {
         {isEmpty && <EmptyList>No playlists found.</EmptyList>}
         <form className={styles["modal__playlist__list"]}>
           {!isEmpty &&
-            playlists.map((playlist, i) => {
+            songExistInList.map((playlist, i) => {
               return (
                 <AddToPlaylistItem
                   playlist={playlist}
