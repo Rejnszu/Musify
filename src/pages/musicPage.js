@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import MusicCard from "../components/music card/MusicCard";
-import Overlay from "../components/UI/CardListOverlay";
+import CardListOverlay from "../components/UI/CardListOverlay";
 import { useSelector } from "react-redux/es/exports";
 import { useState } from "react";
 import SongFilter from "../components/filterMusic/SongFilter";
@@ -45,12 +45,12 @@ export default function MusicPage() {
     <AnimatedPages>
       <SongFilter filterSongs={filterSongs} />
       {!isEmpty && (
-        <Overlay>
+        <CardListOverlay>
           {filteredSongs?.map((song, i) => {
             return (
               <MusicCard
                 key={i}
-                id={i}
+                id={song.id}
                 img={song.img}
                 title={song.title}
                 author={song.author}
@@ -58,7 +58,7 @@ export default function MusicPage() {
               />
             );
           })}
-        </Overlay>
+        </CardListOverlay>
       )}
       {isEmpty && (
         <EmptyList> Couldn't find any song matching your filters!</EmptyList>

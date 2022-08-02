@@ -54,6 +54,15 @@
 .button--music-card {
   margin-top: auto !important;
 }
+
+.button--song-card-close {
+  position: absolute;
+  right: 10px;
+  top: -10px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  background-color: var(--dimmed-background-black-1);
+}
 @media (max-width: 1300px) {
   :root {
     --card-width: calc(33.3333333% - 30px);

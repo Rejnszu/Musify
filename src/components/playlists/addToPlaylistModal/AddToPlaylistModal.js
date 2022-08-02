@@ -23,11 +23,8 @@ export default function AddToPlaylistModal() {
         song: selectedSong,
       })
     );
-    // playlists.forEach((playlist) => console.log(playlist.items));
-    // console.log(selectedPlaylists);
-    // console.log(
-    //   playlists.filter((playlist) => selectedPlaylists.includes(playlist))
-    // );
+    let closeTimeout = setTimeout(closeModal, 1000);
+    closeTimeout(closeTimeout);
   }
   function selectedPlaylistsAddHandler(playlist) {
     setSelectedPlaylists((previousSelectedPlaylists) => {
@@ -41,6 +38,7 @@ export default function AddToPlaylistModal() {
       );
     });
   }
+
   const isEmpty = playlists.length === 0;
   return (
     <React.Fragment>

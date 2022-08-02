@@ -34,7 +34,7 @@ export default function Playlist(props) {
       {isEmpty && <p className={styles.isEmpty}>Your playlist is empty</p>}
       {!isEmpty &&
         props.items.map((item) => {
-          <PlaylistItem title={item.title} />;
+          return <PlaylistItem title={item.title} />;
         })}
       <Button
         onClick={openModal}
@@ -45,7 +45,7 @@ export default function Playlist(props) {
       </Button>
       {isModalVisible && (
         <AreYouSureModal
-          removePlaylist={removePlaylist}
+          removeItem={removePlaylist}
           closeModal={closeModal}
           text="Are you sure you want delete playlist?"
         />

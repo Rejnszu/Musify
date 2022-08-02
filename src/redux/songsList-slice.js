@@ -102,10 +102,10 @@ const songsSlice = createSlice({
       console.log(state.songsList);
     },
     removeSongFromList(state, action) {
-      const filteredSongsList = () => {
-        return state.songsList.filter((song) => song.id !== action.payload);
-      };
-      state.songsList = filteredSongsList;
+      const filterOutSong = state.songsList.filter(
+        (song) => song.id !== action.payload
+      );
+      state.songsList = filterOutSong;
     },
   },
 });

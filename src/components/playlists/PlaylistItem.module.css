@@ -1,7 +1,8 @@
 .list-item {
-  margin: 0.2rem;
+  margin: 0.2em;
+  padding: 0 1rem;
   display: flex;
-
+  color: var(--main-color);
   align-items: center;
   text-align: left;
   justify-content: space-between;

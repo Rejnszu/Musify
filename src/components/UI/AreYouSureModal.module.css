@@ -6,6 +6,7 @@
   background-color: var(--dimmed-background-black-1);
   padding: 1rem;
   width: 20rem;
+
   border-radius: var(--main-border-radius);
 }
 .confirm-modal__button-wrapper {

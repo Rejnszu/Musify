@@ -2,7 +2,7 @@
   position: relative;
 }
 .overlay {
-  max-width: 88%;
+  max-width: 95%;
   scrollbar-width: none;
   margin: 0 auto;
   display: flex;
@@ -10,7 +10,7 @@
   gap: 30px;
   justify-content: flex-start;
   overflow-x: scroll;
-  padding: 5rem 0;
+  padding: 5rem 2rem;
 }
 .overlay::-webkit-scrollbar {
   display: none;

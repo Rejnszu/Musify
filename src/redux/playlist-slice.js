@@ -27,17 +27,15 @@ const playlistSlice = createSlice({
       const newList = selectedPlaylists.map((obj) => {
         return { ...obj, items: [...obj.items, action.payload.song] };
       });
-      console.log(newList);
-      console.log(state.playlists);
+      const newListIds = newList.map((item) => item.id);
+
+      const filterOutList = state.playlists.filter(
+        (item) => !newListIds.includes(item.id)
+      );
+      state.playlists = [...filterOutList, ...newList];
     },
-    // addSongToPlaylist(state, action) {
-    //   state.playlist = [...state.playlist, action.payload];
-    // },
-    // removeSongFromPlaylist(state, action) {
-    //   state.playlist = state.playlist.filter(
-    //     (song) => song.title !== action.payload
-    //   );
-    // },
+
+    removeSongFromPlaylist(state, action) {},
     openModal(state) {
       state.openModal = true;
     },

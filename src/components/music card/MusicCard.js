@@ -4,10 +4,10 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { playlistActions } from "../../redux/playlist-slice";
 import { songsActions } from "../../redux/songsList-slice";
-
+import AreYouSureModal from "../UI/AreYouSureModal";
 export default function MusicCard(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isInPlaylist, setIsInPlaylist] = useState(false);
 
   const dispatch = useDispatch();
@@ -19,6 +19,15 @@ export default function MusicCard(props) {
 
     // dispatch(playlistActions.addSongToPlaylist(song));
   };
+  function removeSong() {
+    dispatch(songsActions.removeSongFromList(props.id));
+  }
+  function openModal() {
+    setIsModalVisible(true);
+  }
+  function closeModal() {
+    setIsModalVisible(false);
+  }
 
   return (
     <div className={styles["music-card"]}>
@@ -31,6 +40,7 @@ export default function MusicCard(props) {
           <i className="bi bi-bookmark-check"></i>
         </p>
       )}
+
       <Button
         type={"button"}
         styles={styles["button--music-card"]}
@@ -38,6 +48,21 @@ export default function MusicCard(props) {
       >
         Add to Playlist <i className="bi bi-music-note-list"></i>
       </Button>
+
+      <Button
+        onClick={openModal}
+        styles={styles["button--song-card-close"]}
+        type={"button"}
+      >
+        <i className="bi bi-x-lg"></i>
+      </Button>
+      {isModalVisible && (
+        <AreYouSureModal
+          removeItem={removeSong}
+          closeModal={closeModal}
+          text="Are you sure you want delete song?"
+        />
+      )}
     </div>
   );
 }
