@@ -5,6 +5,10 @@
   flex-wrap: wrap;
   margin: auto;
   padding: 5rem 0;
-
   gap: 20px;
+}
+@media (max-width: 500px) {
+  .overlay {
+    flex-direction: column;
+  }
 }

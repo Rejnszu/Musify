@@ -14,6 +14,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 30rem;
+  max-width: 98%;
+  min-width: none;
   min-height: 25rem;
   background-color: var(--dimmed-background-black-1);
   border-radius: var(--main-border-radius);

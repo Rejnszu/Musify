@@ -5,6 +5,7 @@
   transform: translate(-50%, -50%);
   background-color: var(--dimmed-background-black-1);
   padding: 2rem;
+  max-width: 98%;
   border-radius: var(--main-border-radius);
 }
 .add-song__form {

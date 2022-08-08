@@ -26,8 +26,11 @@ const playlistSlice = createSlice({
       let selectedPlaylists = [...action.payload.playlists];
       let selectedSong = action.payload.song;
       const newList = selectedPlaylists.map((obj) => {
-        if (obj.items.includes)
+        if (obj.items.includes(selectedSong)) {
+          return;
+        } else {
           return { ...obj, items: [...obj.items, selectedSong] };
+        }
       });
       const newListIds = newList.map((item) => item.id);
 
@@ -40,20 +43,20 @@ const playlistSlice = createSlice({
     removeSongFromPlaylist(state, action) {
       const songToDelete = action.payload.title;
 
-      const correctPlaylist = state.playlists.filter(
-        (playList) => playList.id === action.payload.id
-      );
+      let playlistToDeleteSong = state.playlists.find((playlist) => {
+        return playlist.id === action.payload.id;
+      });
 
-      const newSongsList = correctPlaylist[0].items.filter(
-        (song) => song.title !== songToDelete
-      );
+      const newSongsList = playlistToDeleteSong.items.filter((song) => {
+        return song.title !== songToDelete;
+      });
+      playlistToDeleteSong = {
+        ...playlistToDeleteSong,
+        items: [...newSongsList],
+      };
 
-      correctPlaylist[0].items = [...newSongsList];
-
-      const replacedPlaylist = [...state.playlists].splice(
-        action.payload.id,
-        1,
-        correctPlaylist
+      state.playlists = state.playlists.map((playlist) =>
+        playlist.id === action.payload.id ? playlistToDeleteSong : playlist
       );
     },
 

@@ -5,11 +5,15 @@
   transform: translate(-50%, -50%);
   background-color: var(--dimmed-background-black-1);
   padding: 1rem;
-  width: 20rem;
+  width: clamp(15rem, 18vw, 20rem);
 
+  z-index: 100;
   border-radius: var(--main-border-radius);
 }
 .confirm-modal__button-wrapper {
   display: flex;
   gap: 10px;
+}
+.confirm-modal h2 {
+  font-size: clamp(0.9rem, 10vw, 1.25rem);
 }
