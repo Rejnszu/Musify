@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "./MusicCard.module.css";
+import styles from "./MusicListItem.module.css";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { playlistActions } from "../../redux/playlist-slice";
 import { songsActions } from "../../redux/songsList-slice";
 import AreYouSureModal from "../UI/AreYouSureModal";
-export default function MusicCard(props) {
+export default function MusicListItem(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -26,11 +26,8 @@ export default function MusicCard(props) {
   }
 
   return (
-    <div className={styles["music-card"]}>
-      <img src={props.img} alt={props.id} />
-      <p className={styles["music-card__title"]}>Title: {props.title}</p>
-      <p className={styles["music-card__author"]}>Author: {props.author}</p>
-      <p className={styles["music-card__album"]}>Album: {props.album}</p>
+    <div className={styles["music-list-card"]}>
+      <p className={styles["music-list-card__title"]}>Title: {props.title}</p>
 
       <Button
         type={"button"}

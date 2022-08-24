@@ -35,8 +35,11 @@
 .scroll-button--right {
   right: 10px;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
   .scroll-button {
     display: none;
+  }
+  .overlay {
+    padding: 4rem 2rem;
   }
 }

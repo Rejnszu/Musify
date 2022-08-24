@@ -99,7 +99,6 @@ const songsSlice = createSlice({
     },
     addSongToList(state, action) {
       state.songsList = [...state.songsList, action.payload];
-      console.log(state.songsList);
     },
     removeSongFromList(state, action) {
       const filterOutSong = state.songsList.filter(

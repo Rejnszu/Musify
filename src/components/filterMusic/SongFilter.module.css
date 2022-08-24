@@ -27,3 +27,8 @@
   padding-bottom: 1rem;
   display: block;
 }
+@media (max-width: 1300px) {
+  .filter-form {
+    margin: 5rem auto 0 auto;
+  }
+}

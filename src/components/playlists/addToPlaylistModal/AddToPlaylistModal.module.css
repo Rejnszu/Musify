@@ -3,8 +3,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 120%;
-  transform: translateY(-10%);
+  height: 100%;
+  /* transform: translateY(-10%); */
   background-color: var(--dimmed-background-black);
   z-index: 150;
 }

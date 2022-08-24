@@ -4,6 +4,7 @@
   scroll-behavior: smooth;
   font-family: "Montserrat", sans-serif;
 }
+
 :root {
   --main-color: rgb(0, 255, 171);
   --dimmed-background-black: rgba(0, 0, 0, 0.6);
@@ -11,10 +12,11 @@
   --main-box-shadow: 2px 2px 5px black;
   --main-border-radius: 15px;
 }
+
 body {
   position: relative;
-  margin: 2rem 0;
-  padding: 0;
+  margin: 0;
+  padding: 2rem 0;
   width: 100%;
   height: auto;
   background: var(--main-color);

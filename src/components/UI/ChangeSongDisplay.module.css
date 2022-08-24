@@ -1,0 +1,29 @@
+.card-display {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  display: flex;
+  gap: 1rem;
+  background-color: var(--dimmed-background-black);
+  border-radius: var(--main-border-radius);
+  padding: 0 1rem;
+  box-shadow: var(--main-box-shadow);
+}
+.button--card-display {
+  font-size: 2rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+@media (max-width: 1300px) {
+  .card-display {
+    right: 50%;
+    transform: translateX(50%);
+    top: 110px;
+    padding: 0 0.5rem;
+    gap: 0.5rem;
+  }
+  .button--card-display {
+    font-size: 1.2rem;
+    margin: 0.3rem;
+  }
+}

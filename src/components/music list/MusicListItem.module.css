@@ -1,0 +1,37 @@
+.music-list-card {
+  position: relative;
+  background-color: var(--dimmed-background-black);
+  border-radius: var(--main-border-radius);
+  /* overflow: hidden; */
+  height: auto;
+  color: white;
+  text-align: center;
+  transition: transform 0.5s;
+  box-shadow: var(--main-box-shadow);
+  display: flex;
+  width: 95%;
+  flex-direction: column;
+
+  flex: 0 0 var(--card-width);
+}
+
+.music-card p {
+  margin-left: 1rem;
+}
+
+.music-list-card__title {
+  font-weight: 700;
+  font-size: clamp(0.6rem, 5vw, 1rem);
+}
+.button--music-card {
+  margin-top: auto !important;
+}
+
+.button--song-card-close {
+  position: absolute;
+  right: 5px;
+  top: -10px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  background-color: var(--dimmed-background-black-1);
+}
