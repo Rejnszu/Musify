@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Navigation.module.css";
+import styles from "./NavigationDesktop.module.css";
 import { NavLink } from "react-router-dom";
 export default function Navigation(props) {
   return (

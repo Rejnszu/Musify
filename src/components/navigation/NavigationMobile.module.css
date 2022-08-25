@@ -1,0 +1,61 @@
+.navigation-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  background-color: var(--dimmed-background-black-1);
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+.navigation-mobile__list {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+}
+.navigation-mobile__list li {
+  padding: 0.5rem 0;
+}
+
+.navigation-mobile__list a {
+  text-decoration: none;
+  color: white;
+}
+
+.navigation-mobile__list a:hover,
+.navigation-mobile__list a:active,
+.navigation-mobile__list a.active {
+  color: var(--main-color);
+}
+.hamburger {
+  position: absolute;
+  top: 16px;
+  left: 15px;
+  z-index: 250;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.hamburger span {
+  background-color: var(--main-color);
+  width: 35px;
+  height: 3px;
+  margin: 5px;
+  transition: all 0.3s;
+  transform-origin: top;
+}
+.hamburger span:nth-child(2) {
+  width: 25px;
+  align-self: flex-end;
+  transform-style: preserve-3d;
+}
+.hamburger span:nth-child(1).active {
+  transform: rotate(-135deg) translateY(-19px);
+}
+.hamburger span:nth-child(2).active {
+  opacity: 0;
+}
+.hamburger span:nth-child(3).active {
+  transform: rotate(135deg) translateY(18px);
+}
