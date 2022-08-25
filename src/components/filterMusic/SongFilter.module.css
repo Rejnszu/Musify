@@ -1,6 +1,6 @@
 .filter-form {
   margin: 2rem auto;
-  width: 500px;
+  width: 400px;
   max-width: 95%;
   text-align: center;
 }
@@ -22,9 +22,10 @@
 .filter-form label {
   font-weight: 700;
   color: black;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   text-transform: uppercase;
   padding-bottom: 1rem;
+  padding-top: 1rem;
   display: block;
 }
 @media (max-width: 1300px) {

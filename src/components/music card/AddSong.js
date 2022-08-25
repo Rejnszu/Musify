@@ -11,6 +11,7 @@ export default function AddSong(props) {
   const titleRef = useRef(null);
   const authorRef = useRef(null);
   const albumRef = useRef(null);
+  const genreRef = useRef(null);
   const dispatch = useDispatch();
 
   function setImage() {
@@ -38,6 +39,10 @@ export default function AddSong(props) {
           albumRef.current.value.length === 0
             ? "Unkown"
             : albumRef.current.value,
+        genre:
+          genreRef.current.value.length === 0
+            ? "Unkown"
+            : genreRef.current.value,
         id: songsList.length,
       })
     );
@@ -54,6 +59,8 @@ export default function AddSong(props) {
         <input ref={authorRef} id="input-author" />
         <label htmlFor="input-album">Add Album Name</label>
         <input ref={albumRef} id="input-album" />
+        <label htmlFor="input-album">Add Music Genre</label>
+        <input ref={genreRef} id="input-genre" />
         <div className={styles["add-song__button-wrapper"]}>
           <Button onClick={props.closeAddSong} type="button">
             Close

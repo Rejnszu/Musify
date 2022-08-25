@@ -7,6 +7,7 @@ import Button from "../UI/Button";
 import { motion } from "framer-motion";
 import AreYouSureModal from "../UI/AreYouSureModal";
 import { AnimatePresence } from "framer-motion";
+import AnimatedItems from "../UI/AnimatedItems";
 export default function Playlist(props) {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,14 +22,7 @@ export default function Playlist(props) {
     dispatch(playlistActions.removePlaylist(props.id));
   };
   return (
-    <motion.div
-      key={props.id}
-      initial={{ transform: "scale(0)" }}
-      animate={{ transform: "scale(1)" }}
-      exit={{ transform: "scale(0)" }}
-      transition={{ duration: 0.3 }}
-      className={styles.playlist}
-    >
+    <AnimatedItems className={styles.playlist}>
       <p className={styles["playlist__title"]}>{props.name}</p>
       {isEmpty && <p className={styles.isEmpty}>Your playlist is empty</p>}
 
@@ -62,6 +56,6 @@ export default function Playlist(props) {
           text="Are you sure you want delete playlist?"
         />
       )}
-    </motion.div>
+    </AnimatedItems>
   );
 }

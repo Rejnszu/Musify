@@ -27,7 +27,7 @@ export default function MusicListItem(props) {
 
   return (
     <div className={styles["music-list-card"]}>
-      <p className={styles["music-list-card__title"]}>Title: {props.title}</p>
+      <p className={styles["music-list-card__title"]}>{props.title}</p>
 
       <Button
         type={"button"}

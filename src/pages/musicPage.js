@@ -10,6 +10,7 @@ import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/music card/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
+import FilterByGenre from "../components/filterMusic/FilterByGenre";
 
 export default function MusicPage(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
@@ -38,13 +39,21 @@ export default function MusicPage(props) {
       );
     }
   }
-
+  function filterSongsByGenre(value) {
+    if (value === "all") {
+      setFilteredSongs(songsList);
+    } else
+      setFilteredSongs(
+        songsList.filter((song) => song.genre.toLowerCase() === value)
+      );
+  }
   useEffect(() => {
     setFilteredSongs(songsList);
   }, [songsList]);
   return (
     <AnimatedPages>
       <SongFilter filterSongs={filterSongs} />
+      <FilterByGenre filterSongsByGenre={filterSongsByGenre} />
       {!isEmpty && props.display === "cards" && (
         <CardListOverlay>
           {filteredSongs?.map((song, i) => {
@@ -56,6 +65,7 @@ export default function MusicPage(props) {
                 title={song.title}
                 author={song.author}
                 album={song.album}
+                genre={song.genre}
               />
             );
           })}
@@ -73,6 +83,7 @@ export default function MusicPage(props) {
                 title={song.title}
                 author={song.author}
                 album={song.album}
+                genre={song.genre}
               />
             );
           })}

@@ -5,8 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import Navigation from "./components/navigation/Navigation";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
-import MusicPage from "./pages/musicPage";
-import PlaylistPage from "./pages/playlistPage";
+import MusicPage from "./pages/MusicPage";
+import PlaylistPage from "./pages/PlaylistPage";
 import ChangeSongsDisplay from "./components/UI/ChangeSongsDisplay";
 
 function App() {
@@ -24,7 +24,8 @@ function App() {
       <Navigation />
 
       <AnimatePresence exitBeforeEnter>
-        {location.pathname === "/Musify" && (
+        {(location.pathname === "/Musify/" ||
+          location.pathname === "/Musify") && (
           <ChangeSongsDisplay
             setCards={setDisplayToCards}
             setList={setDisplayToList}

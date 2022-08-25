@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDom from "react-dom";
 import styles from "./AddToPlaylistModal.module.css";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import EmptyList from "../../UI/EmptyList";
@@ -45,9 +46,16 @@ export default function AddToPlaylistModal() {
   }
 
   const isEmpty = playlists.length === 0;
+
+  const Backdrop = () => {
+    return <div onClick={closeModal} className={styles.backdrop}></div>;
+  };
   return (
     <React.Fragment>
-      <div onClick={closeModal} className={styles.backdrop}></div>
+      {ReactDom.createPortal(
+        <Backdrop />,
+        document.getElementById("backdrop-root")
+      )}
       <div className={styles.modal}>
         <p>Song: {selectedSong.title}</p>
         <h2>Choose Playlists</h2>
