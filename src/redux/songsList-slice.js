@@ -116,7 +116,13 @@ const songsSlice = createSlice({
       const filterOutSong = state.songsList.filter(
         (song) => song.id !== action.payload
       );
-      state.songsList = filterOutSong;
+      state.songsList = [...filterOutSong];
+    },
+    setSongList(state, action) {
+      state.songsList = [...action.payload];
+    },
+    resetSongList(state) {
+      state.songsList = initialSongsState.songsList;
     },
   },
 });

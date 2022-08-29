@@ -1,0 +1,17 @@
+.choose-filter__title {
+  text-align: center;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-top: 3rem;
+}
+.choose-filter__button {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+@media (max-width: 800px) {
+  .choose-filter__title {
+    margin-top: 5rem;
+  }
+}

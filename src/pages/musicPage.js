@@ -1,22 +1,24 @@
 import React, { useEffect } from "react";
 import MusicCard from "../components/music card/MusicCard";
 import CardListOverlay from "../components/UI/CardListOverlay";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useState } from "react";
-import SongFilter from "../components/filterMusic/SongFilter";
+
 import EmptyList from "../components/UI/EmptyList";
 import MusicListItem from "../components/music list/MusicListItem";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/music card/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
-import FilterByGenre from "../components/filterMusic/FilterByGenre";
 
+import ChooseFilters from "../components/filterMusic/ChooseFilters";
+let isInitial = true;
 export default function MusicPage(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
-
+  const dispatch = useDispatch();
   const [filteredSongs, setFilteredSongs] = useState(songsList);
   const [openAddSong, setOpenAddSong] = useState(false);
+
   function openNewSongCreator() {
     setOpenAddSong(true);
   }
@@ -25,7 +27,7 @@ export default function MusicPage(props) {
   }
   const isEmpty = filteredSongs.length === 0;
 
-  function filterSongs(value) {
+  function filterSongsByName(value) {
     if (value.trim().length === 0) {
       setFilteredSongs(songsList);
     } else {
@@ -47,14 +49,22 @@ export default function MusicPage(props) {
         songsList.filter((song) => song.genre.toLowerCase() === value)
       );
   }
+
   useEffect(() => {
     setFilteredSongs(songsList);
   }, [songsList]);
+
   return (
     <AnimatedPages>
-      <SongFilter filterSongs={filterSongs} />
-      <FilterByGenre filterSongsByGenre={filterSongsByGenre} />
-      {!isEmpty && props.display === "cards" && (
+      <ChooseFilters
+        filterSongsByName={filterSongsByName}
+        filterSongsByGenre={filterSongsByGenre}
+      ></ChooseFilters>
+      {props.loading === "loading" && <EmptyList>Loading songs...</EmptyList>}
+      {props.loading === "error" && (
+        <EmptyList>Couldn't fetch songs list!</EmptyList>
+      )}
+      {!isEmpty && props.display === "cards" && props.loading === "loaded" && (
         <CardListOverlay>
           {filteredSongs?.map((song, i) => {
             return (
@@ -71,8 +81,7 @@ export default function MusicPage(props) {
           })}
         </CardListOverlay>
       )}
-
-      {!isEmpty && props.display === "list" && (
+      {!isEmpty && props.display === "list" && props.loading === "loaded" && (
         <ItemsListOverlay>
           {filteredSongs?.map((song, i) => {
             return (
@@ -89,7 +98,6 @@ export default function MusicPage(props) {
           })}
         </ItemsListOverlay>
       )}
-
       {isEmpty && (
         <EmptyList> Couldn't find any song matching your filters!</EmptyList>
       )}

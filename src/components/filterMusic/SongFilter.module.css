@@ -1,5 +1,5 @@
 .filter-form {
-  margin: 2rem auto;
+  margin: 1rem auto;
   width: 400px;
   max-width: 95%;
   text-align: center;
@@ -9,8 +9,9 @@
   box-shadow: var(--main-box-shadow);
   border-radius: var(--main-border-radius);
   color: var(--main-color);
-  width: 100%;
-  height: 50px;
+  width: clamp(200px, 25vw, 400px);
+  height: clamp(30px, 5vw, 50px);
+  max-width: 100%;
   border: none;
   padding-left: 20px;
   font-size: 16px;
@@ -30,6 +31,6 @@
 }
 @media (max-width: 1300px) {
   .filter-form {
-    margin: 5rem auto 0 auto;
+    margin: 3rem auto 0 auto;
   }
 }

@@ -7,7 +7,6 @@ export default function FilterBy(props) {
 
   return (
     <div className={styles["filter-by-genre"]}>
-      <p>Select by genre</p>
       <select onChange={filterByGenre} name="genre" id="genre">
         <option value="all">All</option>
         <option value="rock">Rock</option>

@@ -46,8 +46,10 @@ export default function AddSong(props) {
         id: songsList.length,
       })
     );
+
     props.closeAddSong();
   }
+
   return (
     <div className={styles["add-song__modal"]}>
       <form onSubmit={addNewSong} className={styles["add-song__form"]}>
