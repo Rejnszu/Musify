@@ -3,7 +3,7 @@ import Button from "../UI/Button";
 import styles from "./AddSong.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
-import EmptyImage from "../images/pusty.png";
+import EmptyImage from "../../images/pusty.png";
 let image;
 export default function AddSong(props) {
   const songsList = useSelector((state) => state.songsList.songsList);

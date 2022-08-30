@@ -1,26 +1,29 @@
 import React from "react";
 import styles from "./NavigationDesktop.module.css";
 import { NavLink } from "react-router-dom";
+import AnimatedPages from "../UI/AnimatedPages";
 export default function Navigation(props) {
   return (
-    <nav className={styles.navigation}>
-      <ul className={styles["navigation__list"]}>
-        <li>
-          <NavLink activeClassName={styles.active} to="/Musify">
-            All music
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeClassName={styles.active} to="/playlists">
-            Your playlists
-          </NavLink>
-        </li>
-        <li>Something else</li>
-        <li>
-          Music cart <i className="bi bi-music-note-list"></i>
-        </li>
-      </ul>
-      {props.children}
-    </nav>
+    <AnimatedPages>
+      <nav className={styles.navigation}>
+        <ul className={styles["navigation__list"]}>
+          <li>
+            <NavLink activeClassName={styles.active} to="/songs">
+              All music
+            </NavLink>
+          </li>
+          <li>
+            <NavLink activeClassName={styles.active} to="/playlists">
+              Your playlists
+            </NavLink>
+          </li>
+          <li>Something else</li>
+          <li>
+            Music cart <i className="bi bi-music-note-list"></i>
+          </li>
+        </ul>
+        {props.children}
+      </nav>
+    </AnimatedPages>
   );
 }

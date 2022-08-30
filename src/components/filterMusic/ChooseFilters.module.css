@@ -9,9 +9,3 @@
   display: inline-block;
   margin: 0 3px;
 }
-
-@media (max-width: 800px) {
-  .choose-filter__title {
-    margin-top: 5rem;
-  }
-}

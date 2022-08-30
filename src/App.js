@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from "react";
-
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import NavigationDesktop from "./components/navigation/NavigationDesktop";
+import NavigationDesktop from "./components/Navigation/NavigationDesktop";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
 import MusicPage from "./pages/MusicPage";
 import PlaylistPage from "./pages/PlaylistPage";
 import ChangeSongsDisplay from "./components/UI/ChangeSongsDisplay";
-import NavigationMobile from "./components/navigation/NavigationMobile";
+import NavigationMobile from "./components/Navigation/NavigationMobile";
 import { songsActions } from "./redux/songsList-slice";
 import { useDispatch } from "react-redux";
 import Button from "./components/UI/Button";
+import { fetchMusicData, updateMusicData } from "./redux/musicActions";
+import WelcomePage from "./pages/WelcomePage";
+import { authActions } from "./redux/auth-slice";
+import { useHistory } from "react-router-dom";
 let isInitial = true;
+
 function App() {
-  const songsList = useSelector((state) => state.songsList.songsList);
+  const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
-  const openModal = useSelector((state) => state.playlist.openModal);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 850);
-  const [loading, setLoading] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
   const [display, setDisplay] = useState("cards");
+
+  const songsList = useSelector((state) => state.songsList.songsList);
+
+  const openModal = useSelector((state) => state.playlist.openModal);
+
+  const isLogged = useSelector((state) => state.authentication.isLogged);
+  const [isLoggedLocal, setIsLoggedLocal] = useState("false");
+
   const setDisplayToList = () => {
     setDisplay("list");
   };
@@ -31,61 +41,36 @@ function App() {
   function setInitialSongsList() {
     dispatch(songsActions.resetSongList());
   }
+  function logOut() {
+    localStorage.setItem("isLogged", "false");
+    setIsLoggedLocal("false");
+    history.push("/Musify");
+  }
+  function logIn() {
+    localStorage.setItem("isLogged", true);
+    setIsLoggedLocal("true");
+    history.push("/songs");
+  }
 
   useEffect(() => {
-    const fetchMusicData = async () => {
-      setLoading("loading");
-      const response = await fetch(
-        "https://musify-98a44-default-rtdb.firebaseio.com/music.json"
-      );
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-      const data = await response.json();
-      setLoading("loaded");
-      return data;
-    };
-    fetchMusicData()
-      .then((data) => {
-        dispatch(songsActions.setSongList(data));
-      })
-      .catch((error) => {
-        setLoading("error");
-      });
+    setIsLoggedLocal(localStorage.getItem("isLogged"));
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchMusicData("music", songsList));
   }, [dispatch]);
-  useEffect(() => {
-    const updateMusicData = async () => {
-      if (isInitial) {
-        isInitial = false;
 
-        return;
-      }
-      setLoading("loading");
-      const response = await fetch(
-        "https://musify-98a44-default-rtdb.firebaseio.com/music.json",
-        {
-          method: "PUT",
-          body: JSON.stringify(songsList),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-      const data = await response.json();
-      setLoading("loaded");
-      return data;
-    };
-    updateMusicData().catch((error) => {
-      setLoading("error");
-    });
-  }, [songsList]);
+  useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+    dispatch(updateMusicData("music", songsList));
+  }, [songsList, dispatch]);
 
   useEffect(() => {
     function checkIfMobile() {
-      setIsMobile(window.innerWidth < 850);
+      setIsMobile(window.innerWidth < 1200);
     }
     window.addEventListener("resize", checkIfMobile);
     return () => {
@@ -93,31 +78,44 @@ function App() {
     };
   });
   return (
-    <React.Fragment>
-      {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
-      <Button onClick={setInitialSongsList}>Reset</Button>
-      <AnimatePresence exitBeforeEnter>
-        {(location.pathname === "/Musify/" ||
-          location.pathname === "/Musify") && (
-          <ChangeSongsDisplay
-            setCards={setDisplayToCards}
-            setList={setDisplayToList}
-          />
-        )}
+    <AnimatePresence exitBeforeEnter>
+      <React.Fragment>
         <Switch location={location} key={location.pathname}>
-          <Route path="/" exact>
-            <Redirect to="/Musify" />
-          </Route>
-          <Route path="/Musify">
-            <MusicPage loading={loading} display={display} />
-          </Route>
-          <Route path="/playlists">
-            <PlaylistPage />
-          </Route>
+          {isLoggedLocal === "false" && (
+            <Route path="/Musify">
+              <WelcomePage logIn={logIn} />
+            </Route>
+          )}
+          {isLoggedLocal === "true" && (
+            <React.Fragment>
+              {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
+              {/* <Button onClick={setInitialSongsList}>Reset</Button> */}
+              <Button styles="button--log-out" onClick={logOut}>
+                Log Out
+              </Button>
+              {location.pathname === "/songs" && (
+                <ChangeSongsDisplay
+                  setCards={setDisplayToCards}
+                  setList={setDisplayToList}
+                />
+              )}
+
+              <Route path="/" exact>
+                <Redirect to="/Musify" />
+              </Route>
+              <Route path="/songs">
+                <MusicPage display={display} />
+              </Route>
+              <Route path="/playlists">
+                <PlaylistPage />
+              </Route>
+
+              {openModal && <AddToPlaylistModal />}
+            </React.Fragment>
+          )}
         </Switch>
-      </AnimatePresence>
-      {openModal && <AddToPlaylistModal />}
-    </React.Fragment>
+      </React.Fragment>
+    </AnimatePresence>
   );
 }
 

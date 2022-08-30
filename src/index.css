@@ -32,3 +32,7 @@ h2 {
   font-weight: 700;
   text-align: center;
 }
+.button--log-out {
+  margin-top: 3rem !important;
+  margin-bottom: 0rem !important;
+}

@@ -1,27 +1,40 @@
 import { songsActions } from "./songsList-slice";
 
-export const fetchData = () => {
+export const fetchMusicData = (user, songsList) => {
   return async (dispatch) => {
-    const getData = async () => {
+    const fetchData = async () => {
+      dispatch(songsActions.changeLoadingStatus("loading"));
       const response = await fetch(
-        "https://musify-98a44-default-rtdb.firebaseio.com/music.json"
+        `https://musify-98a44-default-rtdb.firebaseio.com/${user}.json`
       );
       if (!response.ok) {
-        throw new Error("Could not fetch music error.");
+        throw new Error("Something went wrong");
       }
       const data = await response.json();
+      dispatch(songsActions.changeLoadingStatus("loaded"));
       return data;
     };
-    const musicData = await getData();
-    dispatch(songsActions.setSongList(musicData));
+    fetchData()
+      .then((data) => {
+        if (!data) {
+          dispatch(songsActions.resetSongList());
+          dispatch(songsActions.setSongList(songsList));
+          return;
+        }
+        dispatch(songsActions.setSongList(data));
+      })
+      .catch((error) => {
+        dispatch(songsActions.changeLoadingStatus("error"));
+      });
   };
 };
 
-export const updateData = (songsList) => {
+export const updateMusicData = (user, songsList) => {
   return async (dispatch) => {
-    const updateMusicData = async () => {
+    const updateData = async () => {
+      dispatch(songsActions.changeLoadingStatus("loading"));
       const response = await fetch(
-        "https://musify-98a44-default-rtdb.firebaseio.com/music.json",
+        `https://musify-98a44-default-rtdb.firebaseio.com/${user}.json`,
         {
           method: "PUT",
           body: JSON.stringify(songsList),
@@ -33,11 +46,12 @@ export const updateData = (songsList) => {
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
+      const data = await response.json();
+      dispatch(songsActions.changeLoadingStatus("loaded"));
+      return data;
     };
-    try {
-      await updateMusicData();
-    } catch (error) {
-      console.log(error);
-    }
+    updateData().catch((error) => {
+      dispatch(songsActions.changeLoadingStatus("error"));
+    });
   };
 };

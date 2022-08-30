@@ -1,0 +1,38 @@
+.welcome__page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome__title {
+  font-size: clamp(1.25rem, 5vw, 2rem);
+  background-color: var(--dimmed-background-black);
+  display: inline-block;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--main-border-radius);
+  box-shadow: var(--main-box-shadow);
+  max-width: 100%;
+}
+.welcome__advantage-list {
+  align-self: flex-start;
+}
+.welcome__advantage {
+  color: var(--main-color);
+  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+
+  padding: 0.5rem 1rem;
+  background-color: var(--dimmed-background-black);
+  border-radius: var(--main-border-radius);
+  box-shadow: var(--main-box-shadow);
+  max-width: 100%;
+  margin: 1rem 1rem;
+  opacity: 0;
+  transition: all 0.5s;
+  transform: translateX(-100%);
+}
+.welcome__advantage.active {
+  opacity: 1;
+  transform: translateX(0);
+}

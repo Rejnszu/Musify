@@ -100,6 +100,7 @@ const initialSongsState = {
     },
   ],
   selectedSong: undefined,
+  loadingStatus: null,
 };
 
 const songsSlice = createSlice({
@@ -123,6 +124,9 @@ const songsSlice = createSlice({
     },
     resetSongList(state) {
       state.songsList = initialSongsState.songsList;
+    },
+    changeLoadingStatus(state, action) {
+      state.loadingStatus = action.payload;
     },
   },
 });

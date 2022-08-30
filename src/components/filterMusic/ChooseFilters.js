@@ -10,7 +10,7 @@ function ChooseFilters(props) {
   };
   return (
     <React.Fragment>
-      <p className={styles["choose-filter__title"]}>
+      <div className={styles["choose-filter__title"]}>
         Search for song by <br />
         <Button
           onClick={chooseFilterHandler}
@@ -25,7 +25,7 @@ function ChooseFilters(props) {
         >
           genre
         </Button>
-      </p>
+      </div>
       <div>
         {choosenFilter === "name" && (
           <SongFilter filterSongsByName={props.filterSongsByName} />

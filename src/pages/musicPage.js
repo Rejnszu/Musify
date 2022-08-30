@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import MusicCard from "../components/music card/MusicCard";
+import MusicCard from "../components/MusicCard/MusicCard";
 import CardListOverlay from "../components/UI/CardListOverlay";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector } from "react-redux/es/exports";
 import { useState } from "react";
 
 import EmptyList from "../components/UI/EmptyList";
-import MusicListItem from "../components/music list/MusicListItem";
+import MusicListItem from "../components/MusicList/MusicListItem";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
-import AddSong from "../components/music card/AddSong";
+import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
 
-import ChooseFilters from "../components/filterMusic/ChooseFilters";
-let isInitial = true;
+import ChooseFilters from "../components/FilterMusic/ChooseFilters";
+
 export default function MusicPage(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
-  const dispatch = useDispatch();
+  const loadingStatus = useSelector((state) => state.songsList.loadingStatus);
   const [filteredSongs, setFilteredSongs] = useState(songsList);
   const [openAddSong, setOpenAddSong] = useState(false);
 
@@ -60,11 +60,11 @@ export default function MusicPage(props) {
         filterSongsByName={filterSongsByName}
         filterSongsByGenre={filterSongsByGenre}
       ></ChooseFilters>
-      {props.loading === "loading" && <EmptyList>Loading songs...</EmptyList>}
-      {props.loading === "error" && (
+      {loadingStatus === "loading" && <EmptyList>Loading songs...</EmptyList>}
+      {loadingStatus === "error" && (
         <EmptyList>Couldn't fetch songs list!</EmptyList>
       )}
-      {!isEmpty && props.display === "cards" && props.loading === "loaded" && (
+      {!isEmpty && props.display === "cards" && loadingStatus === "loaded" && (
         <CardListOverlay>
           {filteredSongs?.map((song, i) => {
             return (
@@ -81,7 +81,7 @@ export default function MusicPage(props) {
           })}
         </CardListOverlay>
       )}
-      {!isEmpty && props.display === "list" && props.loading === "loaded" && (
+      {!isEmpty && props.display === "list" && loadingStatus === "loaded" && (
         <ItemsListOverlay>
           {filteredSongs?.map((song, i) => {
             return (

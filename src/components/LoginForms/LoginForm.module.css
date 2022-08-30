@@ -1,0 +1,25 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 1rem;
+  background-color: var(--dimmed-background-black);
+  padding: 2rem;
+  border-radius: var(--main-border-radius);
+  max-width: 95%;
+}
+.login-form label {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: white;
+}
+.login-form input {
+  background-color: var(--dimmed-background-black);
+  color: var(--main-color);
+  font-size: 16px;
+  padding: 0.3rem;
+  border-radius: var(--main-border-radius);
+}
+.login-form input:focus {
+  outline: none;
+}
