@@ -1,15 +1,20 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Button from "../components/UI/Button";
 
 import styles from "./WelcomePage.module.css";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import LoginForm from "../components/LoginForms/LoginForm";
+import RegsiterForm from "../components/LoginForms/RegsiterForm";
+import { AnimatePresence } from "framer-motion";
+import SuccessfulRegister from "../components/LoginForms/SuccessfulRegister";
 
 export default function WelcomePage(props) {
-  function logIn() {
-    props.logIn();
-  }
   const welcomeAdvantageListRef = useRef(null);
+  const [displayForms, setDisplayForms] = useState("login");
+
+  const displayFormsHandler = (value) => {
+    setDisplayForms(value);
+  };
   useEffect(() => {
     Array.from(welcomeAdvantageListRef.current?.children).forEach((node, i) => {
       setTimeout(() => {
@@ -35,7 +40,27 @@ export default function WelcomePage(props) {
 
           <p className={styles["welcome__advantage"]}>Try it out for free!</p>
         </div>
-        <LoginForm logIn={props.logIn} />
+        <AnimatePresence exitBeforeEnter>
+          {displayForms === "login" && (
+            <LoginForm
+              displayFormsHandler={displayFormsHandler}
+              key={"login"}
+              logIn={props.logIn}
+            />
+          )}
+          {displayForms === "register" && (
+            <RegsiterForm
+              displayFormsHandler={displayFormsHandler}
+              key={"register"}
+            />
+          )}
+          {displayForms === "success" && (
+            <SuccessfulRegister
+              displayFormsHandler={displayFormsHandler}
+              key={"success"}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </AnimatedPages>
   );

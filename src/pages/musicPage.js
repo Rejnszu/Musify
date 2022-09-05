@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
 import MusicCard from "../components/MusicCard/MusicCard";
 import CardListOverlay from "../components/UI/CardListOverlay";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useState } from "react";
-
+import Hello from "../components/UI/Hello";
 import EmptyList from "../components/UI/EmptyList";
 import MusicListItem from "../components/MusicList/MusicListItem";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
-
+import { authActions } from "../redux/auth-slice";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 
 export default function MusicPage(props) {
+  const dispatch = useDispatch();
   const songsList = useSelector((state) => state.songsList.songsList);
+  const currentUser = sessionStorage.getItem("currentUser");
   const loadingStatus = useSelector((state) => state.songsList.loadingStatus);
   const [filteredSongs, setFilteredSongs] = useState(songsList);
   const [openAddSong, setOpenAddSong] = useState(false);
@@ -49,13 +51,30 @@ export default function MusicPage(props) {
         songsList.filter((song) => song.genre.toLowerCase() === value)
       );
   }
-
+  useEffect(() => {
+    dispatch(
+      authActions.setUsersMusicList({
+        currentUser,
+        songsList,
+      })
+    );
+  }, [songsList, dispatch, currentUser]);
   useEffect(() => {
     setFilteredSongs(songsList);
   }, [songsList]);
 
+  // function convertBlob(img) {
+  //   if (img instanceof Blob) {
+  //     let bufferBase64 = new Buffer(img, "binary").toString("base64");
+  //     return img + bufferBase64;
+  //   } else {
+  //     return img;
+  //   }
+  // }
+
   return (
     <AnimatedPages>
+      <Hello>{currentUser}</Hello>
       <ChooseFilters
         filterSongsByName={filterSongsByName}
         filterSongsByGenre={filterSongsByGenre}

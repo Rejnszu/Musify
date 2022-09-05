@@ -51,7 +51,11 @@ export default function NavigationMobile(props) {
                     Your playlists
                   </NavLink>
                 </li>
-                <li>Something else</li>
+                <li>
+                  <NavLink activeClassName={styles.active} to="/settings">
+                    Settings
+                  </NavLink>
+                </li>
                 <li>
                   Music cart <i className="bi bi-music-note-list"></i>
                 </li>

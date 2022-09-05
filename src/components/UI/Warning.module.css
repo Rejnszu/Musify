@@ -1,0 +1,6 @@
+.warning {
+  color: var(--main-color);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}

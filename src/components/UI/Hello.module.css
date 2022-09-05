@@ -1,0 +1,13 @@
+.hello {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-weight: 700;
+}
+@media (max-width: 1200px) {
+  .hello {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+  }
+}

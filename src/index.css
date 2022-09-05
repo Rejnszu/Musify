@@ -33,6 +33,11 @@ h2 {
   text-align: center;
 }
 .button--log-out {
-  margin-top: 3rem !important;
-  margin-bottom: 0rem !important;
+  margin: 2rem 3.5rem 0 auto !important;
+}
+@media (max-width: 1200px) {
+  .button--log-out {
+    margin-top: 3rem !important;
+    margin-right: 1.5rem !important;
+  }
 }

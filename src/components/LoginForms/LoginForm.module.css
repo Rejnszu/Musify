@@ -1,11 +1,14 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
+  margin: 2rem auto;
+
   gap: 1rem;
   background-color: var(--dimmed-background-black);
-  padding: 2rem;
+  padding: clamp(1rem, 5vw, 2rem);
   border-radius: var(--main-border-radius);
+  min-width: 0;
+  width: 23rem;
   max-width: 95%;
 }
 .login-form label {
@@ -14,6 +17,8 @@
   color: white;
 }
 .login-form input {
+  max-width: 100%;
+  min-width: 0;
   background-color: var(--dimmed-background-black);
   color: var(--main-color);
   font-size: 16px;

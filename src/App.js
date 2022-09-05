@@ -11,10 +11,18 @@ import NavigationMobile from "./components/Navigation/NavigationMobile";
 import { songsActions } from "./redux/songsList-slice";
 import { useDispatch } from "react-redux";
 import Button from "./components/UI/Button";
-import { fetchMusicData, updateMusicData } from "./redux/musicActions";
+import { fetchMusicData, updateMusicData } from "./redux/Actions/musicActions";
 import WelcomePage from "./pages/WelcomePage";
 import { authActions } from "./redux/auth-slice";
+import { getUsersFromDatabase } from "./redux/Actions/authActions";
 import { useHistory } from "react-router-dom";
+import AnimatedPages from "./components/UI/AnimatedPages";
+import {
+  deleteCurrentUser,
+  sendCurrentUser,
+} from "./redux/Actions/loginActions";
+import SettingsPage from "./pages/SettingsPage";
+import { getCurrentUser } from "./redux/Actions/loginActions";
 let isInitial = true;
 
 function App() {
@@ -25,10 +33,12 @@ function App() {
   const [display, setDisplay] = useState("cards");
 
   const songsList = useSelector((state) => state.songsList.songsList);
-
+  const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
-
-  const isLogged = useSelector((state) => state.authentication.isLogged);
+  const reduxCurrentUser = useSelector(
+    (state) => state.authentication.currentUser
+  );
+  const currentUser = sessionStorage.getItem("currentUser");
   const [isLoggedLocal, setIsLoggedLocal] = useState("false");
 
   const setDisplayToList = () => {
@@ -41,33 +51,60 @@ function App() {
   function setInitialSongsList() {
     dispatch(songsActions.resetSongList());
   }
-  function logOut() {
-    localStorage.setItem("isLogged", "false");
-    setIsLoggedLocal("false");
-    history.push("/Musify");
-  }
   function logIn() {
-    localStorage.setItem("isLogged", true);
+    sessionStorage.setItem("isLogged", "true");
     setIsLoggedLocal("true");
     history.push("/songs");
   }
+  function logOut() {
+    sessionStorage.setItem("isLogged", "false");
+    setIsLoggedLocal("false");
+    history.push("/Musify");
+    sessionStorage.removeItem("currentUser");
+    deleteCurrentUser(reduxCurrentUser);
+  }
 
   useEffect(() => {
-    setIsLoggedLocal(localStorage.getItem("isLogged"));
+    if (sessionStorage.getItem("isLogged") === "true") {
+      const user = users.find((user) => user?.userName === currentUser);
+      sendCurrentUser(user).then(() => {
+        getCurrentUser(user).then((data) => {
+          dispatch(authActions.setCurrentUser(data));
+        });
+      });
+    }
+  }, [users, currentUser, dispatch]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("isLogged") === null) {
+      sessionStorage.setItem("isLogged", "false");
+    }
+    setIsLoggedLocal(sessionStorage.getItem("isLogged"));
   }, []);
 
   useEffect(() => {
-    dispatch(fetchMusicData("music", songsList));
-  }, [dispatch]);
+    setTimeout(() => {
+      dispatch(fetchMusicData(currentUser, songsList));
+    }, 1);
+  }, [dispatch, currentUser]);
 
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
-    dispatch(updateMusicData("music", songsList));
-  }, [songsList, dispatch]);
+    dispatch(updateMusicData(users));
+  }, [users, dispatch]);
 
+  useEffect(() => {
+    getUsersFromDatabase().then((data) => {
+      if (data === null) {
+        return;
+      }
+      dispatch(authActions.setUserListOnStart(data));
+      console.log(data);
+    });
+  }, []);
   useEffect(() => {
     function checkIfMobile() {
       setIsMobile(window.innerWidth < 1200);
@@ -90,10 +127,13 @@ function App() {
             <React.Fragment>
               {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
               {/* <Button onClick={setInitialSongsList}>Reset</Button> */}
-              <Button styles="button--log-out" onClick={logOut}>
-                Log Out
-              </Button>
-              {location.pathname === "/songs" && (
+              <AnimatedPages>
+                <Button styles="button--log-out" onClick={logOut}>
+                  Log Out
+                </Button>
+              </AnimatedPages>
+              {(location.pathname === "/songs" ||
+                location.pathname === "/songs/") && (
                 <ChangeSongsDisplay
                   setCards={setDisplayToCards}
                   setList={setDisplayToList}
@@ -101,7 +141,7 @@ function App() {
               )}
 
               <Route path="/" exact>
-                <Redirect to="/Musify" />
+                <Redirect to="/Musify/" />
               </Route>
               <Route path="/songs">
                 <MusicPage display={display} />
@@ -109,7 +149,9 @@ function App() {
               <Route path="/playlists">
                 <PlaylistPage />
               </Route>
-
+              <Route path="/settings">
+                <SettingsPage />
+              </Route>
               {openModal && <AddToPlaylistModal />}
             </React.Fragment>
           )}

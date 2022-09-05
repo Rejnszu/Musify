@@ -1,0 +1,8 @@
+.succes {
+  background-color: var(--dimmed-background-black);
+  padding: 1rem;
+  border-radius: var(--main-border-radius);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+}

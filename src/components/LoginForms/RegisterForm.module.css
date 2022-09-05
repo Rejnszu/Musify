@@ -1,0 +1,35 @@
+.register-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  gap: 1rem;
+  width: 23rem;
+  background-color: var(--dimmed-background-black);
+  padding: 2rem;
+  border-radius: var(--main-border-radius);
+  max-width: 95%;
+}
+.register-form label {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: white;
+}
+.register-form input {
+  max-width: 100%;
+  background-color: var(--dimmed-background-black);
+  color: var(--main-color);
+  font-size: 16px;
+  padding: 0.3rem;
+  border-radius: var(--main-border-radius);
+}
+.register-forminput:focus {
+  outline: none;
+}
+.button--register-form-close {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
