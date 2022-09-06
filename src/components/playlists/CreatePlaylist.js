@@ -22,7 +22,9 @@ export default function CreatePlaylist() {
     <form onSubmit={addPlaylist} className={styles["playlist-form"]}>
       <label>Create Playlist (name)</label>
       <input ref={inputRef} id="createPlaylist"></input>
-      <Button type={"submit"}>Add Playlist</Button>
+      <Button styles="button--black-box-shadow" type={"submit"}>
+        Add Playlist
+      </Button>
     </form>
   );
 }

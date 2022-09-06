@@ -66,6 +66,9 @@ const playlistSlice = createSlice({
     closeModal(state) {
       state.openModal = false;
     },
+    setPlayListsOnStart(state, action) {
+      state.playlists = [...action.payload];
+    },
   },
 });
 export const playlistActions = playlistSlice.actions;

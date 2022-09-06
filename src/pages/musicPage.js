@@ -120,7 +120,7 @@ export default function MusicPage(props) {
       {isEmpty && (
         <EmptyList> Couldn't find any song matching your filters!</EmptyList>
       )}
-      <Button onClick={openNewSongCreator}>
+      <Button styles="button--black-box-shadow" onClick={openNewSongCreator}>
         Add your own song to playlist
       </Button>
       {openAddSong && <AddSong closeAddSong={closeNewSongCreator} />}

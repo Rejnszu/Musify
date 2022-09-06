@@ -30,6 +30,21 @@ const authSlice = createSlice({
 
       state.users = [...otherUsers, currentUser];
     },
+    setUsersPlaylists(state, action) {
+      let currentUser = state.users.find(
+        (user) => user.userName === action.payload.currentUser
+      );
+      const otherUsers = state.users.filter(
+        (user) => user.userName !== action.payload.currentUser
+      );
+
+      currentUser = {
+        ...currentUser,
+        userPlaylists: [...action.payload.playlists],
+      };
+
+      state.users = [...otherUsers, currentUser];
+    },
     setCurrentUser(state, action) {
       state.currentUser = action.payload;
     },
@@ -42,6 +57,26 @@ const authSlice = createSlice({
       );
       currentUser = { ...currentUser, userName: action.payload.newUserName };
       state.users = [...otherUsers, currentUser];
+    },
+    changeUserPassword(state, action) {
+      let currentUser = state.users.find(
+        (user) => user.userName === action.payload.currentUserName
+      );
+      const otherUsers = state.users.filter(
+        (user) => user.userName !== action.payload.currentUserName
+      );
+      currentUser = {
+        ...currentUser,
+        password: action.payload.password,
+        repeatPassword: action.payload.password,
+      };
+      state.users = [...otherUsers, currentUser];
+    },
+    deleteAccount(state, action) {
+      const otherUsers = state.users.filter(
+        (user) => user.uniqueId !== action.payload.uniqueId
+      );
+      state.users = [...otherUsers];
     },
   },
 });

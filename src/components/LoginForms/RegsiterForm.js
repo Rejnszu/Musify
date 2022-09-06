@@ -22,6 +22,7 @@ export default function RegsiterForm(props) {
       password: passwordRef.current?.value,
       repeatPassword: repeatPasswordRef.current?.value,
       musicList: ["empty"],
+      userPlaylists: ["empty"],
       uniqueId: Date.now() + Math.floor(Math.random() * 1000),
     };
     if (users.some((user) => user.userName === newUser.userName)) {

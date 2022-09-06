@@ -14,14 +14,18 @@ function ChooseFilters(props) {
         Search for song by <br />
         <Button
           onClick={chooseFilterHandler}
-          styles={styles["choose-filter__button"]}
+          styles={`${
+            styles["choose-filter__button"]
+          } ${"button--black-box-shadow"}`}
         >
           name
         </Button>{" "}
         /
         <Button
           onClick={chooseFilterHandler}
-          styles={styles["choose-filter__button"]}
+          styles={`${
+            styles["choose-filter__button"]
+          } ${"button--black-box-shadow"}`}
         >
           genre
         </Button>

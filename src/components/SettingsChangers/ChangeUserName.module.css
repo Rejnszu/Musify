@@ -1,0 +1,39 @@
+.settings__change {
+}
+.current__user {
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-align: center;
+}
+.current__user__name {
+  color: var(--main-color);
+}
+.settings__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+  margin: auto;
+}
+.settings__form label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+.settings__form input {
+  background-color: var(--dimmed-background-black);
+  color: var(--main-color);
+  font-size: 16px;
+  padding: 0.3rem;
+  border-radius: var(--main-border-radius);
+  margin-bottom: 0.5rem;
+}
+.settings__form input:focus {
+  outline: none;
+}
+.succes {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--main-color);
+  margin: 3rem 0;
+}

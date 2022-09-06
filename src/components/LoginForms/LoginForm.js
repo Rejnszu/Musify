@@ -54,7 +54,7 @@ export default function LoginForm(props) {
         <input ref={userNameRef} type="text" id="username" />
         {warning === "userDontExist" && <Warning>User doesnt exist.</Warning>}
         <label htmlFor="password">Password</label>
-        <input ref={passwordRef} type="password" id="password" />{" "}
+        <input ref={passwordRef} type="password" id="password" />
         {warning === "wrongPassword" && <Warning>Wrong Password.</Warning>}
         <Button type="submit">Log in</Button>
         <Button

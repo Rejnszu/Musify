@@ -12,6 +12,10 @@ import { songsActions } from "./redux/songsList-slice";
 import { useDispatch } from "react-redux";
 import Button from "./components/UI/Button";
 import { fetchMusicData, updateMusicData } from "./redux/Actions/musicActions";
+import {
+  fetchPlaylists,
+  updatePlaylistData,
+} from "./redux/Actions/playlistActions";
 import WelcomePage from "./pages/WelcomePage";
 import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./redux/Actions/authActions";
@@ -58,20 +62,28 @@ function App() {
   }
   function logOut() {
     sessionStorage.setItem("isLogged", "false");
-    setIsLoggedLocal("false");
+
     history.push("/Musify");
     sessionStorage.removeItem("currentUser");
     deleteCurrentUser(reduxCurrentUser);
   }
 
   useEffect(() => {
+    if (sessionStorage.getItem("isLogged") === "false") {
+      setIsLoggedLocal("false");
+    }
+  });
+
+  useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "true") {
-      const user = users.find((user) => user?.userName === currentUser);
-      sendCurrentUser(user).then(() => {
-        getCurrentUser(user).then((data) => {
-          dispatch(authActions.setCurrentUser(data));
+      const user = users.find((user) => user.userName === currentUser);
+      if (user !== undefined) {
+        sendCurrentUser(user).then(() => {
+          getCurrentUser(user).then((data) => {
+            dispatch(authActions.setCurrentUser(data));
+          });
         });
-      });
+      }
     }
   }, [users, currentUser, dispatch]);
 
@@ -85,6 +97,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       dispatch(fetchMusicData(currentUser, songsList));
+      dispatch(fetchPlaylists(currentUser));
     }, 1);
   }, [dispatch, currentUser]);
 
@@ -94,6 +107,7 @@ function App() {
       return;
     }
     dispatch(updateMusicData(users));
+    dispatch(updatePlaylistData(users));
   }, [users, dispatch]);
 
   useEffect(() => {
@@ -102,7 +116,6 @@ function App() {
         return;
       }
       dispatch(authActions.setUserListOnStart(data));
-      console.log(data);
     });
   }, []);
   useEffect(() => {

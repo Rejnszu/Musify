@@ -7,13 +7,14 @@
   border-radius: 10px;
   cursor: pointer;
   display: block;
+  box-shadow: inset 0 0 0px 1px var(--main-color);
 }
 .button:focus {
   animation: buttonRipple 0.4s forwards linear;
 }
 @keyframes buttonRipple {
   0% {
-    box-shadow: none;
+    box-shadow: inset 0 0 0px 1px var(--main-color);
     transform: scale(1);
   }
   25% {
@@ -29,7 +30,7 @@
     transform: scale(0.95);
   }
   100% {
-    box-shadow: none;
+    box-shadow: inset 0 0 0px 1px var(--main-color);
     transform: scale(1);
   }
 }
