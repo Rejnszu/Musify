@@ -34,7 +34,8 @@ export default function MusicListItem(props) {
         styles={styles["button--music-card"]}
         onClick={addSong}
       >
-        Add to Playlist <i className="bi bi-music-note-list"></i>
+        Add to Playlist
+        <i className="bi bi-music-note-list"></i>
       </Button>
 
       <Button

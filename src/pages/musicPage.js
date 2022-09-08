@@ -12,7 +12,7 @@ import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
 import { authActions } from "../redux/auth-slice";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
-
+import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 export default function MusicPage(props) {
   const dispatch = useDispatch();
   const songsList = useSelector((state) => state.songsList.songsList);
@@ -21,7 +21,14 @@ export default function MusicPage(props) {
   const loadingStatus = useSelector((state) => state.songsList.loadingStatus);
   const [filteredSongs, setFilteredSongs] = useState(songsList);
   const [openAddSong, setOpenAddSong] = useState(false);
+  const [display, setDisplay] = useState("cards");
 
+  const setDisplayToList = () => {
+    setDisplay("list");
+  };
+  const setDisplayToCards = () => {
+    setDisplay("cards");
+  };
   function openNewSongCreator() {
     setOpenAddSong(true);
   }
@@ -83,6 +90,10 @@ export default function MusicPage(props) {
 
   return (
     <AnimatedPages>
+      <ChangeSongsDisplay
+        setCards={setDisplayToCards}
+        setList={setDisplayToList}
+      />
       <Hello>{currentUser}</Hello>
       <ChooseFilters
         filterSongsByName={filterSongsByName}
@@ -92,7 +103,7 @@ export default function MusicPage(props) {
       {loadingStatus === "error" && (
         <EmptyList>Couldn't fetch songs list!</EmptyList>
       )}
-      {!isEmpty && props.display === "cards" && loadingStatus === "loaded" && (
+      {!isEmpty && display === "cards" && loadingStatus === "loaded" && (
         <CardListOverlay>
           {filteredSongs?.map((song, i) => {
             return (
@@ -109,7 +120,7 @@ export default function MusicPage(props) {
           })}
         </CardListOverlay>
       )}
-      {!isEmpty && props.display === "list" && loadingStatus === "loaded" && (
+      {!isEmpty && display === "list" && loadingStatus === "loaded" && (
         <ItemsListOverlay>
           {filteredSongs?.map((song, i) => {
             return (

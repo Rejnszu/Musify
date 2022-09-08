@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 export default function AnimatedItems(props) {
   return (
     <motion.div
+      style={{ maxWidth: "100%" }}
       key={props.id}
       initial={{ transform: "scale(0)" }}
       animate={{ transform: "scale(1)" }}

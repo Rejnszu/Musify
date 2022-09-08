@@ -8,9 +8,18 @@ function ChooseFilters(props) {
   const chooseFilterHandler = (e) => {
     setChoosenFilter(e.target.textContent);
   };
+
+  const filterTitleStyles = {
+    textAlign: "center",
+    fontSize: "clamp(0.7rem,4vw,1.5rem)",
+    textTransform: "uppercase",
+    fontWeight: 800,
+    marginTop: "3rem",
+  };
+
   return (
     <React.Fragment>
-      <div className={styles["choose-filter__title"]}>
+      <div style={filterTitleStyles}>
         Search for song by <br />
         <Button
           onClick={chooseFilterHandler}

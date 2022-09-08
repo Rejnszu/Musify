@@ -34,7 +34,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
-  const [display, setDisplay] = useState("cards");
+
   const playlists = useSelector((state) => state.authentication.playlists);
 
   const songsList = useSelector((state) => state.songsList.songsList);
@@ -45,13 +45,6 @@ function App() {
   );
   const currentUser = sessionStorage.getItem("currentUser");
   const [isLoggedLocal, setIsLoggedLocal] = useState("false");
-
-  const setDisplayToList = () => {
-    setDisplay("list");
-  };
-  const setDisplayToCards = () => {
-    setDisplay("cards");
-  };
 
   function logIn() {
     sessionStorage.setItem("isLogged", "true");
@@ -143,19 +136,12 @@ function App() {
                   Log Out
                 </Button>
               </AnimatedPages>
-              {(location.pathname === "/songs" ||
-                location.pathname === "/songs/") && (
-                <ChangeSongsDisplay
-                  setCards={setDisplayToCards}
-                  setList={setDisplayToList}
-                />
-              )}
 
               <Route path="/" exact>
                 <Redirect to="/Musify/" />
               </Route>
               <Route path="/songs">
-                <MusicPage display={display} />
+                <MusicPage />
               </Route>
               <Route path="/playlists">
                 <PlaylistPage />

@@ -30,7 +30,7 @@ export default function AddToPlaylistModal() {
         song: selectedSong,
       })
     );
-    
+
     closeModal();
   }
   function selectedPlaylistsAddHandler(playlist) {
