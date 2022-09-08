@@ -16,6 +16,7 @@ import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 export default function MusicPage(props) {
   const dispatch = useDispatch();
   const songsList = useSelector((state) => state.songsList.songsList);
+  const playlists = useSelector((state) => state.playlist.playlists);
   const currentUser = sessionStorage.getItem("currentUser");
   const loadingStatus = useSelector((state) => state.songsList.loadingStatus);
   const [filteredSongs, setFilteredSongs] = useState(songsList);
@@ -59,6 +60,14 @@ export default function MusicPage(props) {
       })
     );
   }, [songsList, dispatch, currentUser]);
+  useEffect(() => {
+    dispatch(
+      authActions.setUsersPlaylists({
+        currentUser,
+        playlists,
+      })
+    );
+  }, [playlists, dispatch, currentUser]);
   useEffect(() => {
     setFilteredSongs(songsList);
   }, [songsList]);

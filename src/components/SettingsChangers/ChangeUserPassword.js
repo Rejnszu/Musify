@@ -70,43 +70,46 @@ export default function ChangeUserPassword(props) {
       transition={{ duration: 0.3 }}
       className={styles["settings__change"]}
     >
-      <p className={styles["current__user"]}>
-        Your current password:
-        <input
-          ref={passwordRef}
-          type="password"
-          value={currentUser?.password}
-          disabled
-          className={styles["current__user__password"]}
-        />
-        <br />
-        <label className={styles["checkbox-label"]} htmlFor="checkbox">
-          Show current password
-        </label>
-        <input
-          onChange={togglePassword}
-          ref={checkBoxRef}
-          className={styles["current__user__toggle-password"]}
-          type="checkbox"
-          id="checkbox"
-        />
-      </p>
       {!success && (
-        <form
-          onSubmit={changeUserPassword}
-          className={styles["settings__form"]}
-        >
-          <label>New Password</label>
-          <input ref={newUserPassword}></input>
-          {warning === "repeatedPassword" && (
-            <Warning>It's already your password.</Warning>
-          )}
+        <React.Fragment>
+          <p className={styles["current__user"]}>
+            Your current password:
+            <input
+              ref={passwordRef}
+              type="password"
+              value={currentUser?.password}
+              disabled
+              className={styles["current__user__password"]}
+            />
+            <br />
+            <label className={styles["checkbox-label"]} htmlFor="checkbox">
+              Show current password
+            </label>
+            <input
+              onChange={togglePassword}
+              ref={checkBoxRef}
+              className={styles["current__user__toggle-password"]}
+              type="checkbox"
+              id="checkbox"
+            />
+          </p>
 
-          <label>Enter Your Password</label>
-          <input ref={oldUserPassword}></input>
-          {warning === "password" && <Warning>Wrong password.</Warning>}
-          <Button type="submit">Confirm</Button>
-        </form>
+          <form
+            onSubmit={changeUserPassword}
+            className={styles["settings__form"]}
+          >
+            <label>New Password</label>
+            <input ref={newUserPassword}></input>
+            {warning === "repeatedPassword" && (
+              <Warning>It's already your password.</Warning>
+            )}
+
+            <label>Enter Your Password</label>
+            <input ref={oldUserPassword}></input>
+            {warning === "password" && <Warning>Wrong password.</Warning>}
+            <Button type="submit">Confirm</Button>
+          </form>
+        </React.Fragment>
       )}
       {success && (
         <div className={styles.succes}>

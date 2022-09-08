@@ -55,27 +55,30 @@ export default function ChangeUserName(props) {
       transition={{ duration: 0.3 }}
       className={styles["settings__change"]}
     >
-      <p className={styles["current__user"]}>
-        Your current account name:{" "}
-        <span className={styles["current__user__name"]}>
-          {currentUser?.userName}
-        </span>
-      </p>
       {!success && (
-        <form onSubmit={changeUserName} className={styles["settings__form"]}>
-          <label>New UserName</label>
-          <input ref={newUserNameRef}></input>
-          {warning === "repeatUserName" && (
-            <Warning>It's already your userName.</Warning>
-          )}
-          {warning === "userNameExist" && (
-            <Warning>UserName like this already exists.</Warning>
-          )}
-          <label>Enter Your Password</label>
-          <input ref={confirmPasswordRef}></input>
-          {warning === "password" && <Warning>Wrong password.</Warning>}
-          <Button type="submit">Confirm</Button>
-        </form>
+        <React.Fragment>
+          <p className={styles["current__user"]}>
+            Your current account name:{" "}
+            <span className={styles["current__user__name"]}>
+              {currentUser?.userName}
+            </span>
+          </p>
+
+          <form onSubmit={changeUserName} className={styles["settings__form"]}>
+            <label>New UserName</label>
+            <input ref={newUserNameRef}></input>
+            {warning === "repeatUserName" && (
+              <Warning>It's already your userName.</Warning>
+            )}
+            {warning === "userNameExist" && (
+              <Warning>UserName like this already exists.</Warning>
+            )}
+            <label>Enter Your Password</label>
+            <input ref={confirmPasswordRef}></input>
+            {warning === "password" && <Warning>Wrong password.</Warning>}
+            <Button type="submit">Confirm</Button>
+          </form>
+        </React.Fragment>
       )}
       {success && (
         <div className={styles.succes}>

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PlaylistItem from "./PlaylistItem";
 import { playlistActions } from "../../redux/playlist-slice";
 import Button from "../UI/Button";
-import { motion } from "framer-motion";
+
 import AreYouSureModal from "../UI/AreYouSureModal";
 import { AnimatePresence } from "framer-motion";
 import AnimatedItems from "../UI/AnimatedItems";

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import NavigationDesktop from "./components/Navigation/NavigationDesktop";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector, useDispatch } from "react-redux";
 import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
 import MusicPage from "./pages/MusicPage";
 import PlaylistPage from "./pages/PlaylistPage";
+import SettingsPage from "./pages/SettingsPage";
 import ChangeSongsDisplay from "./components/UI/ChangeSongsDisplay";
 import NavigationMobile from "./components/Navigation/NavigationMobile";
-import { songsActions } from "./redux/songsList-slice";
-import { useDispatch } from "react-redux";
+
 import Button from "./components/UI/Button";
 import { fetchMusicData, updateMusicData } from "./redux/Actions/musicActions";
 import {
@@ -24,9 +24,9 @@ import AnimatedPages from "./components/UI/AnimatedPages";
 import {
   deleteCurrentUser,
   sendCurrentUser,
+  getCurrentUser,
 } from "./redux/Actions/loginActions";
-import SettingsPage from "./pages/SettingsPage";
-import { getCurrentUser } from "./redux/Actions/loginActions";
+
 let isInitial = true;
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
   const [display, setDisplay] = useState("cards");
+  const playlists = useSelector((state) => state.authentication.playlists);
 
   const songsList = useSelector((state) => state.songsList.songsList);
   const users = useSelector((state) => state.authentication.users);
@@ -52,9 +53,6 @@ function App() {
     setDisplay("cards");
   };
 
-  function setInitialSongsList() {
-    dispatch(songsActions.resetSongList());
-  }
   function logIn() {
     sessionStorage.setItem("isLogged", "true");
     setIsLoggedLocal("true");
@@ -97,8 +95,8 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       dispatch(fetchMusicData(currentUser, songsList));
-      dispatch(fetchPlaylists(currentUser));
     }, 1);
+    dispatch(fetchPlaylists(currentUser, playlists));
   }, [dispatch, currentUser]);
 
   useEffect(() => {
@@ -139,7 +137,7 @@ function App() {
           {isLoggedLocal === "true" && (
             <React.Fragment>
               {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
-              {/* <Button onClick={setInitialSongsList}>Reset</Button> */}
+
               <AnimatedPages>
                 <Button styles="button--log-out" onClick={logOut}>
                   Log Out

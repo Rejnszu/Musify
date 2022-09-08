@@ -1,6 +1,6 @@
 import { playlistActions } from "../playlist-slice";
-
-export const fetchPlaylists = (currentUser) => {
+import { authActions } from "../auth-slice";
+export const fetchPlaylists = (currentUser, playlists) => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(
@@ -20,15 +20,20 @@ export const fetchPlaylists = (currentUser) => {
     };
     fetchData()
       .then((data) => {
-        if (data === undefined) {
+        if (data === undefined || data === null) {
           return;
         }
         if (data[0] === "empty") {
           dispatch(playlistActions.setPlayListsOnStart([]));
-
+          dispatch(
+            authActions.setUsersPlaylists({
+              currentUser: currentUser,
+              playlists: playlists,
+            })
+          );
           return;
         }
-        dispatch(playlistActions.currentUserPlaylists(data));
+        dispatch(playlistActions.setPlayListsOnStart(data));
       })
       .catch((error) => {
         console.log(error);
@@ -52,6 +57,8 @@ export const updatePlaylistData = (users) => {
         throw new Error("Something went wrong");
       }
     };
-    updateData().catch((error) => {});
+    updateData().catch((error) => {
+      console.log(error);
+    });
   };
 };
