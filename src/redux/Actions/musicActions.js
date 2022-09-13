@@ -13,7 +13,7 @@ export const fetchMusicData = (currentUser, songsList) => {
       }
       const data = await response.json();
       dispatch(songsActions.changeLoadingStatus("loaded"));
-      const currentUserData = data.find(
+      const currentUserData = data?.find(
         (user) => user.userName === currentUser
       );
       const currentUserMusic = currentUserData?.musicList;
@@ -22,9 +22,11 @@ export const fetchMusicData = (currentUser, songsList) => {
     };
     fetchData()
       .then((data) => {
-        if (data === undefined) {
+        if (data.length > 0 && data[0] !== "empty") {
+          dispatch(songsActions.setSongList(data));
           return;
         }
+
         if (data[0] === "empty") {
           dispatch(songsActions.resetSongList());
           dispatch(songsActions.setSongList(songsList));
@@ -38,7 +40,9 @@ export const fetchMusicData = (currentUser, songsList) => {
 
           return;
         }
-        dispatch(songsActions.setSongList(data));
+        if (data === undefined) {
+          return;
+        }
       })
       .catch((error) => {
         console.log(error);

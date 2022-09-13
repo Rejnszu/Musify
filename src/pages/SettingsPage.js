@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 
 import ChangeUserName from "../components/SettingsChangers/ChangeUserName";
 import ChangeUserPassword from "../components/SettingsChangers/ChangeUserPassword";
@@ -8,7 +7,7 @@ import DeleteAccount from "../components/SettingsChangers/DeleteAccount";
 import AnimatedPages from "../components/UI/AnimatedPages";
 
 import styles from "./SettingPage.module.css";
-export default function SettingsPage() {
+const SettingsPage = () => {
   const [displayChangers, setDisplayChangers] = useState(null);
 
   function getData(e) {
@@ -83,4 +82,5 @@ export default function SettingsPage() {
       </div>
     </AnimatedPages>
   );
-}
+};
+export default SettingsPage;

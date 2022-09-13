@@ -16,7 +16,6 @@ export default function ChangeUserPassword(props) {
   const checkBoxRef = useRef(null);
   const passwordRef = useRef(null);
 
-  console.log(checkBoxRef.current);
   const dispatch = useDispatch();
 
   function togglePassword() {

@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import AreYouSureModal from "../UI/AreYouSureModal";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/auth-slice";
+import { songsActions } from "../../redux/songsList-slice";
+import { playlistActions } from "../../redux/playlist-slice";
 import { deleteCurrentUser } from "../../redux/Actions/loginActions";
 import { useHistory } from "react-router-dom";
 export default function DeleteAccount(props) {
@@ -19,6 +21,8 @@ export default function DeleteAccount(props) {
     dispatch(authActions.deleteAccount(currentUser));
     sessionStorage.setItem("isLogged", "false");
     sessionStorage.removeItem("currentUser");
+    dispatch(songsActions.resetSongList());
+    dispatch(playlistActions.resetPlaylists());
     deleteCurrentUser(currentUser);
     history.push("/Musify");
   }

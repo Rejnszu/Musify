@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMusicData, updateMusicData } from "./redux/Actions/musicActions";
+import { updateMusicData } from "./redux/Actions/musicActions";
 import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./redux/Actions/authActions";
 import {
@@ -16,10 +16,7 @@ import {
   sendCurrentUser,
   getCurrentUser,
 } from "./redux/Actions/loginActions";
-import {
-  fetchPlaylists,
-  updatePlaylistData,
-} from "./redux/Actions/playlistActions";
+import { updatePlaylistData } from "./redux/Actions/playlistActions";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -30,6 +27,8 @@ import NavigationDesktop from "./components/Navigation/NavigationDesktop";
 import Button from "./components/UI/Button";
 import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
 import AnimatedPages from "./components/UI/AnimatedPages";
+import { songsActions } from "./redux/songsList-slice";
+import { playlistActions } from "./redux/playlist-slice";
 
 let isInitial = true;
 
@@ -39,9 +38,6 @@ function App() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
 
-  const playlists = useSelector((state) => state.playlist.playlists);
-
-  const songsList = useSelector((state) => state.songsList.songsList);
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
   const reduxCurrentUser = useSelector(
@@ -57,7 +53,8 @@ function App() {
   }
   function logOut() {
     sessionStorage.setItem("isLogged", "false");
-
+    dispatch(songsActions.resetSongList());
+    dispatch(playlistActions.resetPlaylists());
     history.push("/Musify");
     sessionStorage.removeItem("currentUser");
     deleteCurrentUser(reduxCurrentUser);
@@ -97,14 +94,6 @@ function App() {
     }
     setIsLoggedLocal(sessionStorage.getItem("isLogged"));
   }, []);
-
-  useEffect(() => {
-    dispatch(fetchMusicData(currentUser, songsList));
-
-    if (currentUser) {
-      dispatch(fetchPlaylists(currentUser, playlists));
-    }
-  }, [dispatch, currentUser]);
 
   useEffect(() => {
     if (isInitial) {

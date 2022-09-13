@@ -12,10 +12,11 @@ import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
-
+import { fetchMusicData } from "../redux/Actions/musicActions";
+import { fetchPlaylists } from "../redux/Actions/playlistActions";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
-export default function MusicPage(props) {
+const MusicPage = () => {
   const dispatch = useDispatch();
   const songsList = useSelector((state) => state.songsList.songsList);
   const playlists = useSelector((state) => state.playlist.playlists);
@@ -61,6 +62,13 @@ export default function MusicPage(props) {
         songsList.filter((song) => song.genre.toLowerCase() === value)
       );
   }
+
+  useEffect(() => {
+    dispatch(fetchMusicData(currentUser, songsList));
+
+    dispatch(fetchPlaylists(currentUser, playlists));
+  }, [dispatch, currentUser]);
+
   useEffect(() => {
     dispatch(
       authActions.setUsersMusicList({
@@ -148,4 +156,6 @@ export default function MusicPage(props) {
       {openAddSong && <AddSong closeAddSong={closeNewSongCreator} />}
     </AnimatedPages>
   );
-}
+};
+
+export default MusicPage;

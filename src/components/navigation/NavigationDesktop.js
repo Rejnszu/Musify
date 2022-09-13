@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./NavigationDesktop.module.css";
 import { NavLink } from "react-router-dom";
 import AnimatedPages from "../UI/AnimatedPages";
-export default function Navigation(props) {
+const NavigationDesktop = () => {
   return (
     <AnimatedPages>
       <nav className={styles.navigation}>
@@ -26,8 +26,8 @@ export default function Navigation(props) {
             Music cart <i className="bi bi-music-note-list"></i>
           </li>
         </ul>
-        {props.children}
       </nav>
     </AnimatedPages>
   );
-}
+};
+export default React.memo(NavigationDesktop);

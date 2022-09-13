@@ -78,6 +78,9 @@ const playlistSlice = createSlice({
     setPlayListsOnStart(state, action) {
       state.playlists = [...action.payload];
     },
+    resetPlaylists(state) {
+      state.playlists = initialPlaylistState.playlists;
+    },
   },
 });
 export const playlistActions = playlistSlice.actions;

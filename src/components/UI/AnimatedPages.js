@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-export default function AnimatedPages(props) {
+const AnimatedPages = (props) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -11,4 +11,5 @@ export default function AnimatedPages(props) {
       {props.children}
     </motion.div>
   );
-}
+};
+export default AnimatedPages;

@@ -3,7 +3,7 @@ import styles from "./NavigationMobile.module.css";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedPages from "../UI/AnimatedPages";
-export default function NavigationMobile(props) {
+const NavigationMobile = () => {
   const [showNavigation, setShowNavigation] = useState(false);
 
   function toggleNavigation() {
@@ -60,11 +60,11 @@ export default function NavigationMobile(props) {
                   Music cart <i className="bi bi-music-note-list"></i>
                 </li>
               </ul>
-              {props.children}
             </motion.nav>
           )}{" "}
         </AnimatePresence>
       </React.Fragment>
     </AnimatedPages>
   );
-}
+};
+export default React.memo(NavigationMobile);
