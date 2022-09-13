@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ReactDom from "react-dom";
 import styles from "./AddToPlaylistModal.module.css";
 import { useSelector, useDispatch } from "react-redux/es/exports";
@@ -18,9 +18,20 @@ export default function AddToPlaylistModal() {
 
   const selectedSong = useSelector((state) => state.songsList.selectedSong);
 
-  const songExistInList = playlists.filter(
-    (playlist) => !playlist.items.includes(selectedSong)
+  const songExistInList = useMemo(
+    () =>
+      playlists.filter((playlist) => {
+        if (playlist.items) {
+          return !JSON.stringify(playlist.items).includes(
+            JSON.stringify(selectedSong)
+          );
+        } else {
+          return [];
+        }
+      }),
+    [selectedSong, playlists]
   );
+
   function addSongToPlaylists(e) {
     e.preventDefault();
 
@@ -46,7 +57,7 @@ export default function AddToPlaylistModal() {
     });
   }
 
-  const isEmpty = playlists.length === 0;
+  const isEmpty = songExistInList.length === 0;
 
   const Backdrop = () => {
     return <div onClick={closeModal} className={styles.backdrop}></div>;
@@ -59,7 +70,7 @@ export default function AddToPlaylistModal() {
       )}
       <div className={styles.modal}>
         <p>Song: {selectedSong.title}</p>
-        <h2>Choose Playlists</h2>
+        {!isEmpty && <h2>Choose Playlists</h2>}
 
         {isEmpty && <EmptyList>No playlists found.</EmptyList>}
         <form className={styles["modal__playlist__list"]}>

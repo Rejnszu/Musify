@@ -67,7 +67,7 @@ const initialSongsState = {
       genre: "pop",
     },
     {
-      img: "https://ecsmedia.pl/c/encore-b-iext104790646.jpg",
+      img: "https://ecsmedia.pl/c/encore-b-iext116086419.jpg",
       title: "Just lose it",
       author: "Eminem",
       album: "Encore",

@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import Button from "../components/UI/Button";
+import { AnimatePresence } from "framer-motion";
 
 import styles from "./WelcomePage.module.css";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import LoginForm from "../components/LoginForms/LoginForm";
 import RegsiterForm from "../components/LoginForms/RegsiterForm";
-import { AnimatePresence } from "framer-motion";
 import SuccessfulRegister from "../components/LoginForms/SuccessfulRegister";
 
 export default function WelcomePage(props) {

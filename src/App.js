@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, Redirect, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import NavigationDesktop from "./components/Navigation/NavigationDesktop";
-import { useSelector, useDispatch } from "react-redux";
-import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
-import MusicPage from "./pages/MusicPage";
-import PlaylistPage from "./pages/PlaylistPage";
-import SettingsPage from "./pages/SettingsPage";
-import ChangeSongsDisplay from "./components/UI/ChangeSongsDisplay";
-import NavigationMobile from "./components/Navigation/NavigationMobile";
-
-import Button from "./components/UI/Button";
-import { fetchMusicData, updateMusicData } from "./redux/Actions/musicActions";
 import {
-  fetchPlaylists,
-  updatePlaylistData,
-} from "./redux/Actions/playlistActions";
-import WelcomePage from "./pages/WelcomePage";
+  Route,
+  Switch,
+  Redirect,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchMusicData, updateMusicData } from "./redux/Actions/musicActions";
 import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./redux/Actions/authActions";
-import { useHistory } from "react-router-dom";
-import AnimatedPages from "./components/UI/AnimatedPages";
 import {
   deleteCurrentUser,
   sendCurrentUser,
   getCurrentUser,
 } from "./redux/Actions/loginActions";
+import {
+  fetchPlaylists,
+  updatePlaylistData,
+} from "./redux/Actions/playlistActions";
+
+import WelcomePage from "./pages/WelcomePage";
+import MusicPage from "./pages/MusicPage";
+import PlaylistPage from "./pages/PlaylistPage";
+import SettingsPage from "./pages/SettingsPage";
+import NavigationMobile from "./components/Navigation/NavigationMobile";
+import NavigationDesktop from "./components/Navigation/NavigationDesktop";
+import Button from "./components/UI/Button";
+import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
+import AnimatedPages from "./components/UI/AnimatedPages";
 
 let isInitial = true;
 
@@ -35,7 +39,7 @@ function App() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
 
-  const playlists = useSelector((state) => state.authentication.playlists);
+  const playlists = useSelector((state) => state.playlist.playlists);
 
   const songsList = useSelector((state) => state.songsList.songsList);
   const users = useSelector((state) => state.authentication.users);
@@ -60,10 +64,13 @@ function App() {
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === "false") {
-      setIsLoggedLocal("false");
-    }
-  });
+    getUsersFromDatabase().then((data) => {
+      if (data === null) {
+        return;
+      }
+      dispatch(authActions.setUserListOnStart(data));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "true") {
@@ -79,6 +86,12 @@ function App() {
   }, [users, currentUser, dispatch]);
 
   useEffect(() => {
+    if (sessionStorage.getItem("isLogged") === "false") {
+      setIsLoggedLocal("false");
+    }
+  });
+
+  useEffect(() => {
     if (sessionStorage.getItem("isLogged") === null) {
       sessionStorage.setItem("isLogged", "false");
     }
@@ -86,10 +99,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(fetchMusicData(currentUser, songsList));
-    }, 1);
-    dispatch(fetchPlaylists(currentUser, playlists));
+    dispatch(fetchMusicData(currentUser, songsList));
+
+    if (currentUser) {
+      dispatch(fetchPlaylists(currentUser, playlists));
+    }
   }, [dispatch, currentUser]);
 
   useEffect(() => {
@@ -101,14 +115,6 @@ function App() {
     dispatch(updatePlaylistData(users));
   }, [users, dispatch]);
 
-  useEffect(() => {
-    getUsersFromDatabase().then((data) => {
-      if (data === null) {
-        return;
-      }
-      dispatch(authActions.setUserListOnStart(data));
-    });
-  }, []);
   useEffect(() => {
     function checkIfMobile() {
       setIsMobile(window.innerWidth < 1200);

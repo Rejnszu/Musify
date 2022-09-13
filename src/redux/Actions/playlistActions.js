@@ -14,7 +14,8 @@ export const fetchPlaylists = (currentUser, playlists) => {
       const currentUserData = data?.find(
         (user) => user.userName === currentUser
       );
-      const currentUserPlaylists = currentUserData?.userPlaylists;
+
+      const currentUserPlaylists = currentUserData.userPlaylists;
 
       return currentUserPlaylists;
     };
@@ -25,15 +26,19 @@ export const fetchPlaylists = (currentUser, playlists) => {
         }
         if (data[0] === "empty") {
           dispatch(playlistActions.setPlayListsOnStart([]));
+
           dispatch(
             authActions.setUsersPlaylists({
               currentUser: currentUser,
               playlists: playlists,
             })
           );
+
           return;
         }
-        dispatch(playlistActions.setPlayListsOnStart(data));
+        if (data) {
+          dispatch(playlistActions.setPlayListsOnStart(data));
+        }
       })
       .catch((error) => {
         console.log(error);

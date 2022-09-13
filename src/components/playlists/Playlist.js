@@ -17,7 +17,8 @@ export default function Playlist(props) {
   function closeModal() {
     setIsModalVisible(false);
   }
-  const isEmpty = props.items.length === 0;
+
+  const isEmpty = props.items === undefined || props.items.length === 0;
   const removePlaylist = () => {
     dispatch(playlistActions.removePlaylist(props.id));
   };

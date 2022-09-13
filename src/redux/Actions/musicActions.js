@@ -13,7 +13,7 @@ export const fetchMusicData = (currentUser, songsList) => {
       }
       const data = await response.json();
       dispatch(songsActions.changeLoadingStatus("loaded"));
-      const currentUserData = data?.find(
+      const currentUserData = data.find(
         (user) => user.userName === currentUser
       );
       const currentUserMusic = currentUserData?.musicList;

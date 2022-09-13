@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import MusicCard from "../components/MusicCard/MusicCard";
-import CardListOverlay from "../components/UI/CardListOverlay";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { authActions } from "../redux/auth-slice";
+
+import CardListOverlay from "../components/UI/CardListOverlay";
+import MusicCard from "../components/MusicCard/MusicCard";
 import Hello from "../components/UI/Hello";
 import EmptyList from "../components/UI/EmptyList";
 import MusicListItem from "../components/MusicList/MusicListItem";
@@ -10,7 +12,7 @@ import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
-import { authActions } from "../redux/auth-slice";
+
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 export default function MusicPage(props) {

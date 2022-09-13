@@ -1,19 +1,25 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { AnimatePresence } from "framer-motion";
+import { authActions } from "../redux/auth-slice";
+
 import Playlist from "../components/playlists/Playlist";
 import EmptyList from "../components/UI/EmptyList";
 import PlaylistOverlay from "../components/UI/PlaylistOverlay";
-import { useSelector, dispatch, useDispatch } from "react-redux";
 import CreatePlaylist from "../components/playlists/CreatePlaylist";
 import AnimatedPages from "../components/UI/AnimatedPages";
-import { AnimatePresence } from "framer-motion";
-import { authActions } from "../redux/auth-slice";
+
 let isInitial = true;
+
 export default function PlaylistPage() {
   const dispatch = useDispatch();
   const isEmpty =
     useSelector((state) => state.playlist?.playlists).length === 0;
+
   const currentUser = sessionStorage.getItem("currentUser");
+
   const playlists = useSelector((state) => state.playlist.playlists);
+
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
@@ -25,7 +31,8 @@ export default function PlaylistPage() {
         playlists,
       })
     );
-  }, [dispatch, playlists]);
+  }, [dispatch, playlists, currentUser]);
+
   return (
     <AnimatedPages>
       <CreatePlaylist />
