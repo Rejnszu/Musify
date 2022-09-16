@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { updateAllData } from "./redux/Actions/musicActions";
+import { updateAllData } from "./redux/Actions/updateActions";
 import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./redux/Actions/authActions";
 import {
@@ -16,7 +16,6 @@ import {
   sendCurrentUser,
   getCurrentUser,
 } from "./redux/Actions/loginActions";
-import { updatePlaylistData } from "./redux/Actions/playlistActions";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -29,6 +28,7 @@ import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToP
 import AnimatedPages from "./components/UI/AnimatedPages";
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
+import { updateActions } from "./redux/update-slice";
 
 function App() {
   const history = useHistory();
@@ -36,8 +36,9 @@ function App() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
   const initialUpdate = useSelector(
-    (state) => state.authentication.initials.initialUpadte
+    (state) => state.authentication.initials.initialUpdate
   );
+  const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
   const reduxCurrentUser = useSelector(
@@ -99,13 +100,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (initialUpdate) {
-      dispatch(authActions.handlerInitialUpdate(false));
-      return;
+    if (shouldUpdate) {
+      dispatch(updateAllData(users));
     }
-
-    dispatch(updateAllData(users));
-  }, [users, initialUpdate, dispatch]);
+    return () => {
+      dispatch(updateActions.shouldNotUpdate());
+    };
+  }, [users, dispatch]);
 
   useEffect(() => {
     function checkIfMobile() {

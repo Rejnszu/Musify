@@ -7,6 +7,7 @@ import AnimatedItems from "../UI/AnimatedItems";
 import { authActions } from "../../redux/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import Warning from "../UI/Warning";
+
 export default function RegsiterForm(props) {
   const dispatch = useDispatch();
   const userNameRef = useRef(null);
@@ -14,7 +15,7 @@ export default function RegsiterForm(props) {
   const repeatPasswordRef = useRef(null);
   const [warning, setWarning] = useState(null);
   const users = useSelector((state) => state.authentication.users);
-
+  const [isInitialRegister, setIsInitialRegister] = useState(true);
   const createUser = (e) => {
     e.preventDefault();
     const newUser = {
@@ -43,8 +44,15 @@ export default function RegsiterForm(props) {
   };
 
   useEffect(() => {
+    if (isInitialRegister) {
+      setIsInitialRegister(false);
+      return;
+    }
     sendUserToDatabase(users);
-    console.log("new user");
+
+    return () => {
+      setIsInitialRegister(true);
+    };
   }, [users]);
 
   return (

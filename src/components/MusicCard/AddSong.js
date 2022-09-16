@@ -4,6 +4,7 @@ import styles from "./AddSong.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
 import EmptyImage from "../../images/pusty.png";
+import { updateActions } from "../../redux/update-slice";
 let image;
 export default function AddSong(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
@@ -48,6 +49,7 @@ export default function AddSong(props) {
     );
 
     props.closeAddSong();
+    dispatch(updateActions.shouldUpdate());
   }
 
   return (

@@ -16,8 +16,6 @@ import { fetchMusicData } from "../redux/Actions/musicActions";
 import { fetchPlaylists } from "../redux/Actions/playlistActions";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
-let isInitialPlaylist = true;
-let isInitialMusicList = true;
 
 const MusicPage = () => {
   const dispatch = useDispatch();
@@ -103,31 +101,6 @@ const MusicPage = () => {
     );
   }, [playlists, currentUser, dispatch, initialFetchPlaylists]);
 
-  // useEffect(() => {
-  //   if (isInitialMusicList) {
-  //     isInitialMusicList = false;
-  //     return;
-  //   }
-  //   dispatch(
-  //     authActions.setUsersMusicList({
-  //       currentUser,
-  //       songsList,
-  //     })
-  //   );
-  // }, [songsList, dispatch, currentUser]);
-
-  // useEffect(() => {
-  //   if (isInitialPlaylist) {
-  //     isInitialPlaylist = false;
-  //     return;
-  //   }
-  //   dispatch(
-  //     authActions.setUsersPlaylists({
-  //       currentUser,
-  //       playlists,
-  //     })
-  //   );
-  // }, [playlists, dispatch, currentUser]);
   useEffect(() => {
     setFilteredSongs(songsList);
   }, [songsList]);

@@ -8,6 +8,7 @@ import Button from "../UI/Button";
 import AreYouSureModal from "../UI/AreYouSureModal";
 import { AnimatePresence } from "framer-motion";
 import AnimatedItems from "../UI/AnimatedItems";
+import { updateActions } from "../../redux/update-slice";
 export default function Playlist(props) {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,6 +22,7 @@ export default function Playlist(props) {
   const isEmpty = props.items === undefined || props.items.length === 0;
   const removePlaylist = () => {
     dispatch(playlistActions.removePlaylist(props.id));
+    dispatch(updateActions.shouldUpdate());
   };
   return (
     <AnimatedItems className={styles.playlist}>

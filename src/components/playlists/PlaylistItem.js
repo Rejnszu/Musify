@@ -4,6 +4,7 @@ import styles from "./PlaylistItem.module.css";
 import { playlistActions } from "../../redux/playlist-slice";
 import { useDispatch } from "react-redux/es/exports";
 import { motion } from "framer-motion";
+import { updateActions } from "../../redux/update-slice";
 export default function PlaylistItem(props) {
   const dispatch = useDispatch();
   const removeSong = () => {
@@ -13,6 +14,7 @@ export default function PlaylistItem(props) {
         id: props.playlistId,
       })
     );
+    dispatch(updateActions.shouldUpdate());
   };
   return (
     <motion.li

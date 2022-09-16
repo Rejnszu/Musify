@@ -4,6 +4,7 @@ import { playlistActions } from "../../redux/playlist-slice";
 import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/exports";
 import { useRef } from "react";
+import { updateActions } from "../../redux/update-slice";
 import Button from "../UI/Button";
 export default function CreatePlaylist() {
   const playLists = useSelector((state) => state.playlist.playlists);
@@ -17,6 +18,7 @@ export default function CreatePlaylist() {
       dispatch(playlistActions.addPlaylist(inputRef.current.value));
       inputRef.current.value = "";
     }
+    dispatch(updateActions.shouldUpdate());
   };
   return (
     <form onSubmit={addPlaylist} className={styles["playlist-form"]}>

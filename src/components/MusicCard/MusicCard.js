@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { playlistActions } from "../../redux/playlist-slice";
 import { songsActions } from "../../redux/songsList-slice";
 import AreYouSureModal from "../UI/AreYouSureModal";
+import { updateActions } from "../../redux/update-slice";
 
 export default function MusicCard(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
@@ -15,9 +16,11 @@ export default function MusicCard(props) {
     dispatch(playlistActions.openModal());
     const song = songsList.find((song) => song.title === props.title);
     dispatch(songsActions.selectSongAddToPlaylist(song));
+    dispatch(updateActions.shouldUpdate());
   };
   function removeSong() {
     dispatch(songsActions.removeSongFromList(props.id));
+    dispatch(updateActions.shouldUpdate());
   }
   function openModal() {
     setIsModalVisible(true);

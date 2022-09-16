@@ -6,7 +6,7 @@ const initialAuthState = {
   initials: {
     initialFetchMusicList: true,
     initialFetchPlaylists: true,
-    initialUpadte: true,
+    initialUpdate: true,
   },
 };
 const authSlice = createSlice({
@@ -98,7 +98,7 @@ const authSlice = createSlice({
     handlerInitialUpdate(state, action) {
       state.initials = {
         ...state.initials,
-        initialUpadte: action.payload,
+        initialUpdate: action.payload,
       };
     },
   },
