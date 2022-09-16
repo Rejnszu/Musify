@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Musify/static/css/main.4bbb6bf7.css",
-    "main.js": "/Musify/static/js/main.71ecbd6a.js",
+    "main.js": "/Musify/static/js/main.7ba2ca55.js",
     "index.html": "/Musify/index.html",
     "main.4bbb6bf7.css.map": "/Musify/static/css/main.4bbb6bf7.css.map",
-    "main.71ecbd6a.js.map": "/Musify/static/js/main.71ecbd6a.js.map"
+    "main.7ba2ca55.js.map": "/Musify/static/js/main.7ba2ca55.js.map"
   },
   "entrypoints": [
     "static/css/main.4bbb6bf7.css",
-    "static/js/main.71ecbd6a.js"
+    "static/js/main.7ba2ca55.js"
   ]
 }
