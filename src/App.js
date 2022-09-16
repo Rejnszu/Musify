@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { updateMusicData } from "./redux/Actions/musicActions";
+import { updateAllData } from "./redux/Actions/musicActions";
 import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./redux/Actions/authActions";
 import {
@@ -30,14 +30,14 @@ import AnimatedPages from "./components/UI/AnimatedPages";
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 
-let isInitial = true;
-
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
-
+  const initialUpdate = useSelector(
+    (state) => state.authentication.initials.initialUpadte
+  );
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
   const reduxCurrentUser = useSelector(
@@ -58,6 +58,9 @@ function App() {
     history.push("/Musify");
     sessionStorage.removeItem("currentUser");
     deleteCurrentUser(reduxCurrentUser);
+    dispatch(authActions.handleInitialFetchMusicList(true));
+    dispatch(authActions.handleInitialFetchPlaylists(true));
+    dispatch(authActions.handlerInitialUpdate(true));
   }
 
   useEffect(() => {
@@ -67,7 +70,7 @@ function App() {
       }
       dispatch(authActions.setUserListOnStart(data));
     });
-  }, [dispatch]);
+  }, [isLoggedLocal]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "true") {
@@ -96,13 +99,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
+    if (initialUpdate) {
+      dispatch(authActions.handlerInitialUpdate(false));
       return;
     }
-    dispatch(updateMusicData(users));
-    dispatch(updatePlaylistData(users));
-  }, [users, dispatch]);
+
+    dispatch(updateAllData(users));
+  }, [users, initialUpdate, dispatch]);
 
   useEffect(() => {
     function checkIfMobile() {

@@ -7,6 +7,7 @@ function ChooseFilters(props) {
   const [choosenFilter, setChoosenFilter] = useState("name");
   const chooseFilterHandler = (e) => {
     setChoosenFilter(e.target.textContent);
+    props.reset();
   };
 
   const filterTitleStyles = {

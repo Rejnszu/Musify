@@ -3,6 +3,11 @@ const initialAuthState = {
   isLogged: false,
   users: [],
   currentUser: undefined,
+  initials: {
+    initialFetchMusicList: true,
+    initialFetchPlaylists: true,
+    initialUpadte: true,
+  },
 };
 const authSlice = createSlice({
   name: "authentication",
@@ -77,6 +82,24 @@ const authSlice = createSlice({
         (user) => user.uniqueId !== action.payload.uniqueId
       );
       state.users = [...otherUsers];
+    },
+    handleInitialFetchMusicList(state, action) {
+      state.initials = {
+        ...state.initials,
+        initialFetchMusicList: action.payload,
+      };
+    },
+    handleInitialFetchPlaylists(state, action) {
+      state.initials = {
+        ...state.initials,
+        initialFetchPlaylists: action.payload,
+      };
+    },
+    handlerInitialUpdate(state, action) {
+      state.initials = {
+        ...state.initials,
+        initialUpadte: action.payload,
+      };
     },
   },
 });

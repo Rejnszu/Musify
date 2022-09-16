@@ -9,12 +9,16 @@
   transition: transform 0.5s;
   box-shadow: var(--main-box-shadow);
   display: flex;
-  width: 95%;
+  width: 100%;
   flex-direction: column;
-
+  transition: all 0.5s;
   flex: 0 0 var(--card-width);
 }
-
+.music-list-card:hover {
+  background-color: var(--main-color);
+  color: var(--dimmed-background-black-1);
+  cursor: pointer;
+}
 .music-card p {
   margin-left: 1rem;
 }

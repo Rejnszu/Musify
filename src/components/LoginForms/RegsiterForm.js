@@ -21,8 +21,8 @@ export default function RegsiterForm(props) {
       userName: userNameRef.current?.value,
       password: passwordRef.current?.value,
       repeatPassword: repeatPasswordRef.current?.value,
-      musicList: ["empty"],
-      userPlaylists: ["empty"],
+      musicList: [],
+      userPlaylists: [],
       uniqueId: Date.now() + Math.floor(Math.random() * 1000),
     };
     if (users.some((user) => user.userName === newUser.userName)) {
@@ -44,6 +44,7 @@ export default function RegsiterForm(props) {
 
   useEffect(() => {
     sendUserToDatabase(users);
+    console.log("new user");
   }, [users]);
 
   return (

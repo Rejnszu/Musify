@@ -9,22 +9,23 @@ export const fetchPlaylists = (currentUser, playlists) => {
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
+
       const data = await response.json();
 
-      const currentUserData = data?.find(
-        (user) => user.userName === currentUser
-      );
-
-      const currentUserPlaylists = currentUserData.userPlaylists;
-
-      return currentUserPlaylists;
+      return data;
     };
     fetchData()
+      .then(async (data) => {
+        const currentUserData = await data.find(
+          (user) => user.userName === currentUser
+        );
+
+        const currentUserPlaylists = await currentUserData.userPlaylists;
+
+        return currentUserPlaylists;
+      })
       .then((data) => {
-        if (data === undefined || data === null) {
-          return;
-        }
-        if (data[0] === "empty") {
+        if (!data) {
           dispatch(playlistActions.setPlayListsOnStart([]));
 
           dispatch(
@@ -38,15 +39,35 @@ export const fetchPlaylists = (currentUser, playlists) => {
         }
         if (data) {
           dispatch(playlistActions.setPlayListsOnStart(data));
+          dispatch(
+            authActions.setUsersPlaylists({
+              currentUser: currentUser,
+              playlists: data,
+            })
+          );
+
+          return;
         }
+        // if (data === undefined || data === null) {
+        //   dispatch(playlistActions.setPlayListsOnStart([]));
+        //   dispatch(
+        //     authActions.setUsersPlaylists({
+        //       currentUser: currentUser,
+        //       playlists: playlists,
+        //     })
+        //   );
+        //   console.log("data undefined");
+        //   return;
+        // }
       })
+
       .catch((error) => {
         console.log(error);
       });
   };
 };
 export const updatePlaylistData = (users) => {
-  return async (dispatch) => {
+  return async () => {
     const updateData = async () => {
       const response = await fetch(
         `https://musify-98a44-default-rtdb.firebaseio.com/users.json`,

@@ -12,18 +12,21 @@ import AnimatedPages from "../components/UI/AnimatedPages";
 let isInitial = true;
 
 const PlaylistPage = () => {
-  console.log("playlist");
   const dispatch = useDispatch();
   const isEmpty =
     useSelector((state) => state.playlist?.playlists).length === 0;
-
+  const initialFetchPlaylists = useSelector(
+    (state) => state.authentication.initials.initialFetchPlaylists
+  );
   const currentUser = sessionStorage.getItem("currentUser");
 
   const playlists = useSelector((state) => state.playlist.playlists);
 
   useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
+    if (initialFetchPlaylists) {
+      dispatch(fetchPlaylists(currentUser, playlists));
+
+      dispatch(authActions.handleInitialFetchPlaylists(false));
       return;
     }
     dispatch(
@@ -32,11 +35,21 @@ const PlaylistPage = () => {
         playlists,
       })
     );
-  }, [dispatch, playlists, currentUser]);
+  }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
 
-  useEffect(() => {
-    dispatch(fetchPlaylists(currentUser, playlists));
-  }, [dispatch, currentUser]);
+  // useEffect(() => {
+  //   if (isInitial) {
+  //     isInitial = false;
+  //     return;
+  //   }
+  //   dispatch(
+  //     authActions.setUsersPlaylists({
+  //       currentUser,
+  //       playlists,
+  //     })
+  //   );
+  // }, [dispatch, playlists, currentUser]);
+
   return (
     <AnimatedPages>
       <CreatePlaylist />

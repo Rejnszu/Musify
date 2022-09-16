@@ -16,8 +16,14 @@ import { fetchMusicData } from "../redux/Actions/musicActions";
 import { fetchPlaylists } from "../redux/Actions/playlistActions";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
+let isInitialPlaylist = true;
+let isInitialMusicList = true;
+
 const MusicPage = () => {
   const dispatch = useDispatch();
+  const { initialFetchMusicList, initialFetchPlaylists } = useSelector(
+    (state) => state.authentication.initials
+  );
   const songsList = useSelector((state) => state.songsList.songsList);
   const playlists = useSelector((state) => state.playlist.playlists);
   const currentUser = sessionStorage.getItem("currentUser");
@@ -39,6 +45,10 @@ const MusicPage = () => {
     setOpenAddSong(false);
   }
   const isEmpty = filteredSongs.length === 0;
+
+  function resetFilters() {
+    setFilteredSongs(songsList);
+  }
 
   function filterSongsByName(value) {
     if (value.trim().length === 0) {
@@ -64,27 +74,60 @@ const MusicPage = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchMusicData(currentUser, songsList));
+    if (initialFetchMusicList) {
+      dispatch(fetchMusicData(currentUser, songsList));
+      dispatch(authActions.handleInitialFetchMusicList(false));
 
-    dispatch(fetchPlaylists(currentUser, playlists));
-  }, [dispatch, currentUser]);
-
-  useEffect(() => {
+      return;
+    }
     dispatch(
       authActions.setUsersMusicList({
         currentUser,
         songsList,
       })
     );
-  }, [songsList, dispatch, currentUser]);
+  }, [currentUser, songsList, dispatch, initialFetchMusicList]);
+
   useEffect(() => {
+    if (initialFetchPlaylists) {
+      dispatch(fetchPlaylists(currentUser, playlists));
+      dispatch(authActions.handleInitialFetchPlaylists(false));
+
+      return;
+    }
     dispatch(
       authActions.setUsersPlaylists({
         currentUser,
         playlists,
       })
     );
-  }, [playlists, dispatch, currentUser]);
+  }, [playlists, currentUser, dispatch, initialFetchPlaylists]);
+
+  // useEffect(() => {
+  //   if (isInitialMusicList) {
+  //     isInitialMusicList = false;
+  //     return;
+  //   }
+  //   dispatch(
+  //     authActions.setUsersMusicList({
+  //       currentUser,
+  //       songsList,
+  //     })
+  //   );
+  // }, [songsList, dispatch, currentUser]);
+
+  // useEffect(() => {
+  //   if (isInitialPlaylist) {
+  //     isInitialPlaylist = false;
+  //     return;
+  //   }
+  //   dispatch(
+  //     authActions.setUsersPlaylists({
+  //       currentUser,
+  //       playlists,
+  //     })
+  //   );
+  // }, [playlists, dispatch, currentUser]);
   useEffect(() => {
     setFilteredSongs(songsList);
   }, [songsList]);
@@ -108,6 +151,7 @@ const MusicPage = () => {
       <ChooseFilters
         filterSongsByName={filterSongsByName}
         filterSongsByGenre={filterSongsByGenre}
+        reset={resetFilters}
       ></ChooseFilters>
       {loadingStatus === "loading" && <EmptyList>Loading songs...</EmptyList>}
       {loadingStatus === "error" && (

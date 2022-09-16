@@ -13,7 +13,7 @@ export const sendCurrentUser = async (currentUser) => {
 
 export const getCurrentUser = async (currentUser) => {
   const response = await fetch(
-    `https://musify-98a44-default-rtdb.firebaseio.com/activeUser${currentUser?.userName}.json`
+    `https://musify-98a44-default-rtdb.firebaseio.com/activeUser${currentUser.userName}.json`
   );
   const data = await response.json();
   return data;

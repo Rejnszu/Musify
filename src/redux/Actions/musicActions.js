@@ -12,22 +12,31 @@ export const fetchMusicData = (currentUser, songsList) => {
         throw new Error("Something went wrong");
       }
       const data = await response.json();
-      dispatch(songsActions.changeLoadingStatus("loaded"));
-      const currentUserData = data?.find(
-        (user) => user.userName === currentUser
-      );
-      const currentUserMusic = currentUserData?.musicList;
-
-      return currentUserMusic;
+      return data;
     };
     fetchData()
+      .then(async (data) => {
+        const currentUserData = await data.find(
+          (user) => user.userName === currentUser
+        );
+
+        const currentUserMusic = await currentUserData.musicList;
+        return currentUserMusic;
+      })
       .then((data) => {
-        if (data.length > 0 && data[0] !== "empty") {
+        if (data) {
           dispatch(songsActions.setSongList(data));
+          dispatch(
+            authActions.setUsersMusicList({
+              currentUser: currentUser,
+              songsList: data,
+            })
+          );
+          dispatch(songsActions.changeLoadingStatus("loaded"));
           return;
         }
 
-        if (data[0] === "empty") {
+        if (!data) {
           dispatch(songsActions.resetSongList());
           dispatch(songsActions.setSongList(songsList));
 
@@ -37,13 +46,11 @@ export const fetchMusicData = (currentUser, songsList) => {
               songsList: songsList,
             })
           );
-
-          return;
-        }
-        if (data === undefined) {
+          dispatch(songsActions.changeLoadingStatus("loaded"));
           return;
         }
       })
+
       .catch((error) => {
         console.log(error);
         dispatch(songsActions.changeLoadingStatus("error"));
@@ -51,8 +58,8 @@ export const fetchMusicData = (currentUser, songsList) => {
   };
 };
 
-export const updateMusicData = (users) => {
-  return async (dispatch) => {
+export const updateAllData = (users) => {
+  return async () => {
     const updateData = async () => {
       const response = await fetch(
         `https://musify-98a44-default-rtdb.firebaseio.com/users.json`,
