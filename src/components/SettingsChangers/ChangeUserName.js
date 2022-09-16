@@ -4,7 +4,7 @@ import styles from "./ChangeUserName.module.css";
 import Button from "../UI/Button";
 import { deleteCurrentUser } from "../../redux/Actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
 import Warning from "../UI/Warning";
 export default function ChangeUserName(props) {
@@ -40,6 +40,7 @@ export default function ChangeUserName(props) {
           newUserName: newUserNameRef.current.value,
         })
       );
+      dispatch(updateActions.shouldUpdate());
       newUserNameRef.current.value = "";
       confirmPasswordRef.current.value = "";
       setSuccess(true);

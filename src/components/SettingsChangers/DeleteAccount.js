@@ -8,6 +8,7 @@ import { authActions } from "../../redux/auth-slice";
 import { songsActions } from "../../redux/songsList-slice";
 import { playlistActions } from "../../redux/playlist-slice";
 import { deleteCurrentUser } from "../../redux/Actions/loginActions";
+import { updateActions } from "../../redux/update-slice";
 import { useHistory } from "react-router-dom";
 export default function DeleteAccount(props) {
   const history = useHistory();
@@ -24,6 +25,7 @@ export default function DeleteAccount(props) {
     dispatch(songsActions.resetSongList());
     dispatch(playlistActions.resetPlaylists());
     deleteCurrentUser(currentUser);
+    dispatch(updateActions.shouldUpdate());
     history.push("/Musify");
   }
   return (

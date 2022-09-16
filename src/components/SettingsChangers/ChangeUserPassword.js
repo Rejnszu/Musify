@@ -4,7 +4,7 @@ import styles from "./ChangeUserPassword.module.css";
 import Button from "../UI/Button";
 import { deleteCurrentUser } from "../../redux/Actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
 import Warning from "../UI/Warning";
 export default function ChangeUserPassword(props) {
@@ -54,6 +54,7 @@ export default function ChangeUserPassword(props) {
           password: newUserPassword.current.value,
         })
       );
+      dispatch(updateActions.shouldUpdate());
       newUserPassword.current.value = "";
       oldUserPassword.current.value = "";
       setSuccess(true);
