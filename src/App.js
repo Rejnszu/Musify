@@ -88,7 +88,7 @@ function App() {
     if (sessionStorage.getItem("isLogged") === "false") {
       setIsLoggedLocal("false");
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === null) {
