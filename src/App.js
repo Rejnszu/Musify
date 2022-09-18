@@ -35,9 +35,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
-  const initialUpdate = useSelector(
-    (state) => state.authentication.initials.initialUpdate
-  );
+
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
@@ -71,7 +69,7 @@ function App() {
       }
       dispatch(authActions.setUserListOnStart(data));
     });
-  }, [isLoggedLocal]);
+  }, [isLoggedLocal, dispatch]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "true") {
@@ -90,7 +88,7 @@ function App() {
     if (sessionStorage.getItem("isLogged") === "false") {
       setIsLoggedLocal("false");
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === null) {

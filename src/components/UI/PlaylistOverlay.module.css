@@ -6,9 +6,12 @@
   margin: auto;
   padding: 5rem 0;
   gap: 20px;
+  align-items: flex-start;
 }
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .overlay {
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: initial;
   }
 }

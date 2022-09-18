@@ -5,17 +5,34 @@
   color: white;
   border-radius: var(--main-border-radius);
 }
+
 .playlist__title {
   color: var(--main-color);
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 .playlist__list {
   list-style: none;
   padding: 0 1rem;
+  overflow: hidden;
+  margin: 0 0 1rem 0;
 }
 
+.button--show-more {
+  font-size: 1.5rem;
+  box-shadow: none;
+  background-color: transparent;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+.button--show-more:focus {
+  animation: none;
+}
+.button--show-more.active {
+  transform: rotateZ(180deg);
+}
 .button--playlist-close {
   position: absolute;
   right: 10px;

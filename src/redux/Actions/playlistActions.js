@@ -48,17 +48,6 @@ export const fetchPlaylists = (currentUser, playlists) => {
 
           return;
         }
-        // if (data === undefined || data === null) {
-        //   dispatch(playlistActions.setPlayListsOnStart([]));
-        //   dispatch(
-        //     authActions.setUsersPlaylists({
-        //       currentUser: currentUser,
-        //       playlists: playlists,
-        //     })
-        //   );
-        //   console.log("data undefined");
-        //   return;
-        // }
       })
 
       .catch((error) => {
@@ -66,25 +55,3 @@ export const fetchPlaylists = (currentUser, playlists) => {
       });
   };
 };
-// export const updatePlaylistData = (users) => {
-//   return async () => {
-//     const updateData = async () => {
-//       const response = await fetch(
-//         `https://musify-98a44-default-rtdb.firebaseio.com/users.json`,
-//         {
-//           method: "PUT",
-//           body: JSON.stringify(users),
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       );
-//       if (!response.ok) {
-//         throw new Error("Something went wrong");
-//       }
-//     };
-//     updateData().catch((error) => {
-//       console.log(error);
-//     });
-//   };
-// };

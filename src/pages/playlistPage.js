@@ -9,8 +9,6 @@ import PlaylistOverlay from "../components/UI/PlaylistOverlay";
 import CreatePlaylist from "../components/playlists/CreatePlaylist";
 import AnimatedPages from "../components/UI/AnimatedPages";
 
-let isInitial = true;
-
 const PlaylistPage = () => {
   const dispatch = useDispatch();
   const isEmpty =
@@ -36,19 +34,6 @@ const PlaylistPage = () => {
       })
     );
   }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
-
-  // useEffect(() => {
-  //   if (isInitial) {
-  //     isInitial = false;
-  //     return;
-  //   }
-  //   dispatch(
-  //     authActions.setUsersPlaylists({
-  //       currentUser,
-  //       playlists,
-  //     })
-  //   );
-  // }, [dispatch, playlists, currentUser]);
 
   return (
     <AnimatedPages>

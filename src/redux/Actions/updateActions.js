@@ -15,6 +15,8 @@ export const updateAllData = (users) => {
         throw new Error("Something went wrong");
       }
     };
-    updateData().catch((error) => {});
+    updateData().catch((error) => {
+      console.log(error);
+    });
   };
 };

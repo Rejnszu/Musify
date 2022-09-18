@@ -6,7 +6,7 @@ import { playlistActions } from "../../redux/playlist-slice";
 import { songsActions } from "../../redux/songsList-slice";
 import AreYouSureModal from "../UI/AreYouSureModal";
 import { updateActions } from "../../redux/update-slice";
-import MusicListItemOptions from "./MusicListItemOptions";
+
 export default function MusicListItem(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,16 +31,14 @@ export default function MusicListItem(props) {
 
   return (
     <div className={styles["music-list-card"]}>
-      <p className={styles["music-list-card__title"]}>{props.title}</p>
-      {/* <MusicListItemOptions /> */}
       <Button
         type={"button"}
-        styles={styles["button--music-card"]}
+        styles={styles["button--music-list-card"]}
         onClick={addSong}
       >
-        Add to Playlist
-        <i className="bi bi-music-note-list"></i>
+        <i class="bi bi-plus"></i>
       </Button>
+      <p className={styles["music-list-card__title"]}>{props.title}</p>
 
       <Button
         onClick={openModal}
