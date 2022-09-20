@@ -35,6 +35,7 @@
   width: 95%;
   position: relative;
   margin-top: 1rem;
+  cursor: pointer;
 }
 .player__progress-bar__filling {
   border-radius: var(--main-border-radius);

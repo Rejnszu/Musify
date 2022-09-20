@@ -6,14 +6,16 @@ let playInterval;
 
 export default function Player(props) {
   const [songNumber, setSongNumber] = useState(0);
+  const [audio, setAudio] = useState(new Audio(mp3));
   const [timeLeft, setTimeLeft] = useState(242);
   const [timePassed, setTimePassed] = useState(0);
-  const [audio, setAudio] = useState(new Audio(mp3));
+
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRandomSong, setIsRandomSong] = useState(false);
   const songList = props.playlist.items;
   const progressBarRef = useRef(null);
+  const progressBarFillingRef = useRef(null);
   const currentSong = songList[songNumber];
 
   function timeFormatter(time) {
@@ -70,6 +72,7 @@ export default function Player(props) {
   };
   const reset = () => {
     clearInterval(playInterval);
+    setProgessBarWidth(0);
     setTimeLeft(242);
     setTimePassed(0);
     setIsPlaying(false);
@@ -97,12 +100,22 @@ export default function Player(props) {
       console.log("pause");
     }
   };
+  function changeWidth(e) {
+    const progress =
+      (e.clientX - e.target.getBoundingClientRect().left) /
+      e.currentTarget.offsetWidth;
+    setProgessBarWidth(progress * 100);
+
+    audio.currentTime = Math.floor(audio.duration * progress);
+    setTimePassed(audio.currentTime);
+    setTimeLeft(Math.floor(audio.duration - audio.currentTime));
+  }
   useEffect(() => {
     setSongNumber(0);
     setIsRandomSong(false);
   }, [songList]);
   useEffect(() => {
-    setProgessBarWidth((timePassed / 242) * 100);
+    setProgessBarWidth((timePassed / audio.duration) * 100);
   }, [timePassed]);
   return (
     <div className={styles.player}>
@@ -113,9 +126,13 @@ export default function Player(props) {
       ></img>
       <p className={styles["player__song-title"]}>{currentSong?.title}</p>
       <p className={styles["player__song-artist"]}>{currentSong?.author}</p>
-      <div className={styles["player__progress-bar"]}>
+      <div
+        ref={progressBarRef}
+        onClick={changeWidth}
+        className={styles["player__progress-bar"]}
+      >
         <span
-          ref={progressBarRef}
+          ref={progressBarFillingRef}
           style={{ width: `${progessBarWidth + "%"}` }}
           className={styles["player__progress-bar__filling"]}
         ></span>
