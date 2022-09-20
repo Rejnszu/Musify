@@ -21,6 +21,7 @@ import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
 import PlaylistPage from "./pages/PlaylistPage";
 import SettingsPage from "./pages/SettingsPage";
+import PlayerPage from "./pages/PlayerPage";
 import NavigationMobile from "./components/Navigation/NavigationMobile";
 import NavigationDesktop from "./components/Navigation/NavigationDesktop";
 import Button from "./components/UI/Button";
@@ -127,13 +128,11 @@ function App() {
           {isLoggedLocal === "true" && (
             <React.Fragment>
               {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
-
               <AnimatedPages>
                 <Button styles="button--log-out" onClick={logOut}>
                   Log Out
                 </Button>
               </AnimatedPages>
-
               <Route path="/" exact>
                 <Redirect to="/Musify/" />
               </Route>
@@ -145,6 +144,9 @@ function App() {
               </Route>
               <Route path="/settings">
                 <SettingsPage />
+              </Route>{" "}
+              <Route path="/player">
+                <PlayerPage />
               </Route>
               {openModal && <AddToPlaylistModal />}
             </React.Fragment>

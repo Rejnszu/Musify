@@ -52,16 +52,26 @@ const NavigationMobile = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeClassName={styles.active} to="/settings">
-                    Settings
+                  <NavLink
+                    onClick={toggleNavigation}
+                    activeClassName={styles.active}
+                    to="/player"
+                  >
+                    Player
                   </NavLink>
                 </li>
                 <li>
-                  Music cart <i className="bi bi-music-note-list"></i>
+                  <NavLink
+                    onClick={toggleNavigation}
+                    activeClassName={styles.active}
+                    to="/settings"
+                  >
+                    Settings
+                  </NavLink>
                 </li>
               </ul>
             </motion.nav>
-          )}{" "}
+          )}
         </AnimatePresence>
       </React.Fragment>
     </AnimatedPages>

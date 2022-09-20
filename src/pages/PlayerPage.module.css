@@ -1,0 +1,5 @@
+.player__overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

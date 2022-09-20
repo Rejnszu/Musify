@@ -18,12 +18,14 @@ const NavigationDesktop = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName={styles.active} to="/settings">
-              Settings
+            <NavLink activeClassName={styles.active} to="/player">
+              Player
             </NavLink>
           </li>
           <li>
-            Music cart <i className="bi bi-music-note-list"></i>
+            <NavLink activeClassName={styles.active} to="/settings">
+              Settings
+            </NavLink>
           </li>
         </ul>
       </nav>

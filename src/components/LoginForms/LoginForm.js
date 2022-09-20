@@ -56,7 +56,7 @@ export default function LoginForm(props) {
         <label htmlFor="password">Password</label>
         <input ref={passwordRef} type="password" id="password" />
         {warning === "wrongPassword" && <Warning>Wrong Password.</Warning>}
-        <Button type="submit">Log in</Button>
+        <Button type="submit">Sign in</Button>
         <Button
           onClick={props.displayFormsHandler.bind(null, "register")}
           type="button"
