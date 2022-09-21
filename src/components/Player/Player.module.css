@@ -42,7 +42,7 @@
   position: absolute;
 
   height: 100%;
-  /* width: 33%; */
+
   background-color: var(--dimmed-background-black-1);
 }
 .player__progress-bar__current {
@@ -59,6 +59,7 @@
 .player__buttons-wrapper {
   display: flex;
   width: 100%;
+  max-width: 100%;
   justify-content: space-around;
 }
 .player__buttons {

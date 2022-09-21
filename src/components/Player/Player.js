@@ -1,21 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./Player.module.css";
 import { useState } from "react";
-import mp3 from "../../mp3/coldplay.mp3";
+
 let playInterval;
 
 export default function Player(props) {
   const [songNumber, setSongNumber] = useState(0);
-  const [audio, setAudio] = useState(new Audio(mp3));
-  const [timeLeft, setTimeLeft] = useState(242);
-  const [timePassed, setTimePassed] = useState(0);
+  const [audio, setAudio] = useState(props.audio);
 
+  const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
+  const [timePassed, setTimePassed] = useState(0);
+  console.log(timeLeft);
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRandomSong, setIsRandomSong] = useState(false);
+
   const songList = props.playlist.items;
-  const progressBarRef = useRef(null);
-  const progressBarFillingRef = useRef(null);
   const currentSong = songList[songNumber];
 
   function timeFormatter(time) {
@@ -64,16 +64,10 @@ export default function Player(props) {
     }
   };
 
-  const toggleButtonActiveStyle = (e) => {
-    e.currentTarget.classList.toggle(`${styles.active}`);
-  };
-  const randomHandler = () => {
-    setIsRandomSong((prevState) => !prevState);
-  };
   const reset = () => {
     clearInterval(playInterval);
     setProgessBarWidth(0);
-    setTimeLeft(242);
+    setTimeLeft(Math.floor(audio.duration));
     setTimePassed(0);
     setIsPlaying(false);
     audio.pause();
@@ -93,14 +87,12 @@ export default function Player(props) {
       clearInterval(playInterval);
       audio.play();
       playInterval = setInterval(playSong, 1000);
-      console.log("play");
     } else {
       clearInterval(playInterval);
       audio.pause();
-      console.log("pause");
     }
   };
-  function changeWidth(e) {
+  function setSongPlayTime(e) {
     const progress =
       (e.clientX - e.target.getBoundingClientRect().left) /
       e.currentTarget.offsetWidth;
@@ -113,10 +105,16 @@ export default function Player(props) {
   useEffect(() => {
     setSongNumber(0);
     setIsRandomSong(false);
+    reset();
+    return () => {
+      reset();
+    };
   }, [songList]);
+
   useEffect(() => {
     setProgessBarWidth((timePassed / audio.duration) * 100);
   }, [timePassed]);
+
   return (
     <div className={styles.player}>
       <img
@@ -126,13 +124,8 @@ export default function Player(props) {
       ></img>
       <p className={styles["player__song-title"]}>{currentSong?.title}</p>
       <p className={styles["player__song-artist"]}>{currentSong?.author}</p>
-      <div
-        ref={progressBarRef}
-        onClick={changeWidth}
-        className={styles["player__progress-bar"]}
-      >
+      <div onClick={setSongPlayTime} className={styles["player__progress-bar"]}>
         <span
-          ref={progressBarFillingRef}
           style={{ width: `${progessBarWidth + "%"}` }}
           className={styles["player__progress-bar__filling"]}
         ></span>
@@ -146,7 +139,7 @@ export default function Player(props) {
       <div className={styles["player__buttons-wrapper"]}>
         <button
           onClick={(e) => {
-            songList.length > 1 && randomHandler();
+            songList.length > 1 && setIsRandomSong((prevState) => !prevState);
           }}
           className={`${styles["player__buttons"]} ${
             styles["player__buttons--small"]
@@ -171,7 +164,7 @@ export default function Player(props) {
           <i className="fa-sharp fa-solid fa-forward"></i>
         </button>
         <button
-          onClick={toggleButtonActiveStyle}
+          onClick={(e) => e.currentTarget.classList.toggle(`${styles.active}`)}
           className={`${styles["player__buttons"]} ${styles["player__buttons--small"]}`}
         >
           <i className="fa-solid fa-repeat"></i>

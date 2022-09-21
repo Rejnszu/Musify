@@ -7,6 +7,7 @@ import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
 import { fetchPlaylists } from "../redux/Actions/playlistActions";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
+import mp3 from "../mp3/coldplay.mp3";
 export default function PlayerPage() {
   const dispatch = useDispatch();
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
@@ -14,7 +15,7 @@ export default function PlayerPage() {
   function selectPlaylist(value) {
     setSelectedPlaylist(value);
   }
-
+  const [audio, setAudio] = useState(new Audio(mp3));
   const currentUser = sessionStorage.getItem("currentUser");
   const initialFetchPlaylists = useSelector(
     (state) => state.authentication.initials.initialFetchPlaylists
@@ -40,7 +41,7 @@ export default function PlayerPage() {
       <SelectPlaylistToPlay selectPlaylist={selectPlaylist} />
       <div className={styles["player__overlay"]}>
         {selectedPlaylist !== null && selectedPlaylist !== "none" && (
-          <Player playlist={selectedPlaylist} />
+          <Player audio={audio} playlist={selectedPlaylist} />
         )}
       </div>
     </AnimatedPages>
