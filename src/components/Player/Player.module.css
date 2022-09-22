@@ -13,8 +13,7 @@
 }
 .player__album-cover {
   max-width: 95%;
-  min-height: 350px;
-  max-height: 500px;
+  height: 450px;
   border-radius: var(--main-border-radius);
   box-shadow: 0 0 15px 2px black;
 }
@@ -31,7 +30,7 @@
 }
 .player__progress-bar {
   border-radius: var(--main-border-radius);
-  width: 100%;
+
   height: 5px;
   background-color: var(--main-color);
   width: 95%;
@@ -114,4 +113,28 @@
     opacity: 0;
     transform: translate(-50%, -50%) scale(1.1);
   }
+}
+
+.player__volume-wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+.player__volume-bar {
+  border-radius: var(--main-border-radius);
+
+  height: 5px;
+  background-color: var(--main-color);
+  width: 60%;
+  position: relative;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.player__volume-bar__filling {
+  border-radius: var(--main-border-radius);
+  position: absolute;
+
+  height: 100%;
+
+  background-color: var(--dimmed-background-black-1);
 }

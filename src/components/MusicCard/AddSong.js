@@ -10,6 +10,7 @@ let image;
 export default function AddSong(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
   const imageRef = useRef(null);
+  const urlRef = useRef(null);
   const titleRef = useRef(null);
   const authorRef = useRef(null);
   const albumRef = useRef(null);
@@ -43,6 +44,7 @@ export default function AddSong(props) {
       dispatch(
         songsActions.addSongToList({
           img: image,
+          url: urlRef.current.value === 0 ? "Unknown" : urlRef.current.value,
           title:
             titleRef.current.value.length === 0
               ? "Unkown"
@@ -73,6 +75,8 @@ export default function AddSong(props) {
       <form onSubmit={addNewSong} className={styles["add-song__form"]}>
         <label htmlFor="input-image">Add Image</label>
         <input ref={imageRef} type="file" accept="image/*" id="input-image" />
+        <label htmlFor="input-url">Add song URL</label>
+        <input ref={urlRef} id="input-url" />
         <label htmlFor="input-title">Add Title</label>
         <input ref={titleRef} id="input-title" />
         <label htmlFor="input-author">Add Author</label>

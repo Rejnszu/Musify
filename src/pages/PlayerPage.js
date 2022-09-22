@@ -16,6 +16,7 @@ export default function PlayerPage() {
     setSelectedPlaylist(value);
   }
   const [audio, setAudio] = useState(new Audio(mp3));
+
   const currentUser = sessionStorage.getItem("currentUser");
   const initialFetchPlaylists = useSelector(
     (state) => state.authentication.initials.initialFetchPlaylists

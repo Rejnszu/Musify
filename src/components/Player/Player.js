@@ -5,18 +5,19 @@ import { useState } from "react";
 let playInterval;
 
 export default function Player(props) {
-  const [songNumber, setSongNumber] = useState(0);
+  const [songIndex, setSongIndex] = useState(0);
   const [audio, setAudio] = useState(props.audio);
 
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
 
   const [progessBarWidth, setProgessBarWidth] = useState(0);
+  const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRandomSong, setIsRandomSong] = useState(false);
 
   const songList = props.playlist.items;
-  const currentSong = songList[songNumber];
+  const currentSong = songList[songIndex];
 
   function timeFormatter(time) {
     let minutes = Math.floor(time / 60);
@@ -30,7 +31,7 @@ export default function Player(props) {
   const nextSong = () => {
     slightReset();
     if (isRandomSong) {
-      setSongNumber((prevState) => {
+      setSongIndex((prevState) => {
         let randomNumber;
         do {
           randomNumber = Math.floor(Math.random() * songList.length);
@@ -39,16 +40,16 @@ export default function Player(props) {
       });
       return;
     }
-    if (songNumber < songList.length - 1) {
-      setSongNumber((prevState) => prevState + 1);
+    if (songIndex < songList.length - 1) {
+      setSongIndex((prevState) => prevState + 1);
     } else {
-      setSongNumber(0);
+      setSongIndex(0);
     }
   };
   const previousSong = () => {
     slightReset();
     if (isRandomSong) {
-      setSongNumber((prevState) => {
+      setSongIndex((prevState) => {
         let randomNumber;
         do {
           randomNumber = Math.floor(Math.random() * songList.length);
@@ -57,10 +58,10 @@ export default function Player(props) {
       });
       return;
     }
-    if (songNumber > 0) {
-      setSongNumber((prevState) => prevState - 1);
+    if (songIndex > 0) {
+      setSongIndex((prevState) => prevState - 1);
     } else {
-      setSongNumber(songList.length - 1);
+      setSongIndex(songList.length - 1);
     }
   };
 
@@ -118,8 +119,18 @@ export default function Player(props) {
     setTimePassed(audio.currentTime);
     setTimeLeft(Math.floor(audio.duration - audio.currentTime));
   }
+
+  function setMusicVolume(e) {
+    const progress =
+      (e.clientX - e.target.getBoundingClientRect().left) /
+      e.currentTarget.offsetWidth;
+    setMusicBarWidth(progress * 100);
+
+    audio.volume = progress;
+  }
+
   useEffect(() => {
-    setSongNumber(0);
+    setSongIndex(0);
     setIsRandomSong(false);
     fullReset();
     return () => {
@@ -180,10 +191,54 @@ export default function Player(props) {
           <i className="fa-sharp fa-solid fa-forward"></i>
         </button>
         <button
-          onClick={(e) => e.currentTarget.classList.toggle(`${styles.active}`)}
+          onClick={(e) => {
+            e.currentTarget.classList.toggle(`${styles.active}`);
+          }}
           className={`${styles["player__buttons"]} ${styles["player__buttons--small"]}`}
         >
           <i className="fa-solid fa-repeat"></i>
+        </button>
+      </div>
+      <div className={styles["player__volume-wrapper"]}>
+        <button
+          onClick={() => {
+            if (audio.volume > 0) {
+              if (audio.volume < 0.1) {
+                audio.volume = 0;
+              } else {
+                audio.volume = Math.floor((audio.volume - 0.1) * 10) / 10;
+              }
+              setMusicBarWidth((audio.volume / 1) * 100);
+            }
+          }}
+          className={styles["player__buttons"]}
+        >
+          {audio.volume === 0 ? (
+            <i className="bi bi-volume-mute"></i>
+          ) : (
+            <i className="bi bi-volume-down"></i>
+          )}
+        </button>
+        <div onClick={setMusicVolume} className={styles["player__volume-bar"]}>
+          <span
+            style={{ width: `${musicBarWidth + "%"}` }}
+            className={styles["player__volume-bar__filling"]}
+          ></span>
+        </div>
+        <button
+          onClick={() => {
+            if (audio.volume < 1) {
+              if (audio.volume > 0.9) {
+                audio.volume = 1;
+              } else {
+                audio.volume = Math.ceil((audio.volume + 0.1) * 10) / 10;
+              }
+              setMusicBarWidth((audio.volume / 1) * 100);
+            }
+          }}
+          className={styles["player__buttons"]}
+        >
+          <i className="bi bi-volume-up"></i>
         </button>
       </div>
     </div>
