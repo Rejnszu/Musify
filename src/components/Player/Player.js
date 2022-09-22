@@ -30,6 +30,7 @@ export default function Player(props) {
 
   const nextSong = () => {
     slightReset();
+
     if (isRandomSong) {
       setSongIndex((prevState) => {
         let randomNumber;
@@ -97,8 +98,8 @@ export default function Player(props) {
       nextSong();
       play();
     } else {
-      setTimeLeft((prevState) => prevState - 1);
-      setTimePassed((prevState) => prevState + 1);
+      setTimePassed(Math.round(audio.currentTime));
+      setTimeLeft(Math.floor(audio.duration - audio.currentTime));
     }
   }
   const isPlayingHandler = (e) => {
@@ -116,7 +117,7 @@ export default function Player(props) {
     setProgessBarWidth(progress * 100);
 
     audio.currentTime = Math.floor(audio.duration * progress);
-    setTimePassed(audio.currentTime);
+    setTimePassed(Math.round(audio.currentTime));
     setTimeLeft(Math.floor(audio.duration - audio.currentTime));
   }
 
@@ -174,7 +175,20 @@ export default function Player(props) {
         >
           <i className="fa-solid fa-shuffle"></i>
         </button>
-        <button onClick={previousSong} className={styles["player__buttons"]}>
+        <button
+          onClick={() => {
+            previousSong();
+            if (isPlaying) {
+              clearInterval(playInterval);
+              audio.play();
+              playInterval = setInterval(playSong, 1000);
+            } else {
+              clearInterval(playInterval);
+              audio.pause();
+            }
+          }}
+          className={styles["player__buttons"]}
+        >
           <i className="fa-sharp fa-solid fa-backward"></i>
         </button>
         <button
@@ -187,7 +201,20 @@ export default function Player(props) {
             <i className="bi bi-play-fill"></i>
           )}
         </button>
-        <button onClick={nextSong} className={styles["player__buttons"]}>
+        <button
+          onClick={() => {
+            nextSong();
+            if (isPlaying) {
+              clearInterval(playInterval);
+              audio.play();
+              playInterval = setInterval(playSong, 1000);
+            } else {
+              clearInterval(playInterval);
+              audio.pause();
+            }
+          }}
+          className={styles["player__buttons"]}
+        >
           <i className="fa-sharp fa-solid fa-forward"></i>
         </button>
         <button
