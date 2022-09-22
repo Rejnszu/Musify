@@ -28,7 +28,7 @@ export default function Player(props) {
   }
 
   const nextSong = () => {
-    reset();
+    slightReset();
     if (isRandomSong) {
       setSongNumber((prevState) => {
         let randomNumber;
@@ -46,7 +46,7 @@ export default function Player(props) {
     }
   };
   const previousSong = () => {
-    reset();
+    slightReset();
     if (isRandomSong) {
       setSongNumber((prevState) => {
         let randomNumber;
@@ -64,7 +64,7 @@ export default function Player(props) {
     }
   };
 
-  const reset = () => {
+  const fullReset = () => {
     clearInterval(playInterval);
     setProgessBarWidth(0);
     setTimeLeft(Math.floor(audio.duration));
@@ -73,16 +73,14 @@ export default function Player(props) {
     audio.pause();
     audio.currentTime = 0;
   };
-  function playSong() {
-    setTimeLeft((prevState) => prevState - 1);
-    setTimePassed((prevState) => prevState + 1);
-  }
-  const isPlayingHandler = (e) => {
-    const currentTarget = e.currentTarget;
-    currentTarget.classList.add(`${styles.ripple}`);
-    setIsPlaying((prevState) => !prevState);
-    setTimeout(() => currentTarget.classList.remove(`${styles.ripple}`), 300);
-
+  const slightReset = () => {
+    clearInterval(playInterval);
+    setProgessBarWidth(0);
+    setTimeLeft(Math.floor(audio.duration));
+    setTimePassed(0);
+    audio.currentTime = 0;
+  };
+  function play() {
     if (!isPlaying) {
       clearInterval(playInterval);
       audio.play();
@@ -91,6 +89,24 @@ export default function Player(props) {
       clearInterval(playInterval);
       audio.pause();
     }
+  }
+
+  function playSong() {
+    if (audio.duration - audio.currentTime === 0) {
+      nextSong();
+      play();
+    } else {
+      setTimeLeft((prevState) => prevState - 1);
+      setTimePassed((prevState) => prevState + 1);
+    }
+  }
+  const isPlayingHandler = (e) => {
+    const currentTarget = e.currentTarget;
+    currentTarget.classList.add(`${styles.ripple}`);
+
+    setTimeout(() => currentTarget.classList.remove(`${styles.ripple}`), 300);
+    setIsPlaying((prevState) => !prevState);
+    play();
   };
   function setSongPlayTime(e) {
     const progress =
@@ -105,9 +121,9 @@ export default function Player(props) {
   useEffect(() => {
     setSongNumber(0);
     setIsRandomSong(false);
-    reset();
+    fullReset();
     return () => {
-      reset();
+      fullReset();
     };
   }, [songList]);
 
