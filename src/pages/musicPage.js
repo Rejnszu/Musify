@@ -105,15 +105,6 @@ const MusicPage = () => {
     setFilteredSongs(songsList);
   }, [songsList]);
 
-  // function convertBlob(img) {
-  //   if (img instanceof Blob) {
-  //     let bufferBase64 = new Buffer(img, "binary").toString("base64");
-  //     return img + bufferBase64;
-  //   } else {
-  //     return img;
-  //   }
-  // }
-
   return (
     <AnimatedPages>
       <ChangeSongsDisplay

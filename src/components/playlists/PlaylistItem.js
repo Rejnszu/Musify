@@ -10,15 +10,15 @@ export default function PlaylistItem(props) {
   const removeSong = () => {
     dispatch(
       playlistActions.removeSongFromPlaylist({
-        title: props.title,
-        id: props.playlistId,
+        itemId: props.id,
+        playlistId: props.playlistId,
       })
     );
     dispatch(updateActions.shouldUpdate());
   };
   return (
     <motion.li
-      key={props.playlistId}
+      key={props.id}
       initial={{ transform: "scale(0)" }}
       animate={{ transform: "scale(1)" }}
       exit={{ transform: "scale(0)" }}

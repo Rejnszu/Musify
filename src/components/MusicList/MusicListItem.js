@@ -14,7 +14,7 @@ export default function MusicListItem(props) {
   const dispatch = useDispatch();
   const addSong = () => {
     dispatch(playlistActions.openModal());
-    const song = songsList.find((song) => song.title === props.title);
+    const song = songsList.find((song) => song.id === props.id);
     dispatch(songsActions.selectSongAddToPlaylist(song));
     dispatch(updateActions.shouldUpdate());
   };
@@ -36,7 +36,7 @@ export default function MusicListItem(props) {
         styles={styles["button--music-list-card"]}
         onClick={addSong}
       >
-        <i class="bi bi-plus"></i>
+        <i className="bi bi-plus"></i>
       </Button>
       <p className={styles["music-list-card__title"]}>{props.title}</p>
 

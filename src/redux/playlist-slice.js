@@ -50,22 +50,25 @@ const playlistSlice = createSlice({
     },
 
     removeSongFromPlaylist(state, action) {
-      const songToDelete = action.payload.title;
+      const songToDeleteId = action.payload.itemId;
 
       let playlistToDeleteSong = state.playlists.find((playlist) => {
-        return playlist.id === action.payload.id;
+        return playlist.id === action.payload.playlistId;
       });
 
       const newSongsList = playlistToDeleteSong.items.filter((song) => {
-        return song.title !== songToDelete;
+        return song.id !== songToDeleteId;
       });
+
       playlistToDeleteSong = {
         ...playlistToDeleteSong,
         items: newSongsList.length === 0 ? [] : [...newSongsList],
       };
 
       state.playlists = state.playlists.map((playlist) =>
-        playlist.id === action.payload.id ? playlistToDeleteSong : playlist
+        playlist.id === action.payload.playlistId
+          ? playlistToDeleteSong
+          : playlist
       );
     },
 

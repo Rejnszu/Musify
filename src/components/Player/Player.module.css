@@ -13,6 +13,8 @@
 }
 .player__album-cover {
   max-width: 95%;
+  min-height: 350px;
+  max-height: 500px;
   border-radius: var(--main-border-radius);
   box-shadow: 0 0 15px 2px black;
 }

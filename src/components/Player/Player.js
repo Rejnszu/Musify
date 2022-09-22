@@ -10,7 +10,7 @@ export default function Player(props) {
 
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
-  console.log(timeLeft);
+
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRandomSong, setIsRandomSong] = useState(false);

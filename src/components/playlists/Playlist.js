@@ -68,7 +68,7 @@ export default function Playlist(props) {
                   return (
                     <PlaylistItem
                       key={i}
-                      id={i}
+                      id={item.id}
                       title={item.title}
                       playlistId={props.id}
                     />

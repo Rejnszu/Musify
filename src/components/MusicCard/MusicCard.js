@@ -14,7 +14,7 @@ export default function MusicCard(props) {
   const dispatch = useDispatch();
   const addSong = () => {
     dispatch(playlistActions.openModal());
-    const song = songsList.find((song) => song.title === props.title);
+    const song = songsList.find((song) => song.id === props.id);
     dispatch(songsActions.selectSongAddToPlaylist(song));
     dispatch(updateActions.shouldUpdate());
   };

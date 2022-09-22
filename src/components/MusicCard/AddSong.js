@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
 import EmptyImage from "../../images/pusty.png";
 import { updateActions } from "../../redux/update-slice";
+
 let image;
 export default function AddSong(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
@@ -15,48 +16,63 @@ export default function AddSong(props) {
   const genreRef = useRef(null);
   const dispatch = useDispatch();
 
-  function setImage() {
-    try {
-      image = URL.createObjectURL(imageRef.current.files[0]);
-    } catch (error) {
+  function getImage(file) {
+    if (file === undefined) {
       image = EmptyImage;
+      return;
     }
-    return image;
+    function setImage() {
+      return new Promise((resolve) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          image = reader.result;
+          resolve(image);
+        };
+      });
+    }
+    setImage().then((resolve) => {
+      image = resolve;
+    });
   }
+
   function addNewSong(e) {
     e.preventDefault();
-    dispatch(
-      songsActions.addSongToList({
-        img: setImage(),
-        title:
-          titleRef.current.value.length === 0
-            ? "Unkown"
-            : titleRef.current.value,
-        author:
-          authorRef.current.value.length === 0
-            ? "Unkown"
-            : authorRef.current.value,
-        album:
-          albumRef.current.value.length === 0
-            ? "Unkown"
-            : albumRef.current.value,
-        genre:
-          genreRef.current.value.length === 0
-            ? "Unkown"
-            : genreRef.current.value,
-        id: songsList.length,
-      })
-    );
+    getImage(imageRef.current.files[0]);
+    setTimeout(() => {
+      dispatch(
+        songsActions.addSongToList({
+          img: image,
+          title:
+            titleRef.current.value.length === 0
+              ? "Unkown"
+              : titleRef.current.value,
+          author:
+            authorRef.current.value.length === 0
+              ? "Unkown"
+              : authorRef.current.value,
+          album:
+            albumRef.current.value.length === 0
+              ? "Unkown"
+              : albumRef.current.value,
+          genre:
+            genreRef.current.value.length === 0
+              ? "Unkown"
+              : genreRef.current.value,
+          id: songsList.length,
+        })
+      );
 
-    props.closeAddSong();
-    dispatch(updateActions.shouldUpdate());
+      props.closeAddSong();
+      dispatch(updateActions.shouldUpdate());
+    }, 100);
   }
 
   return (
     <div className={styles["add-song__modal"]}>
       <form onSubmit={addNewSong} className={styles["add-song__form"]}>
         <label htmlFor="input-image">Add Image</label>
-        <input ref={imageRef} type="file" id="input-image" />
+        <input ref={imageRef} type="file" accept="image/*" id="input-image" />
         <label htmlFor="input-title">Add Title</label>
         <input ref={titleRef} id="input-title" />
         <label htmlFor="input-author">Add Author</label>
