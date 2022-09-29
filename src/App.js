@@ -35,7 +35,7 @@ function App() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1300);
 
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
@@ -109,7 +109,7 @@ function App() {
 
   useEffect(() => {
     function checkIfMobile() {
-      setIsMobile(window.innerWidth < 1200);
+      setIsMobile(window.innerWidth < 1300);
     }
     window.addEventListener("resize", checkIfMobile);
     return () => {
@@ -146,7 +146,7 @@ function App() {
                 <SettingsPage />
               </Route>{" "}
               <Route path="/player">
-                <PlayerPage />
+                <PlayerPage isMobile={isMobile} />
               </Route>
               {openModal && <AddToPlaylistModal />}
             </React.Fragment>

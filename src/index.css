@@ -35,7 +35,7 @@ h2 {
 .button--log-out {
   margin: 2rem 3.5rem 0 auto !important;
 }
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .button--log-out {
     margin: 0 auto !important;
   }

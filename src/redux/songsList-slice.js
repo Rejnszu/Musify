@@ -9,6 +9,7 @@ const initialSongsState = {
       album: "Minutes to Midnight",
       id: 0,
       genre: "rock",
+      mp3Name: "numb",
     },
     {
       img: "https://deathbytroggles.files.wordpress.com/2022/04/r-4407037-1567219126-9335.jpg",
@@ -17,6 +18,7 @@ const initialSongsState = {
       album: "Lose Yourself",
       id: 1,
       genre: "rap",
+      mp3Name: "looseyourself",
     },
     {
       img: "https://ecsmedia.pl/c/bad-romance-remixes-b-iext74296175.jpg",
@@ -25,6 +27,7 @@ const initialSongsState = {
       album: "Bad Romance",
       id: 2,
       genre: "pop",
+      mp3Name: "pokerface",
     },
     {
       img: "https://lastfm.freetls.fastly.net/i/u/770x0/76f24edfa206442286bd5df4cd050d51.jpg",
@@ -33,6 +36,7 @@ const initialSongsState = {
       album: "Bangerz",
       id: 3,
       genre: "pop",
+      mp3Name: "wreckingball",
     },
     {
       img: "https://cdns-images.dzcdn.net/images/cover/d59ba2295d91292a8bcb372bad9d88be/500x500.jpg",
@@ -41,6 +45,7 @@ const initialSongsState = {
       album: "Kiss",
       id: 4,
       genre: "pop",
+      mp3Name: "callmemaybe",
     },
     {
       img: "https://i1.sndcdn.com/artworks-000147977064-e261r7-t500x500.jpg",
@@ -49,6 +54,7 @@ const initialSongsState = {
       album: "Master of the puppets",
       id: 5,
       genre: "rock",
+      mp3Name: "masterofthepuppets",
     },
     {
       img: "https://s3.party.pl/newsy/katy-perry-roar-81141-1_1.jpg",
@@ -57,6 +63,7 @@ const initialSongsState = {
       album: "Prism",
       id: 6,
       genre: "pop",
+      mp3Name: "roar",
     },
     {
       img: "https://image.ceneostatic.pl/data/products/2724310/i-britney-spears-oops-i-did-it-again.jpg",
@@ -65,6 +72,7 @@ const initialSongsState = {
       album: "Britney Spears",
       id: 7,
       genre: "pop",
+      mp3Name: "ops",
     },
     {
       img: "https://ecsmedia.pl/c/encore-b-iext116086419.jpg",
@@ -73,6 +81,7 @@ const initialSongsState = {
       album: "Encore",
       id: 8,
       genre: "rap",
+      mp3Name: "justloseit",
     },
     {
       img: "https://i1.sndcdn.com/artworks-000105604285-me2956-t500x500.jpg",
@@ -81,6 +90,7 @@ const initialSongsState = {
       album: "Minutes to midnight",
       id: 9,
       genre: "rock",
+      mp3Name: "bleeditout",
     },
     {
       img: "https://i.scdn.co/image/ab67616d0000b2734ae1c4c5c45aabe565499163",
@@ -89,6 +99,7 @@ const initialSongsState = {
       album: "Arctic Monkeys",
       id: 10,
       genre: "rock",
+      mp3Name: "doiwannaknow",
     },
     {
       img: "https://i1.sndcdn.com/artworks-000657305371-hg8rbu-t500x500.jpg",
@@ -97,6 +108,16 @@ const initialSongsState = {
       album: "Viva Hits 6",
       id: 11,
       genre: "rap",
+      mp3Name: "thebadtouch",
+    },
+    {
+      img: "https://cdn-l-cyberpunk.cdprojektred.com/edgerunners/Cyberpunk-Edgerunners-S1-Poster-en.jpg",
+      title: "I really want to stay at your house",
+      author: "Rosa Walton & Hallie Coggins",
+      album: "Cyberpunk 2077: Radio, Vol. 2",
+      id: 12,
+      genre: "pop",
+      mp3Name: "CYBERPUNK",
     },
   ],
   selectedSong: undefined,
