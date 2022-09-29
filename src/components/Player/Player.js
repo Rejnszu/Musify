@@ -18,7 +18,7 @@ export default function Player(props) {
 
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
-
+  const [showTimeLeft, setShowTimeLeft] = useState(false);
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -90,6 +90,7 @@ export default function Player(props) {
     } else {
       setTimePassed(Math.round(audio.currentTime));
       setTimeLeft(Math.floor(audio.duration - audio.currentTime));
+      setShowTimeLeft(true);
     }
   }
   const isPlayingHandler = (e) => {
@@ -142,6 +143,7 @@ export default function Player(props) {
           : defaultMp3
       )
     );
+    setShowTimeLeft(false);
   }, [currentSong]);
 
   useEffect(() => {
@@ -154,6 +156,7 @@ export default function Player(props) {
       audio.pause();
     }
   }, [audio, isPlaying]);
+
   return (
     <div className={styles.player}>
       <img
@@ -171,9 +174,11 @@ export default function Player(props) {
         <span className={styles["player__progress-bar__current"]}>
           {timeFormatter(timePassed)}
         </span>
-        <span className={styles["player__progress-bar__left"]}>
-          {timeFormatter(timeLeft)}
-        </span>
+        {showTimeLeft && (
+          <span className={styles["player__progress-bar__left"]}>
+            {timeFormatter(timeLeft)}
+          </span>
+        )}
       </div>
       <div className={styles["player__buttons-wrapper"]}>
         <button
