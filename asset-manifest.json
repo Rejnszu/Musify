@@ -1,14 +1,26 @@
 {
   "files": {
-    "main.css": "/Musify/static/css/main.8c8921c0.css",
-    "main.js": "/Musify/static/js/main.806dbfd2.js",
+    "main.css": "/Musify/static/css/main.f47993ff.css",
+    "main.js": "/Musify/static/js/main.48e0d2eb.js",
+    "static/media/masterofthepuppets.mp3": "/Musify/static/media/masterofthepuppets.54c4d7332c4f8e68b75e.mp3",
+    "static/media/looseyourself.mp3": "/Musify/static/media/looseyourself.a7a6e9b5b4f3f5bd0667.mp3",
+    "static/media/numb.mp3": "/Musify/static/media/numb.adfc45e66d167fb9ffe9.mp3",
+    "static/media/roar.mp3": "/Musify/static/media/roar.fd519e5b5dfaf8c3551a.mp3",
+    "static/media/doiwannaknow.mp3": "/Musify/static/media/doiwannaknow.fecd5f67a3ac2b1efdcf.mp3",
+    "static/media/bleeditout.mp3": "/Musify/static/media/bleeditout.6aae4d70ee73937b2d40.mp3",
+    "static/media/CYBERPUNK.mp3": "/Musify/static/media/CYBERPUNK.90e53caf073886493093.mp3",
+    "static/media/justloseit.mp3": "/Musify/static/media/justloseit.2726f4c03e265de6b0da.mp3",
     "static/media/coldplay.mp3": "/Musify/static/media/coldplay.7bcbf60cd6609fbc2f0e.mp3",
+    "static/media/thebadtouch.mp3": "/Musify/static/media/thebadtouch.7068c5f9c5433deb96fd.mp3",
+    "static/media/callmemaybe.mp3": "/Musify/static/media/callmemaybe.e2cc6e94d188f91e111a.mp3",
+    "static/media/wreckingball.mp3": "/Musify/static/media/wreckingball.bdcc3e25648ce346100a.mp3",
+    "static/media/pokerface.mp3": "/Musify/static/media/pokerface.8e01af876ea05f3ec733.mp3",
     "index.html": "/Musify/index.html",
-    "main.8c8921c0.css.map": "/Musify/static/css/main.8c8921c0.css.map",
-    "main.806dbfd2.js.map": "/Musify/static/js/main.806dbfd2.js.map"
+    "main.f47993ff.css.map": "/Musify/static/css/main.f47993ff.css.map",
+    "main.48e0d2eb.js.map": "/Musify/static/js/main.48e0d2eb.js.map"
   },
   "entrypoints": [
-    "static/css/main.8c8921c0.css",
-    "static/js/main.806dbfd2.js"
+    "static/css/main.f47993ff.css",
+    "static/js/main.48e0d2eb.js"
   ]
 }
