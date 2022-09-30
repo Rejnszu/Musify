@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Route,
   Switch,
@@ -30,7 +30,7 @@ import AnimatedPages from "./components/UI/AnimatedPages";
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
-
+let audioToStop;
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -116,6 +116,16 @@ function App() {
       window.removeEventListener("resize", checkIfMobile);
     };
   });
+  function getAudioToStop(audio) {
+    audioToStop = audio;
+  }
+  useEffect(() => {
+    if (audioToStop !== undefined) {
+      if (!audioToStop.paused) {
+        audioToStop.pause();
+      }
+    }
+  });
   return (
     <AnimatePresence exitBeforeEnter>
       <React.Fragment>
@@ -144,9 +154,12 @@ function App() {
               </Route>
               <Route path="/settings">
                 <SettingsPage />
-              </Route>{" "}
+              </Route>
               <Route path="/player">
-                <PlayerPage isMobile={isMobile} />
+                <PlayerPage
+                  getAudioToStop={getAudioToStop}
+                  isMobile={isMobile}
+                />
               </Route>
               {openModal && <AddToPlaylistModal />}
             </React.Fragment>

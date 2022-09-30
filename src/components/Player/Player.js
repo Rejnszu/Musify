@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./Player.module.css";
 import { useState } from "react";
 import defaultMp3 from "../../mp3/coldplay.mp3";
@@ -6,8 +6,9 @@ let playInterval;
 let songIndex = 0;
 export default function Player(props) {
   const songList = props.playlist.items;
-  let currentSong = songList[songIndex];
+  // let currentSong = songList[songIndex];
 
+  const [currentSong, setCurrentSong] = useState(songList[songIndex]);
   const [audio, setAudio] = useState(
     new Audio(
       currentSong.mp3Name
@@ -19,11 +20,12 @@ export default function Player(props) {
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
   const [showTimeLeft, setShowTimeLeft] = useState(false);
+
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRandomSong, setIsRandomSong] = useState(false);
-
+  let prevAudioRef = useRef(null);
   function timeFormatter(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -52,6 +54,7 @@ export default function Player(props) {
         songIndex = 0;
       }
     }
+    setCurrentSong(songList[songIndex]);
   };
   const previousSong = () => {
     slightReset();
@@ -65,15 +68,20 @@ export default function Player(props) {
         songIndex = songList.length - 1;
       }
     }
+    setCurrentSong(songList[songIndex]);
   };
 
   const fullReset = () => {
+    songIndex = 0;
+    setCurrentSong(songList[songIndex]);
+    setIsRandomSong(false);
     clearInterval(playInterval);
     setProgessBarWidth(0);
     setTimeLeft(Math.floor(audio.duration));
     setTimePassed(0);
     setIsPlaying(false);
-    audio.pause();
+    setShowTimeLeft(false);
+
     audio.currentTime = 0;
   };
   const slightReset = () => {
@@ -81,6 +89,7 @@ export default function Player(props) {
     setProgessBarWidth(0);
     setTimeLeft(Math.floor(audio.duration));
     setTimePassed(0);
+    setShowTimeLeft(false);
     audio.currentTime = 0;
   };
 
@@ -90,8 +99,19 @@ export default function Player(props) {
     } else {
       setTimePassed(Math.round(audio.currentTime));
       setTimeLeft(Math.floor(audio.duration - audio.currentTime));
-      setShowTimeLeft(true);
     }
+  }
+  function changeSong() {
+    audio.pause();
+
+    setAudio(
+      new Audio(
+        currentSong.mp3Name
+          ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
+          : defaultMp3
+      )
+    );
+    audio.load();
   }
   const isPlayingHandler = (e) => {
     const currentTarget = e.currentTarget;
@@ -121,12 +141,9 @@ export default function Player(props) {
   }
 
   useEffect(() => {
-    songIndex = 0;
-    setIsRandomSong(false);
-    fullReset();
-
     return () => {
       fullReset();
+      props.stopAudio(prevAudioRef.current);
     };
   }, [songList]);
 
@@ -135,26 +152,29 @@ export default function Player(props) {
   }, [timePassed]);
 
   useEffect(() => {
-    audio.pause();
-    setAudio(
-      new Audio(
-        currentSong.mp3Name
-          ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
-          : defaultMp3
-      )
-    );
-    setShowTimeLeft(false);
+    if (!audio.paused) {
+      audio.play().then(() => {
+        changeSong();
+      });
+    } else {
+      changeSong();
+    }
   }, [currentSong]);
 
   useEffect(() => {
     if (isPlaying) {
+      audio.load();
       audio.play();
       clearInterval(playInterval);
       playInterval = setInterval(playSong, 1000);
+      setTimeout(() => {
+        setShowTimeLeft(true);
+      }, 1000);
     } else {
       clearInterval(playInterval);
       audio.pause();
     }
+    prevAudioRef.current = audio;
   }, [audio, isPlaying]);
 
   return (

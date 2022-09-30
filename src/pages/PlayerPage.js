@@ -7,7 +7,7 @@ import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
 import { fetchPlaylists } from "../redux/Actions/playlistActions";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
-
+let currentAudio;
 export default function PlayerPage(props) {
   const dispatch = useDispatch();
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
@@ -15,6 +15,19 @@ export default function PlayerPage(props) {
   function selectPlaylist(value) {
     setSelectedPlaylist(value);
   }
+
+  function stopAudio(audio) {
+    currentAudio = audio;
+    props.getAudioToStop(audio);
+  }
+
+  useEffect(() => {
+    if (currentAudio === undefined) {
+      return;
+    } else {
+      currentAudio.pause();
+    }
+  }, [selectedPlaylist]);
 
   const currentUser = sessionStorage.getItem("currentUser");
   const initialFetchPlaylists = useSelector(
@@ -41,7 +54,11 @@ export default function PlayerPage(props) {
       <SelectPlaylistToPlay selectPlaylist={selectPlaylist} />
       <div className={styles["player__overlay"]}>
         {selectedPlaylist !== null && selectedPlaylist !== "none" && (
-          <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
+          <Player
+            stopAudio={stopAudio}
+            isMobile={props.isMobile}
+            playlist={selectedPlaylist}
+          />
         )}
       </div>
     </AnimatedPages>
