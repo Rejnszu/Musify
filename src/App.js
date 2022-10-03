@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Route,
   Switch,
@@ -30,6 +30,7 @@ import AnimatedPages from "./components/UI/AnimatedPages";
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
+import PlayerConsole from "./components/Player/PlayerConsole";
 let audioToStop;
 function App() {
   const history = useHistory();
@@ -116,16 +117,16 @@ function App() {
       window.removeEventListener("resize", checkIfMobile);
     };
   });
-  function getAudioToStop(audio) {
-    audioToStop = audio;
-  }
-  useEffect(() => {
-    if (audioToStop !== undefined) {
-      if (!audioToStop.paused) {
-        audioToStop.pause();
-      }
-    }
-  });
+  // function getAudioToStop(audio) {
+  //   audioToStop = audio;
+  // }
+  // useEffect(() => {
+  //   if (audioToStop !== undefined) {
+  //     if (!audioToStop.paused) {
+  //       audioToStop.pause();
+  //     }
+  //   }
+  // });
   return (
     <AnimatePresence exitBeforeEnter>
       <React.Fragment>
@@ -142,6 +143,7 @@ function App() {
                 <Button styles="button--log-out" onClick={logOut}>
                   Log Out
                 </Button>
+                <PlayerConsole />
               </AnimatedPages>
               <Route path="/" exact>
                 <Redirect to="/Musify/" />
@@ -157,7 +159,7 @@ function App() {
               </Route>
               <Route path="/player">
                 <PlayerPage
-                  getAudioToStop={getAudioToStop}
+                  // getAudioToStop={getAudioToStop}
                   isMobile={isMobile}
                 />
               </Route>

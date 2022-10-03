@@ -140,12 +140,12 @@ export default function Player(props) {
     audio.volume = progress;
   }
 
-  useEffect(() => {
-    return () => {
-      fullReset();
-      props.stopAudio(prevAudioRef.current);
-    };
-  }, [songList]);
+  // useEffect(() => {
+  //   return () => {
+  //     fullReset();
+  //     props.stopAudio(prevAudioRef.current);
+  //   };
+  // }, [songList]);
 
   useEffect(() => {
     setProgessBarWidth((timePassed / audio.duration) * 100);

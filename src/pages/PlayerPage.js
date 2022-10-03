@@ -16,18 +16,18 @@ export default function PlayerPage(props) {
     setSelectedPlaylist(value);
   }
 
-  function stopAudio(audio) {
-    currentAudio = audio;
-    props.getAudioToStop(audio);
-  }
+  // function stopAudio(audio) {
+  //   currentAudio = audio;
+  //   props.getAudioToStop(audio);
+  // }
 
-  useEffect(() => {
-    if (currentAudio === undefined) {
-      return;
-    } else {
-      currentAudio.pause();
-    }
-  }, [selectedPlaylist]);
+  // useEffect(() => {
+  //   if (currentAudio === undefined) {
+  //     return;
+  //   } else {
+  //     currentAudio.pause();
+  //   }
+  // }, [selectedPlaylist]);
 
   const currentUser = sessionStorage.getItem("currentUser");
   const initialFetchPlaylists = useSelector(
@@ -55,7 +55,7 @@ export default function PlayerPage(props) {
       <div className={styles["player__overlay"]}>
         {selectedPlaylist !== null && selectedPlaylist !== "none" && (
           <Player
-            stopAudio={stopAudio}
+            // stopAudio={stopAudio}
             isMobile={props.isMobile}
             playlist={selectedPlaylist}
           />
