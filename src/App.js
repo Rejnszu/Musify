@@ -37,7 +37,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1300);
-
+  const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
@@ -143,7 +143,8 @@ function App() {
                 <Button styles="button--log-out" onClick={logOut}>
                   Log Out
                 </Button>
-                <PlayerConsole />
+                {playerCurrentSong !== undefined &&
+                  location.pathname !== "/player" && <PlayerConsole />}
               </AnimatedPages>
               <Route path="/" exact>
                 <Redirect to="/Musify/" />

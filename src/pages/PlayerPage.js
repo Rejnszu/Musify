@@ -1,33 +1,18 @@
 import React from "react";
 import AnimatedPages from "../components/UI/AnimatedPages";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { authActions } from "../redux/auth-slice";
 import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
 import { fetchPlaylists } from "../redux/Actions/playlistActions";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
-let currentAudio;
+
 export default function PlayerPage(props) {
   const dispatch = useDispatch();
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
-
-  function selectPlaylist(value) {
-    setSelectedPlaylist(value);
-  }
-
-  // function stopAudio(audio) {
-  //   currentAudio = audio;
-  //   props.getAudioToStop(audio);
-  // }
-
-  // useEffect(() => {
-  //   if (currentAudio === undefined) {
-  //     return;
-  //   } else {
-  //     currentAudio.pause();
-  //   }
-  // }, [selectedPlaylist]);
+  const selectedPlaylist = useSelector((state) => state.player.songList);
+  const currentSong = useSelector((state) => state.player.currentSong);
 
   const currentUser = sessionStorage.getItem("currentUser");
   const initialFetchPlaylists = useSelector(
@@ -51,15 +36,17 @@ export default function PlayerPage(props) {
   }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
   return (
     <AnimatedPages>
-      <SelectPlaylistToPlay selectPlaylist={selectPlaylist} />
+      <SelectPlaylistToPlay />
       <div className={styles["player__overlay"]}>
-        {selectedPlaylist !== null && selectedPlaylist !== "none" && (
-          <Player
-            // stopAudio={stopAudio}
-            isMobile={props.isMobile}
-            playlist={selectedPlaylist}
-          />
-        )}
+        {currentSong !== undefined &&
+          selectedPlaylist !== undefined &&
+          selectedPlaylist !== "none" && (
+            <Player
+              // stopAudio={stopAudio}
+              isMobile={props.isMobile}
+              playlist={selectedPlaylist}
+            />
+          )}
       </div>
     </AnimatedPages>
   );

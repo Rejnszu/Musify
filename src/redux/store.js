@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import songsReducer from "./songsList-slice";
 import playlistReducer from "./playlist-slice";
 import authReducer from "./auth-slice";
@@ -12,6 +12,10 @@ const store = configureStore({
     update: updateReducer,
     player: playerReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

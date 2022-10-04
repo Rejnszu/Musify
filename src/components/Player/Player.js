@@ -1,21 +1,34 @@
 import React, { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./Player.module.css";
 import { useState } from "react";
 import defaultMp3 from "../../mp3/coldplay.mp3";
-let playInterval;
-let songIndex = 0;
+import { playerActions } from "../../redux/player-slice";
+let initial = true;
+// let playInterval;
+// let songIndex = 0;
 export default function Player(props) {
-  const songList = props.playlist.items;
-  // let currentSong = songList[songIndex];
+  const dispatch = useDispatch();
+  const {
+    playInterval,
+    songList,
+    songIndex,
+    audio,
+    isPlaying,
+    isRandomSong,
+    currentSong,
+  } = useSelector((state) => state.player);
 
-  const [currentSong, setCurrentSong] = useState(songList[songIndex]);
-  const [audio, setAudio] = useState(
-    new Audio(
-      currentSong.mp3Name
-        ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
-        : defaultMp3
-    )
-  );
+  // const songList = props.playlist.items;
+
+  // const [currentSong, setCurrentSong] = useState(songList[songIndex]);
+  // const [audio, setAudio] = useState(
+  //   new Audio(
+  //     currentSong.mp3Name
+  //       ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
+  //       : defaultMp3
+  //   )
+  // );
 
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
@@ -23,9 +36,9 @@ export default function Player(props) {
 
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isRandomSong, setIsRandomSong] = useState(false);
-  let prevAudioRef = useRef(null);
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [isRandomSong, setIsRandomSong] = useState(false);
+  console.log("player");
   function timeFormatter(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -37,9 +50,9 @@ export default function Player(props) {
   function randomSongIndex() {
     let randomNumber;
     do {
-      randomNumber = Math.floor(Math.random() * songList.length);
+      randomNumber = Math.floor(Math.random() * songList.items.length);
     } while (randomNumber === songIndex);
-    songIndex = randomNumber;
+    dispatch(playerActions.setSongIndex(randomNumber));
   }
 
   const nextSong = () => {
@@ -48,13 +61,14 @@ export default function Player(props) {
     if (isRandomSong) {
       randomSongIndex();
     } else {
-      if (songIndex < songList.length - 1) {
-        songIndex = songIndex + 1;
+      if (songIndex < songList.items.length - 1) {
+        dispatch(playerActions.increaseSongIndex());
       } else {
-        songIndex = 0;
+        dispatch(playerActions.setSongIndex(0));
       }
     }
-    setCurrentSong(songList[songIndex]);
+
+    // dispatch(playerActions.setCurrentSong(songList.items[songIndex]));
   };
   const previousSong = () => {
     slightReset();
@@ -63,27 +77,28 @@ export default function Player(props) {
       randomSongIndex();
     } else {
       if (songIndex > 0) {
-        songIndex = songIndex - 1;
+        dispatch(playerActions.reduceSongIndex());
       } else {
-        songIndex = songList.length - 1;
+        dispatch(playerActions.setSongIndex(songList.items.length - 1));
       }
     }
-    setCurrentSong(songList[songIndex]);
+    // setCurrentSong(songList[songIndex]);
+    // dispatch(playerActions.setCurrentSong(songList.items[songIndex]));
   };
 
-  const fullReset = () => {
-    songIndex = 0;
-    setCurrentSong(songList[songIndex]);
-    setIsRandomSong(false);
-    clearInterval(playInterval);
-    setProgessBarWidth(0);
-    setTimeLeft(Math.floor(audio.duration));
-    setTimePassed(0);
-    setIsPlaying(false);
-    setShowTimeLeft(false);
+  // const fullReset = () => {
+  //   songIndex = 0;
+  //   setCurrentSong(songList[songIndex]);
+  //   setIsRandomSong(false);
+  //   clearInterval(playInterval);
+  //   setProgessBarWidth(0);
+  //   setTimeLeft(Math.floor(audio.duration));
+  //   setTimePassed(0);
+  //   setIsPlaying(false);
+  //   setShowTimeLeft(false);
 
-    audio.currentTime = 0;
-  };
+  //   audio.currentTime = 0;
+  // };
   const slightReset = () => {
     clearInterval(playInterval);
     setProgessBarWidth(0);
@@ -104,20 +119,23 @@ export default function Player(props) {
   function changeSong() {
     audio.pause();
 
-    setAudio(
-      new Audio(
-        currentSong.mp3Name
-          ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
-          : defaultMp3
+    dispatch(
+      playerActions.setAudio(
+        new Audio(
+          currentSong.mp3Name
+            ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
+            : defaultMp3
+        )
       )
     );
+
     audio.load();
   }
   const isPlayingHandler = (e) => {
     const currentTarget = e.currentTarget;
     currentTarget.classList.add(`${styles.ripple}`);
     setTimeout(() => currentTarget.classList.remove(`${styles.ripple}`), 300);
-    setIsPlaying((prevState) => !prevState);
+    dispatch(playerActions.changeIsPlaying());
   };
 
   function setSongPlayTime(e) {
@@ -152,6 +170,10 @@ export default function Player(props) {
   }, [timePassed]);
 
   useEffect(() => {
+    dispatch(playerActions.setCurrentSong(songList.items[songIndex]));
+  }, [songIndex]);
+
+  useEffect(() => {
     if (!audio.paused) {
       audio.play().then(() => {
         changeSong();
@@ -166,7 +188,7 @@ export default function Player(props) {
       audio.load();
       audio.play();
       clearInterval(playInterval);
-      playInterval = setInterval(playSong, 1000);
+      dispatch(playerActions.setPlayInterval(setInterval(playSong, 1000)));
       setTimeout(() => {
         setShowTimeLeft(true);
       }, 1000);
@@ -174,7 +196,8 @@ export default function Player(props) {
       clearInterval(playInterval);
       audio.pause();
     }
-    prevAudioRef.current = audio;
+
+    audio.volume = musicBarWidth / 100;
   }, [audio, isPlaying]);
 
   return (
@@ -203,7 +226,8 @@ export default function Player(props) {
       <div className={styles["player__buttons-wrapper"]}>
         <button
           onClick={(e) => {
-            songList.length > 1 && setIsRandomSong((prevState) => !prevState);
+            songList.items.length > 1 &&
+              dispatch(playerActions.setIsRandomSong());
           }}
           className={`${styles["player__buttons"]} ${
             styles["player__buttons--small"]

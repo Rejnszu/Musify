@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialPlayerState = {
-  playInterval: undefined,
   songIndex: 0,
-  songList: [],
-
+  playInterval: undefined,
+  songList: undefined,
   audio: undefined,
   isPlaying: false,
   isRandomSong: false,
+  currentSong: undefined,
 };
 const playerSlice = createSlice({
   name: "player",
@@ -27,8 +27,20 @@ const playerSlice = createSlice({
     setSongIndex(state, action) {
       state.songIndex = action.payload;
     },
+    increaseSongIndex(state) {
+      state.songIndex += 1;
+    },
+    reduceSongIndex(state) {
+      state.songIndex -= 1;
+    },
     setSongList(state, action) {
       state.songList = action.payload;
+    },
+    setCurrentSong(state, action) {
+      state.currentSong = action.payload;
+    },
+    playerReset() {
+      return initialPlayerState;
     },
   },
 });
