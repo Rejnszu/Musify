@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 import styles from "./SelectPlaylistToPlay.module.css";
 import defaultMp3 from "../../mp3/coldplay.mp3";
+// let initialPageLoad = true;
 export default function SelectPlaylistToPlay(props) {
+  const initialPageLoad = useSelector(
+    (state) => state.player.initialPlayerSelectLoad
+  );
   const playlists = useSelector((state) => state.playlist.playlists);
   const currentSong = useSelector((state) => state.player.currentSong);
   const songIndex = useSelector((state) => state.player.songIndex);
@@ -28,20 +32,25 @@ export default function SelectPlaylistToPlay(props) {
     );
 
     dispatch(playerActions.setSongList(selectedPlaylist));
+    dispatch(playerActions.playerSelectInitialLoadHandler(true));
+    dispatch(playerActions.playerInitialLoadHandler(true));
   }
 
   useEffect(() => {
-    dispatch(playerActions.setCurrentSong(songList?.items[songIndex]));
+    if (initialPageLoad) {
+      dispatch(playerActions.setCurrentSong(songList?.items[songIndex]));
 
-    dispatch(
-      playerActions.setAudio(
-        new Audio(
-          currentSong?.mp3Name
-            ? require(`../../mp3/${currentSong?.mp3Name}.mp3`)
-            : defaultMp3
+      dispatch(
+        playerActions.setAudio(
+          new Audio(
+            currentSong?.mp3Name
+              ? require(`../../mp3/${currentSong?.mp3Name}.mp3`)
+              : defaultMp3
+          )
         )
-      )
-    );
+      );
+      dispatch(playerActions.playerSelectInitialLoadHandler(false));
+    }
   }, [songList]);
 
   useEffect(() => {

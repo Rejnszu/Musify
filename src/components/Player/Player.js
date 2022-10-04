@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./Player.module.css";
 import { useState } from "react";
+
 import defaultMp3 from "../../mp3/coldplay.mp3";
 import { playerActions } from "../../redux/player-slice";
-let initial = true;
-// let playInterval;
-// let songIndex = 0;
+// let initialPageLoad = true;
+
 export default function Player(props) {
+  const initialPageLoad = useSelector(
+    (state) => state.player.initialPlayerLoad
+  );
   const dispatch = useDispatch();
   const {
     playInterval,
@@ -19,26 +22,13 @@ export default function Player(props) {
     currentSong,
   } = useSelector((state) => state.player);
 
-  // const songList = props.playlist.items;
-
-  // const [currentSong, setCurrentSong] = useState(songList[songIndex]);
-  // const [audio, setAudio] = useState(
-  //   new Audio(
-  //     currentSong.mp3Name
-  //       ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
-  //       : defaultMp3
-  //   )
-  // );
-
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
   const [showTimeLeft, setShowTimeLeft] = useState(false);
 
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
-  // const [isPlaying, setIsPlaying] = useState(false);
-  // const [isRandomSong, setIsRandomSong] = useState(false);
-  console.log("player");
+
   function timeFormatter(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -57,7 +47,7 @@ export default function Player(props) {
 
   const nextSong = () => {
     slightReset();
-
+    dispatch(playerActions.playerInitialLoadHandler(true));
     if (isRandomSong) {
       randomSongIndex();
     } else {
@@ -67,12 +57,10 @@ export default function Player(props) {
         dispatch(playerActions.setSongIndex(0));
       }
     }
-
-    // dispatch(playerActions.setCurrentSong(songList.items[songIndex]));
   };
   const previousSong = () => {
     slightReset();
-
+    dispatch(playerActions.playerInitialLoadHandler(true));
     if (isRandomSong) {
       randomSongIndex();
     } else {
@@ -82,23 +70,8 @@ export default function Player(props) {
         dispatch(playerActions.setSongIndex(songList.items.length - 1));
       }
     }
-    // setCurrentSong(songList[songIndex]);
-    // dispatch(playerActions.setCurrentSong(songList.items[songIndex]));
   };
 
-  // const fullReset = () => {
-  //   songIndex = 0;
-  //   setCurrentSong(songList[songIndex]);
-  //   setIsRandomSong(false);
-  //   clearInterval(playInterval);
-  //   setProgessBarWidth(0);
-  //   setTimeLeft(Math.floor(audio.duration));
-  //   setTimePassed(0);
-  //   setIsPlaying(false);
-  //   setShowTimeLeft(false);
-
-  //   audio.currentTime = 0;
-  // };
   const slightReset = () => {
     clearInterval(playInterval);
     setProgessBarWidth(0);
@@ -110,6 +83,7 @@ export default function Player(props) {
 
   function playSong() {
     if (audio.duration - audio.currentTime === 0) {
+      dispatch(playerActions.playerInitialLoadHandler(true));
       nextSong();
     } else {
       setTimePassed(Math.round(audio.currentTime));
@@ -158,13 +132,6 @@ export default function Player(props) {
     audio.volume = progress;
   }
 
-  // useEffect(() => {
-  //   return () => {
-  //     fullReset();
-  //     props.stopAudio(prevAudioRef.current);
-  //   };
-  // }, [songList]);
-
   useEffect(() => {
     setProgessBarWidth((timePassed / audio.duration) * 100);
   }, [timePassed]);
@@ -174,18 +141,20 @@ export default function Player(props) {
   }, [songIndex]);
 
   useEffect(() => {
-    if (!audio.paused) {
-      audio.play().then(() => {
+    if (initialPageLoad) {
+      if (!audio.paused) {
+        audio.play().then(() => {
+          changeSong();
+        });
+      } else {
         changeSong();
-      });
-    } else {
-      changeSong();
+      }
+      dispatch(playerActions.playerInitialLoadHandler(false));
     }
   }, [currentSong]);
 
   useEffect(() => {
     if (isPlaying) {
-      audio.load();
       audio.play();
       clearInterval(playInterval);
       dispatch(playerActions.setPlayInterval(setInterval(playSong, 1000)));

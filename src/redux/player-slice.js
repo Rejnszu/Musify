@@ -7,6 +7,8 @@ const initialPlayerState = {
   isPlaying: false,
   isRandomSong: false,
   currentSong: undefined,
+  initialPlayerLoad: true,
+  initialPlayerSelectLoad: true,
 };
 const playerSlice = createSlice({
   name: "player",
@@ -41,6 +43,12 @@ const playerSlice = createSlice({
     },
     playerReset() {
       return initialPlayerState;
+    },
+    playerSelectInitialLoadHandler(state, action) {
+      state.initialPlayerSelectLoad = action.payload;
+    },
+    playerInitialLoadHandler(state, action) {
+      state.initialPlayerLoad = action.payload;
     },
   },
 });

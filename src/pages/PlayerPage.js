@@ -41,11 +41,7 @@ export default function PlayerPage(props) {
         {currentSong !== undefined &&
           selectedPlaylist !== undefined &&
           selectedPlaylist !== "none" && (
-            <Player
-              // stopAudio={stopAudio}
-              isMobile={props.isMobile}
-              playlist={selectedPlaylist}
-            />
+            <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
           )}
       </div>
     </AnimatedPages>

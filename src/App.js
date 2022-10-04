@@ -31,7 +31,8 @@ import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
 import PlayerConsole from "./components/Player/PlayerConsole";
-let audioToStop;
+import { playerActions } from "./redux/player-slice";
+
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
+  const audio = useSelector((state) => state.player.audio);
   const reduxCurrentUser = useSelector(
     (state) => state.authentication.currentUser
   );
@@ -62,6 +64,10 @@ function App() {
     dispatch(authActions.handleInitialFetchMusicList(true));
     dispatch(authActions.handleInitialFetchPlaylists(true));
     dispatch(authActions.handlerInitialUpdate(true));
+    dispatch(playerActions.playerReset());
+    if (audio) {
+      audio.pause();
+    }
   }
 
   useEffect(() => {
@@ -117,16 +123,7 @@ function App() {
       window.removeEventListener("resize", checkIfMobile);
     };
   });
-  // function getAudioToStop(audio) {
-  //   audioToStop = audio;
-  // }
-  // useEffect(() => {
-  //   if (audioToStop !== undefined) {
-  //     if (!audioToStop.paused) {
-  //       audioToStop.pause();
-  //     }
-  //   }
-  // });
+
   return (
     <AnimatePresence exitBeforeEnter>
       <React.Fragment>
@@ -159,10 +156,7 @@ function App() {
                 <SettingsPage />
               </Route>
               <Route path="/player">
-                <PlayerPage
-                  // getAudioToStop={getAudioToStop}
-                  isMobile={isMobile}
-                />
+                <PlayerPage isMobile={isMobile} />
               </Route>
               {openModal && <AddToPlaylistModal />}
             </React.Fragment>
