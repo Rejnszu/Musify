@@ -1,4 +1,5 @@
 .player__console-wrapper {
+  position: relative;
   display: flex;
   width: auto;
   flex-direction: column;
@@ -58,4 +59,18 @@
   transform: translate(-50%, -50%);
   z-index: -1;
   opacity: 0;
+}
+.button--play-reset {
+  position: absolute;
+  right: 3px;
+  bottom: 0px;
+  pointer-events: none;
+  opacity: 0;
+  padding: 7px;
+  transition: all 0.3s;
+  z-index: 10;
+}
+.player__console-wrapper:hover .button--play-reset {
+  opacity: 1;
+  pointer-events: all;
 }

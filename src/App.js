@@ -32,6 +32,7 @@ import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
 import PlayerConsole from "./components/Player/PlayerConsole";
 import { playerActions } from "./redux/player-slice";
+import { resetPlayer } from "./redux/Actions/playerActions";
 
 function App() {
   const history = useHistory();
@@ -64,10 +65,7 @@ function App() {
     dispatch(authActions.handleInitialFetchMusicList(true));
     dispatch(authActions.handleInitialFetchPlaylists(true));
     dispatch(authActions.handlerInitialUpdate(true));
-    dispatch(playerActions.playerReset());
-    if (audio) {
-      audio.pause();
-    }
+    dispatch(resetPlayer(audio));
   }
 
   useEffect(() => {

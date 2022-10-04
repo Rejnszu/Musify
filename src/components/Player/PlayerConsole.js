@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 import defaultMp3 from "../../mp3/coldplay.mp3";
 import { useLocation } from "react-router-dom";
+import { resetPlayer } from "../../redux/Actions/playerActions";
+import Button from "../UI/Button";
 let initialPageLoad = true;
 export default function PlayerConsole() {
   const location = useLocation();
@@ -114,6 +116,12 @@ export default function PlayerConsole() {
   return (
     <div className="center-wrapper">
       <div className={styles["player__console-wrapper"]}>
+        <Button
+          styles={styles["button--play-reset"]}
+          onClick={() => dispatch(resetPlayer(audio))}
+        >
+          X
+        </Button>
         <marquee className={styles["player__song-title"]}>
           {currentSong.title}
         </marquee>
