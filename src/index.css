@@ -12,6 +12,7 @@
   --main-box-shadow: 2px 2px 5px black;
   --main-border-radius: 10px;
   --main-border-radius--smaller: 4px;
+  --max-width: 95%;
 }
 
 body {

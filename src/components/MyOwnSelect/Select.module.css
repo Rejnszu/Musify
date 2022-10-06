@@ -3,7 +3,7 @@
   background-color: var(--dimmed-background-black);
   padding: 1rem;
   border-radius: var(--main-border-radius--smaller);
-  max-width: 95%;
+  max-width: var(--max-width);
 }
 .select__default-value {
   border-radius: var(--main-border-radius--smaller);
@@ -72,4 +72,7 @@
 }
 .select__dropdown__list__item:hover {
   background-color: rgba(128, 128, 128, 0.704);
+}
+.emptyList--player-select {
+  margin: 0;
 }

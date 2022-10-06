@@ -5,14 +5,14 @@
   flex-direction: column;
   width: 500px;
   align-items: center;
-  max-width: 95%;
+  max-width: var(--max-width);
   border-radius: var(--main-border-radius);
   background-color: var(--dimmed-background-black);
   row-gap: 1rem;
   box-shadow: var(--main-box-shadow);
 }
 .player__album-cover {
-  max-width: 95%;
+  max-width: var(--max-width);
   max-height: 500px;
   border-radius: var(--main-border-radius);
   box-shadow: 0 0 15px 2px black;

@@ -1,0 +1,19 @@
+.password-confirmation {
+  display: flex;
+  flex-direction: column;
+  color: var(--main-color);
+  gap: 10px;
+}
+.password-confirmation label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+.password-confirmation input {
+  background-color: var(--dimmed-background-black);
+  color: var(--main-color);
+  font-size: 16px;
+  padding: 0.3rem;
+  border-radius: var(--main-border-radius);
+  margin-bottom: 0.5rem;
+}

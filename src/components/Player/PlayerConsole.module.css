@@ -3,14 +3,15 @@
   display: flex;
   width: auto;
   flex-direction: column;
-  max-width: 100%;
+  max-width: var(--max-width);
   justify-content: center;
   border-radius: var(--main-border-radius);
   background-color: var(--dimmed-background-black);
   margin: auto;
+
   padding: 0.3rem 2rem 0.3rem 1rem;
   text-align: center;
-  min-width: 250px;
+  min-width: clamp(150px, 20vw, 250px);
 }
 .player__console__buttons-wrapper {
   display: flex;
@@ -22,7 +23,7 @@
   color: var(--main-color);
   margin: 0;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: clamp(0.8rem, 3vw, 1.2rem);
 }
 .player__buttons {
   font-size: clamp(0.7rem, 5vw, 1rem);
@@ -81,5 +82,8 @@
   .button--play-reset {
     opacity: 1;
     pointer-events: all;
+  }
+  .player__console-wrapper {
+    margin-top: 3rem;
   }
 }

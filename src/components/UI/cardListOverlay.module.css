@@ -2,7 +2,7 @@
   position: relative;
 }
 .overlay {
-  max-width: 95%;
+  max-width: var(--max-width);
   scrollbar-width: none;
   margin: 0 auto;
   display: flex;

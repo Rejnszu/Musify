@@ -126,7 +126,7 @@ const initialSongsState = {
     { value: "all", name: "All" },
     { value: "rock", name: "Rock" },
     { value: "pop", name: "Pop" },
-    { value: "Rap", name: "Rap" },
+    { value: "rap", name: "Rap" },
     { value: "soul", name: "Soul" },
     { value: "country", name: "Country" },
     { value: "reggae", name: "Reggae" },

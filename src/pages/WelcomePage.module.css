@@ -12,7 +12,7 @@
   padding: 0.5rem 1rem;
   border-radius: var(--main-border-radius);
   box-shadow: var(--main-box-shadow);
-  max-width: 100%;
+  max-width: var(--max-width);
 }
 .welcome__advantage-list {
   align-self: flex-start;

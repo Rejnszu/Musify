@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import styles from "./Select.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
+import EmptyList from "../UI/EmptyList";
 export default function Select(props) {
   const dispatch = useDispatch();
   const listRef = useRef(null);
@@ -44,6 +45,11 @@ export default function Select(props) {
           showDropdown ? styles["active"] : ""
         }`}
       >
+        {props?.options.length === 0 && (
+          <EmptyList styles={styles["emptyList--player-select"]}>
+            Not playlists with songs found.
+          </EmptyList>
+        )}
         <ul ref={listRef} className={styles["select__dropdown__list"]}>
           {props?.options.map((item) => {
             return (

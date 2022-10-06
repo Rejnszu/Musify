@@ -2,7 +2,7 @@
   position: relative;
   background-color: var(--dimmed-background-black);
   border-radius: var(--main-border-radius);
-  /* overflow: hidden; */
+
   height: auto;
   color: white;
   text-align: center;
