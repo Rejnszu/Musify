@@ -8,9 +8,9 @@
   border-radius: var(--main-border-radius);
   background-color: var(--dimmed-background-black);
   margin: auto;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 2rem 0.3rem 1rem;
   text-align: center;
-  min-width: 200px;
+  min-width: 250px;
 }
 .player__console__buttons-wrapper {
   display: flex;
@@ -63,14 +63,23 @@
 .button--play-reset {
   position: absolute;
   right: 3px;
-  bottom: 0px;
+  top: -17px;
+  font-size: 1.1rem;
   pointer-events: none;
   opacity: 0;
   padding: 7px;
   transition: all 0.3s;
   z-index: 10;
+  box-shadow: none;
+  background-color: transparent;
 }
 .player__console-wrapper:hover .button--play-reset {
   opacity: 1;
   pointer-events: all;
+}
+@media (max-width: 1300px) {
+  .button--play-reset {
+    opacity: 1;
+    pointer-events: all;
+  }
 }

@@ -1,10 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./Select.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 export default function Select(props) {
   const dispatch = useDispatch();
+  const listRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const nowPlayingPlayList = useSelector(
     (state) => state.player.nowPlayingPlayList
@@ -14,7 +15,11 @@ export default function Select(props) {
     setShowDropdown((prevState) => !prevState);
   };
   const choosePlaylist = (e) => {
-    props.onClick(e.target.value);
+    props.onClick(e.target.getAttribute("value"));
+    Array.from(listRef.current.children).forEach((child) =>
+      child.classList.remove(`${styles.active}`)
+    );
+    e.target.classList.add(`${styles.active}`);
     dispatch(
       playerActions.setNowPlayingPlaylist(e.target.getAttribute("name"))
     );
@@ -39,7 +44,7 @@ export default function Select(props) {
           showDropdown ? styles["active"] : ""
         }`}
       >
-        <ul className={styles["select__dropdown__list"]}>
+        <ul ref={listRef} className={styles["select__dropdown__list"]}>
           {props?.options.map((item) => {
             return (
               <li

@@ -46,7 +46,7 @@ const PlaylistPage = () => {
                 <Playlist
                   items={playlist.items}
                   id={playlist.id}
-                  key={i}
+                  key={playlist.id}
                   name={playlist.name}
                 />
               );

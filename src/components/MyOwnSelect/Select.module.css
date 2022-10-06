@@ -3,7 +3,7 @@
   background-color: var(--dimmed-background-black);
   padding: 1rem;
   border-radius: var(--main-border-radius--smaller);
-  max-width: 100%;
+  max-width: 95%;
 }
 .select__default-value {
   border-radius: var(--main-border-radius--smaller);
@@ -21,6 +21,10 @@
   cursor: pointer;
   width: 600px;
   max-width: 100%;
+  transition: all 0.3s;
+}
+.select__default-value:hover {
+  border: 1px solid white;
 }
 .select__default-value__icon {
   font-size: 1.5rem;
@@ -61,6 +65,10 @@
   cursor: pointer;
   flex: 0 0 calc(25% - 8px);
   transition: all 0.3s;
+}
+.select__dropdown__list__item.active {
+  border: 1px solid var(--main-color);
+  pointer-events: none;
 }
 .select__dropdown__list__item:hover {
   background-color: rgba(128, 128, 128, 0.704);
