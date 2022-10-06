@@ -27,12 +27,6 @@ export default function PlayerPage(props) {
 
       return;
     }
-    dispatch(
-      authActions.setUsersPlaylists({
-        currentUser,
-        playlists,
-      })
-    );
   }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
   return (
     <AnimatedPages>

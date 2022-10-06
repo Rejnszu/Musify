@@ -10,9 +10,11 @@ import { playlistActions } from "../../redux/playlist-slice";
 import { deleteCurrentUser } from "../../redux/Actions/loginActions";
 import { updateActions } from "../../redux/update-slice";
 import { useHistory } from "react-router-dom";
+import { resetPlayer } from "../../redux/Actions/playerActions";
 export default function DeleteAccount(props) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const audio = useSelector((state) => state.player.audio);
   const [showModal, setShowModal] = useState(false);
   const currentUser = useSelector((state) => state.authentication.currentUser);
   function toggleModalHandler() {
@@ -27,6 +29,7 @@ export default function DeleteAccount(props) {
     deleteCurrentUser(currentUser);
     dispatch(updateActions.shouldUpdate());
     history.push("/Musify");
+    dispatch(resetPlayer(audio));
   }
   return (
     <motion.div

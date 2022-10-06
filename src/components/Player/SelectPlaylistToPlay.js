@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 import styles from "./SelectPlaylistToPlay.module.css";
 import defaultMp3 from "../../mp3/coldplay.mp3";
-let selectedOption = "none";
+import Select from "../MyOwnSelect/Select";
+
 export default function SelectPlaylistToPlay(props) {
   const initialPageLoad = useSelector(
     (state) => state.player.initialPlayerSelectLoad
@@ -16,22 +17,16 @@ export default function SelectPlaylistToPlay(props) {
   const dispatch = useDispatch();
   const [notEmptyPlaylist, setNotEmptyPlaylist] = useState(null);
   const audio = useSelector((state) => state.player.audio);
-  // const [selectedOption, setSelectedOption] = useState("none");
 
-  function selectPlaylistHandler(e) {
+  function selectPlaylistHandler(value) {
     if (audio) {
       audio.pause();
     }
 
-    if (e.target.value === "none") {
-      dispatch(playerActions.setSongList("none"));
-      dispatch(playerActions.playerReset());
-      return;
-    }
     dispatch(playerActions.playerReset());
 
     const selectedPlaylist = playlists.find(
-      (playlist) => playlist.id.toString() === e.target.value
+      (playlist) => playlist.id.toString() === value.toString()
     );
 
     dispatch(playerActions.setSongList(selectedPlaylist));
@@ -66,21 +61,14 @@ export default function SelectPlaylistToPlay(props) {
 
   return (
     <div className={styles["select-playlist"]}>
-      <select
-        // value={selectedOption}
-        onChange={selectPlaylistHandler}
-        name="genre"
-        id="genre"
-      >
-        <option value="none">None</option>
-        {notEmptyPlaylist?.map((playlist) => {
-          return (
-            <option key={playlist.id} value={playlist.id}>
-              {playlist.name}
-            </option>
-          );
-        })}
-      </select>
+      {notEmptyPlaylist && (
+        <Select
+          onClick={selectPlaylistHandler}
+          options={notEmptyPlaylist}
+          placeholder="Choose your playlist"
+          icon={<i className="bi bi-arrow-down-short" />}
+        />
+      )}
     </div>
   );
 }

@@ -78,7 +78,7 @@ export default function AddSong(props) {
         <label htmlFor="input-url">Add song URL</label>
         <input ref={urlRef} id="input-url" />
         <label htmlFor="input-title">Add Title</label>
-        <input ref={titleRef} id="input-title" />
+        <input required ref={titleRef} id="input-title" />
         <label htmlFor="input-author">Add Author</label>
         <input ref={authorRef} id="input-author" />
         <label htmlFor="input-album">Add Album Name</label>

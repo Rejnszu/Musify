@@ -10,7 +10,8 @@
   --dimmed-background-black: rgba(0, 0, 0, 0.6);
   --dimmed-background-black-1: rgba(0, 0, 0, 0.8);
   --main-box-shadow: 2px 2px 5px black;
-  --main-border-radius: 15px;
+  --main-border-radius: 10px;
+  --main-border-radius--smaller: 4px;
 }
 
 body {

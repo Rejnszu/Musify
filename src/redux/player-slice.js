@@ -9,6 +9,7 @@ const initialPlayerState = {
   currentSong: undefined,
   initialPlayerLoad: true,
   initialPlayerSelectLoad: true,
+  nowPlayingPlaylist: undefined,
 };
 const playerSlice = createSlice({
   name: "player",
@@ -49,6 +50,9 @@ const playerSlice = createSlice({
     },
     playerInitialLoadHandler(state, action) {
       state.initialPlayerLoad = action.payload;
+    },
+    setNowPlayingPlaylist(state, action) {
+      state.nowPlayingPlayList = action.payload;
     },
   },
 });
