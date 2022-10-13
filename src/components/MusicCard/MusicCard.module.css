@@ -15,6 +15,7 @@
   flex-direction: column;
 
   flex: 0 0 var(--card-width);
+  overflow-wrap: anywhere;
 }
 
 .music-card p {

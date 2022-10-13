@@ -4,6 +4,8 @@
   flex: 0 0 calc(25% - 15px);
   color: white;
   border-radius: var(--main-border-radius);
+  overflow-wrap: anywhere;
+  padding: 30px 10px 0px 10px;
 }
 
 .playlist__title {

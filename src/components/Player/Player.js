@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import defaultMp3 from "../../mp3/coldplay.mp3";
 import { playerActions } from "../../redux/player-slice";
-// let initialPageLoad = true;
 
 export default function Player(props) {
   const initialPageLoad = useSelector(

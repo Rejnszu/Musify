@@ -8,7 +8,14 @@ export default function AreYouSureModal(props) {
       {props.children}
       <div className={styles["confirm-modal__button-wrapper"]}>
         <Button onClick={props.closeModal}>Cancel</Button>
-        <Button onClick={props.removeItem}>Confirm</Button>
+        <Button
+          onClick={() => {
+            props.removeItem();
+            props.closeModal();
+          }}
+        >
+          Confirm
+        </Button>
       </div>
     </div>
   );

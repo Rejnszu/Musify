@@ -33,7 +33,7 @@ import { updateActions } from "./redux/update-slice";
 import PlayerConsole from "./components/Player/PlayerConsole";
 import { playerActions } from "./redux/player-slice";
 import { resetPlayer } from "./redux/Actions/playerActions";
-
+let firstPageLoad = true;
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -66,15 +66,20 @@ function App() {
     dispatch(authActions.handleInitialFetchPlaylists(true));
     dispatch(authActions.handlerInitialUpdate(true));
     dispatch(resetPlayer(audio));
+    firstPageLoad = true;
   }
 
   useEffect(() => {
-    getUsersFromDatabase().then((data) => {
-      if (data === null) {
-        return;
-      }
-      dispatch(authActions.setUserListOnStart(data));
-    });
+    if (firstPageLoad) {
+      getUsersFromDatabase().then((data) => {
+        if (data === null) {
+          return;
+        }
+        dispatch(authActions.setUserListOnStart(data));
+
+        firstPageLoad = false;
+      });
+    }
   }, [isLoggedLocal, dispatch]);
 
   useEffect(() => {

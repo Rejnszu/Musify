@@ -12,6 +12,8 @@ import { updateActions } from "../../redux/update-slice";
 import { useHistory } from "react-router-dom";
 import { resetPlayer } from "../../redux/Actions/playerActions";
 import Warning from "../UI/Warning";
+let modalManageState = false;
+
 export default function DeleteAccount(props) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -21,9 +23,13 @@ export default function DeleteAccount(props) {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const [warning, setWarning] = useState(false);
   function toggleModalHandler() {
-    setShowModal((prev) => !prev);
-    if (warning) {
+    if (!modalManageState) {
+      setShowModal((prev) => !prev);
       setWarning(false);
+    }
+
+    if (modalManageState) {
+      modalManageState = false;
     }
   }
   function deleteAccount() {
@@ -37,10 +43,12 @@ export default function DeleteAccount(props) {
       dispatch(updateActions.shouldUpdate());
       history.push("/Musify");
       dispatch(resetPlayer(audio));
+      modalManageState = false;
       setWarning(false);
       toggleModalHandler();
     } else {
       setWarning(true);
+      modalManageState = true;
     }
   }
 
@@ -56,7 +64,6 @@ export default function DeleteAccount(props) {
       <Button onClick={toggleModalHandler}>Delete Account</Button>
       {showModal && (
         <AreYouSureModal
-          condition={warning}
           removeItem={deleteAccount}
           closeModal={toggleModalHandler}
           text="Are you sure You want to delete your account?"

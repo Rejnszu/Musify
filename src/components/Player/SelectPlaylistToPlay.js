@@ -28,7 +28,7 @@ export default function SelectPlaylistToPlay(props) {
     const selectedPlaylist = playlists.find(
       (playlist) => playlist.id.toString() === value
     );
-    console.log(selectedPlaylist);
+
     dispatch(playerActions.setSongList(selectedPlaylist));
     dispatch(playerActions.playerSelectInitialLoadHandler(true));
     dispatch(playerActions.playerInitialLoadHandler(true));
