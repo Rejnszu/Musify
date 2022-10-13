@@ -2,7 +2,7 @@
   position: relative;
   background-color: var(--dimmed-background-black);
   border-radius: var(--main-border-radius);
-  /* overflow: hidden; */
+
   height: auto;
   color: white;
   text-align: center;
@@ -26,6 +26,7 @@
   font-weight: 700;
   font-size: clamp(0.6rem, 5vw, 0.8rem);
   margin: 16px auto;
+  overflow-wrap: anywhere;
 }
 .button--music-list-card {
   margin: 0 0 0 0.5rem;

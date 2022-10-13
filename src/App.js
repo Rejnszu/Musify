@@ -30,16 +30,20 @@ import AnimatedPages from "./components/UI/AnimatedPages";
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
-
+import PlayerConsole from "./components/Player/PlayerConsole";
+import { playerActions } from "./redux/player-slice";
+import { resetPlayer } from "./redux/Actions/playerActions";
+let firstPageLoad = true;
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1300);
-
+  const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
+  const audio = useSelector((state) => state.player.audio);
   const reduxCurrentUser = useSelector(
     (state) => state.authentication.currentUser
   );
@@ -61,15 +65,21 @@ function App() {
     dispatch(authActions.handleInitialFetchMusicList(true));
     dispatch(authActions.handleInitialFetchPlaylists(true));
     dispatch(authActions.handlerInitialUpdate(true));
+    dispatch(resetPlayer(audio));
+    firstPageLoad = true;
   }
 
   useEffect(() => {
-    getUsersFromDatabase().then((data) => {
-      if (data === null) {
-        return;
-      }
-      dispatch(authActions.setUserListOnStart(data));
-    });
+    if (firstPageLoad) {
+      getUsersFromDatabase().then((data) => {
+        if (data === null) {
+          return;
+        }
+        dispatch(authActions.setUserListOnStart(data));
+
+        firstPageLoad = false;
+      });
+    }
   }, [isLoggedLocal, dispatch]);
 
   useEffect(() => {
@@ -116,6 +126,7 @@ function App() {
       window.removeEventListener("resize", checkIfMobile);
     };
   });
+
   return (
     <AnimatePresence exitBeforeEnter>
       <React.Fragment>
@@ -132,6 +143,8 @@ function App() {
                 <Button styles="button--log-out" onClick={logOut}>
                   Log Out
                 </Button>
+                {playerCurrentSong !== undefined &&
+                  location.pathname !== "/player" && <PlayerConsole />}
               </AnimatedPages>
               <Route path="/" exact>
                 <Redirect to="/Musify/" />
@@ -144,7 +157,7 @@ function App() {
               </Route>
               <Route path="/settings">
                 <SettingsPage />
-              </Route>{" "}
+              </Route>
               <Route path="/player">
                 <PlayerPage isMobile={isMobile} />
               </Route>

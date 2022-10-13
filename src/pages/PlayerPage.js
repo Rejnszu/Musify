@@ -1,7 +1,8 @@
 import React from "react";
 import AnimatedPages from "../components/UI/AnimatedPages";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { authActions } from "../redux/auth-slice";
 import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
@@ -10,11 +11,8 @@ import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 
 export default function PlayerPage(props) {
   const dispatch = useDispatch();
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
-
-  function selectPlaylist(value) {
-    setSelectedPlaylist(value);
-  }
+  const selectedPlaylist = useSelector((state) => state.player.songList);
+  const currentSong = useSelector((state) => state.player.currentSong);
 
   const currentUser = sessionStorage.getItem("currentUser");
   const initialFetchPlaylists = useSelector(
@@ -29,20 +27,16 @@ export default function PlayerPage(props) {
 
       return;
     }
-    dispatch(
-      authActions.setUsersPlaylists({
-        currentUser,
-        playlists,
-      })
-    );
   }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
   return (
     <AnimatedPages>
-      <SelectPlaylistToPlay selectPlaylist={selectPlaylist} />
+      <SelectPlaylistToPlay />
       <div className={styles["player__overlay"]}>
-        {selectedPlaylist !== null && selectedPlaylist !== "none" && (
-          <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
-        )}
+        {currentSong !== undefined &&
+          selectedPlaylist !== undefined &&
+          selectedPlaylist !== "none" && (
+            <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
+          )}
       </div>
     </AnimatedPages>
   );

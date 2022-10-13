@@ -1,28 +1,32 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./Player.module.css";
 import { useState } from "react";
-import defaultMp3 from "../../mp3/coldplay.mp3";
-let playInterval;
-let songIndex = 0;
-export default function Player(props) {
-  const songList = props.playlist.items;
-  let currentSong = songList[songIndex];
 
-  const [audio, setAudio] = useState(
-    new Audio(
-      currentSong.mp3Name
-        ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
-        : defaultMp3
-    )
+import defaultMp3 from "../../mp3/coldplay.mp3";
+import { playerActions } from "../../redux/player-slice";
+
+export default function Player(props) {
+  const initialPageLoad = useSelector(
+    (state) => state.player.initialPlayerLoad
   );
+  const dispatch = useDispatch();
+  const {
+    playInterval,
+    songList,
+    songIndex,
+    audio,
+    isPlaying,
+    isRandomSong,
+    currentSong,
+  } = useSelector((state) => state.player);
 
   const [timeLeft, setTimeLeft] = useState(Math.floor(audio.duration));
   const [timePassed, setTimePassed] = useState(0);
   const [showTimeLeft, setShowTimeLeft] = useState(false);
+
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isRandomSong, setIsRandomSong] = useState(false);
 
   function timeFormatter(time) {
     let minutes = Math.floor(time / 60);
@@ -35,69 +39,76 @@ export default function Player(props) {
   function randomSongIndex() {
     let randomNumber;
     do {
-      randomNumber = Math.floor(Math.random() * songList.length);
+      randomNumber = Math.floor(Math.random() * songList.items.length);
     } while (randomNumber === songIndex);
-    songIndex = randomNumber;
+    dispatch(playerActions.setSongIndex(randomNumber));
   }
 
   const nextSong = () => {
     slightReset();
-
+    dispatch(playerActions.playerInitialLoadHandler(true));
     if (isRandomSong) {
       randomSongIndex();
     } else {
-      if (songIndex < songList.length - 1) {
-        songIndex = songIndex + 1;
+      if (songIndex < songList.items.length - 1) {
+        dispatch(playerActions.increaseSongIndex());
       } else {
-        songIndex = 0;
+        dispatch(playerActions.setSongIndex(0));
       }
     }
   };
   const previousSong = () => {
     slightReset();
-
+    dispatch(playerActions.playerInitialLoadHandler(true));
     if (isRandomSong) {
       randomSongIndex();
     } else {
       if (songIndex > 0) {
-        songIndex = songIndex - 1;
+        dispatch(playerActions.reduceSongIndex());
       } else {
-        songIndex = songList.length - 1;
+        dispatch(playerActions.setSongIndex(songList.items.length - 1));
       }
     }
   };
 
-  const fullReset = () => {
-    clearInterval(playInterval);
-    setProgessBarWidth(0);
-    setTimeLeft(Math.floor(audio.duration));
-    setTimePassed(0);
-    setIsPlaying(false);
-    audio.pause();
-    audio.currentTime = 0;
-  };
   const slightReset = () => {
     clearInterval(playInterval);
     setProgessBarWidth(0);
     setTimeLeft(Math.floor(audio.duration));
     setTimePassed(0);
+    setShowTimeLeft(false);
     audio.currentTime = 0;
   };
 
   function playSong() {
     if (audio.duration - audio.currentTime === 0) {
+      dispatch(playerActions.playerInitialLoadHandler(true));
       nextSong();
     } else {
       setTimePassed(Math.round(audio.currentTime));
       setTimeLeft(Math.floor(audio.duration - audio.currentTime));
-      setShowTimeLeft(true);
     }
+  }
+  function changeSong() {
+    audio.pause();
+
+    dispatch(
+      playerActions.setAudio(
+        new Audio(
+          currentSong.mp3Name
+            ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
+            : defaultMp3
+        )
+      )
+    );
+
+    audio.load();
   }
   const isPlayingHandler = (e) => {
     const currentTarget = e.currentTarget;
     currentTarget.classList.add(`${styles.ripple}`);
     setTimeout(() => currentTarget.classList.remove(`${styles.ripple}`), 300);
-    setIsPlaying((prevState) => !prevState);
+    dispatch(playerActions.changeIsPlaying());
   };
 
   function setSongPlayTime(e) {
@@ -121,40 +132,40 @@ export default function Player(props) {
   }
 
   useEffect(() => {
-    songIndex = 0;
-    setIsRandomSong(false);
-    fullReset();
-
-    return () => {
-      fullReset();
-    };
-  }, [songList]);
-
-  useEffect(() => {
     setProgessBarWidth((timePassed / audio.duration) * 100);
   }, [timePassed]);
 
   useEffect(() => {
-    audio.pause();
-    setAudio(
-      new Audio(
-        currentSong.mp3Name
-          ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
-          : defaultMp3
-      )
-    );
-    setShowTimeLeft(false);
+    dispatch(playerActions.setCurrentSong(songList.items[songIndex]));
+  }, [songIndex]);
+
+  useEffect(() => {
+    if (initialPageLoad) {
+      if (!audio.paused) {
+        audio.play().then(() => {
+          changeSong();
+        });
+      } else {
+        changeSong();
+      }
+      dispatch(playerActions.playerInitialLoadHandler(false));
+    }
   }, [currentSong]);
 
   useEffect(() => {
     if (isPlaying) {
       audio.play();
       clearInterval(playInterval);
-      playInterval = setInterval(playSong, 1000);
+      dispatch(playerActions.setPlayInterval(setInterval(playSong, 1000)));
+      setTimeout(() => {
+        setShowTimeLeft(true);
+      }, 1000);
     } else {
       clearInterval(playInterval);
       audio.pause();
     }
+
+    audio.volume = musicBarWidth / 100;
   }, [audio, isPlaying]);
 
   return (
@@ -183,7 +194,8 @@ export default function Player(props) {
       <div className={styles["player__buttons-wrapper"]}>
         <button
           onClick={(e) => {
-            songList.length > 1 && setIsRandomSong((prevState) => !prevState);
+            songList.items.length > 1 &&
+              dispatch(playerActions.setIsRandomSong());
           }}
           className={`${styles["player__buttons"]} ${
             styles["player__buttons--small"]

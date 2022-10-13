@@ -8,7 +8,7 @@
   background-color: var(--dimmed-background-black);
   padding: 2rem;
   border-radius: var(--main-border-radius);
-  max-width: 95%;
+  max-width: var(--max-width);
 }
 .register-form label {
   font-weight: 700;

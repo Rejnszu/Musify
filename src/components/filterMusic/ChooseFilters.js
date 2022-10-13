@@ -30,7 +30,6 @@ function ChooseFilters(props) {
         >
           name
         </Button>{" "}
-        /
         <Button
           onClick={chooseFilterHandler}
           styles={`${

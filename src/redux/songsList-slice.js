@@ -122,6 +122,20 @@ const initialSongsState = {
   ],
   selectedSong: undefined,
   loadingStatus: null,
+  genreOptions: [
+    { value: "all", name: "All" },
+    { value: "rock", name: "Rock" },
+    { value: "pop", name: "Pop" },
+    { value: "rap", name: "Rap" },
+    { value: "soul", name: "Soul" },
+    { value: "country", name: "Country" },
+    { value: "reggae", name: "Reggae" },
+    { value: "blues", name: "Blues" },
+    { value: "trap", name: "Trap" },
+    { value: "elektro", name: "Elektro" },
+    { value: "techno", name: "techno" },
+    { value: "unknown", name: "Unknown" },
+  ],
 };
 
 const songsSlice = createSlice({

@@ -10,7 +10,7 @@ const playlistSlice = createSlice({
     addPlaylist(state, action) {
       const newPlaylist = {
         name: action.payload,
-        id: state.playlists.length,
+        id: Date.now() + Math.floor(Math.random() * 1000) + 1,
         items: [],
       };
 

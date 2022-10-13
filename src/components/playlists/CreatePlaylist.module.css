@@ -1,7 +1,7 @@
 .playlist-form {
   margin: 4rem auto 2rem auto;
   width: 500px;
-  max-width: 95%;
+  max-width: var(--max-width);
   text-align: center;
 }
 .playlist-form input {

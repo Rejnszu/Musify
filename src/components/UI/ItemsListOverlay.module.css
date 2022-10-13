@@ -1,6 +1,6 @@
 .overlay {
   display: grid;
-  max-width: 95%;
+  max-width: var(--max-width);
 
   justify-items: center;
 
