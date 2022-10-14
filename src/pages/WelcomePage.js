@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-
+import { useHistory } from "react-router-dom";
 import styles from "./WelcomePage.module.css";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import LoginForm from "../components/LoginForms/LoginForm";
@@ -8,6 +8,8 @@ import RegsiterForm from "../components/LoginForms/RegsiterForm";
 import SuccessfulRegister from "../components/LoginForms/SuccessfulRegister";
 
 export default function WelcomePage(props) {
+  const history = useHistory();
+
   const welcomeAdvantageListRef = useRef(null);
   const [displayForms, setDisplayForms] = useState("login");
 
@@ -21,6 +23,14 @@ export default function WelcomePage(props) {
       }, i * 300);
     });
   });
+
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("isLogged") === "true") {
+  //     history.push("/songs");
+  //   } else {
+  //     history.push("/Musify");
+  //   }
+  // }, []);
 
   return (
     <AnimatedPages>
