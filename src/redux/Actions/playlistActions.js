@@ -15,12 +15,12 @@ export const fetchPlaylists = (currentUser, playlists) => {
       return data;
     };
     fetchData()
-      .then(async (data) => {
-        const currentUserData = await data.find(
+      .then((data) => {
+        const currentUserData = data.find(
           (user) => user.userName === currentUser
         );
 
-        const currentUserPlaylists = await currentUserData.userPlaylists;
+        const currentUserPlaylists = currentUserData.userPlaylists;
 
         return currentUserPlaylists;
       })

@@ -41,7 +41,7 @@ export default function AddSong(props) {
   function addNewSong(e) {
     e.preventDefault();
     getImage(imageRef.current.files[0]);
-    console.log(genreRef.current.value);
+
     setTimeout(() => {
       dispatch(
         songsActions.addSongToList({
@@ -60,7 +60,7 @@ export default function AddSong(props) {
               ? "Unknown"
               : albumRef.current.value,
           genre: genreRef.current.value ? genreRef.current.value : "Unknown",
-          id: songsList.length,
+          id: Math.floor(Math.random() * Date.now()),
         })
       );
 

@@ -15,12 +15,12 @@ export const fetchMusicData = (currentUser, songsList) => {
       return data;
     };
     fetchData()
-      .then(async (data) => {
-        const currentUserData = await data.find(
+      .then((data) => {
+        const currentUserData = data.find(
           (user) => user.userName === currentUser
         );
 
-        const currentUserMusic = await currentUserData.musicList;
+        const currentUserMusic = currentUserData.musicList;
         return currentUserMusic;
       })
       .then((data) => {
@@ -57,4 +57,3 @@ export const fetchMusicData = (currentUser, songsList) => {
       });
   };
 };
-

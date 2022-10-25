@@ -9,6 +9,18 @@ const NavigationMobile = () => {
   function toggleNavigation() {
     setShowNavigation((prevState) => !prevState);
   }
+
+  // Styles added inline cause github have problems sometime with finding styles in modules....
+  const navigationStyles = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 200,
+    backgroundColor: "var(--dimmed-background-black-1)",
+    color: "white",
+    width: "100%",
+    textAlign: "center",
+  };
   return (
     <AnimatedPages>
       <React.Fragment>
@@ -30,7 +42,7 @@ const NavigationMobile = () => {
                   duration: 0.5,
                 },
               }}
-              className={styles["navigation-mobile"]}
+              style={navigationStyles}
             >
               <ul className={styles["navigation-mobile__list"]}>
                 <li>

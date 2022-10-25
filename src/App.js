@@ -31,7 +31,7 @@ import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
 import PlayerConsole from "./components/Player/PlayerConsole";
-import { playerActions } from "./redux/player-slice";
+
 import { resetPlayer } from "./redux/Actions/playerActions";
 let firstPageLoad = true;
 function App() {
