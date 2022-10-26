@@ -26,10 +26,23 @@ export default function RegsiterForm(props) {
       userPlaylists: [],
       uniqueId: Date.now() + Math.floor(Math.random() * 1000),
     };
+    if (newUser.userName === "Admin" || newUser.userName === "admin") {
+      setWarning("admin");
+      return;
+    }
+    if (newUser.userName === "Admin1" || newUser.userName === "admin1") {
+      setWarning("admin1");
+      return;
+    }
+    if (newUser.userName === "Admin2" || newUser.userName === "admin2") {
+      setWarning("admin2");
+      return;
+    }
     if (users.some((user) => user.userName === newUser.userName)) {
       setWarning("exist");
       return;
     }
+
     if (newUser.password.length < 5) {
       setWarning("short");
       return;
@@ -60,6 +73,15 @@ export default function RegsiterForm(props) {
       <form onSubmit={createUser} className={styles["register-form"]}>
         <label htmlFor="username">User Name</label>
         <input required ref={userNameRef} type="text" id="username" />
+        {warning === "admin" && (
+          <Warning>Haha, nice try, there can only be one admin.</Warning>
+        )}
+        {warning === "admin1" && (
+          <Warning>You think you are smart, don't you? Nope.</Warning>
+        )}
+        {warning === "admin2" && (
+          <Warning>So much persistence, I appreciate it.</Warning>
+        )}
         {warning === "exist" && (
           <Warning>User with this name already exists.</Warning>
         )}
