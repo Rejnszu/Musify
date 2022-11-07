@@ -70,6 +70,19 @@ function App() {
   }
 
   useEffect(() => {
+    if (firstPageLoad && sessionStorage.getItem("isLogged") === "true") {
+      const user = users.find((user) => user.userName === currentUser);
+      if (user !== undefined) {
+        sendCurrentUser(user).then(() => {
+          getCurrentUser(user).then((data) => {
+            dispatch(authActions.setCurrentUser(data));
+          });
+        });
+      }
+    }
+  }, [users, currentUser, dispatch]);
+
+  useEffect(() => {
     if (firstPageLoad) {
       getUsersFromDatabase().then((data) => {
         if (data === null) {
@@ -81,19 +94,6 @@ function App() {
       });
     }
   }, [isLoggedLocal, dispatch]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === "true") {
-      const user = users.find((user) => user.userName === currentUser);
-      if (user !== undefined) {
-        sendCurrentUser(user).then(() => {
-          getCurrentUser(user).then((data) => {
-            dispatch(authActions.setCurrentUser(data));
-          });
-        });
-      }
-    }
-  }, [users, currentUser, dispatch]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "false") {
