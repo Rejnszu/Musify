@@ -31,9 +31,11 @@ import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
 import PlayerConsole from "./components/Player/PlayerConsole";
-
 import { resetPlayer } from "./redux/Actions/playerActions";
+
 let firstPageLoad = true;
+let firstUserLogin = true;
+
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -67,21 +69,8 @@ function App() {
     dispatch(authActions.handlerInitialUpdate(true));
     dispatch(resetPlayer(audio));
     firstPageLoad = true;
+    firstUserLogin = true;
   }
-
-  useEffect(() => {
-    if (firstPageLoad && sessionStorage.getItem("isLogged") === "true") {
-      const user = users.find((user) => user.userName === currentUser);
-      if (user !== undefined) {
-        sendCurrentUser(user).then(() => {
-          getCurrentUser(user).then((data) => {
-            dispatch(authActions.setCurrentUser(data));
-          });
-        });
-      }
-    }
-  }, [users, currentUser, dispatch]);
-
   useEffect(() => {
     if (firstPageLoad) {
       getUsersFromDatabase().then((data) => {
@@ -94,6 +83,20 @@ function App() {
       });
     }
   }, [isLoggedLocal, dispatch]);
+
+  useEffect(() => {
+    if (firstUserLogin && sessionStorage.getItem("isLogged") === "true") {
+      const user = users.find((user) => user.userName === currentUser);
+      if (user !== undefined) {
+        sendCurrentUser(user).then(() => {
+          getCurrentUser(user).then((data) => {
+            dispatch(authActions.setCurrentUser(data));
+          });
+        });
+      }
+      firstUserLogin = false;
+    }
+  }, [users, currentUser, dispatch]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "false") {

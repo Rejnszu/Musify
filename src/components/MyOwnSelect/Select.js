@@ -47,7 +47,7 @@ export default function Select(props) {
       >
         {props?.options.length === 0 && (
           <EmptyList styles={styles["emptyList--player-select"]}>
-            Not playlists with songs found.
+            No playlists with songs found.
           </EmptyList>
         )}
         <ul ref={listRef} className={styles["select__dropdown__list"]}>
