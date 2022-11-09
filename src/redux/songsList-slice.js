@@ -75,7 +75,7 @@ const initialSongsState = {
       mp3Name: "ops",
     },
     {
-      img: "https://ecsmedia.pl/c/encore-b-iext116086419.jpg",
+      img: "https://ecsmedia.pl/c/just-lose-it-w-iext68161847.jpg",
       title: "Just lose it",
       author: "Eminem",
       album: "Encore",

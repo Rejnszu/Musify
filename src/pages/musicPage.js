@@ -88,7 +88,7 @@ const MusicPage = () => {
 
   useEffect(() => {
     if (initialFetchPlaylists) {
-      dispatch(fetchPlaylists(currentUser, playlists));
+      dispatch(fetchPlaylists(currentUser));
       dispatch(authActions.handleInitialFetchPlaylists(false));
 
       return;

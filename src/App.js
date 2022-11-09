@@ -34,7 +34,6 @@ import PlayerConsole from "./components/Player/PlayerConsole";
 import { resetPlayer } from "./redux/Actions/playerActions";
 
 let firstPageLoad = true;
-let firstUserLogin = true;
 
 function App() {
   const history = useHistory();
@@ -69,7 +68,6 @@ function App() {
     dispatch(authActions.handlerInitialUpdate(true));
     dispatch(resetPlayer(audio));
     firstPageLoad = true;
-    firstUserLogin = true;
   }
   useEffect(() => {
     if (firstPageLoad) {
@@ -85,7 +83,7 @@ function App() {
   }, [isLoggedLocal, dispatch]);
 
   useEffect(() => {
-    if (firstUserLogin && sessionStorage.getItem("isLogged") === "true") {
+    if (sessionStorage.getItem("isLogged") === "true") {
       const user = users.find((user) => user.userName === currentUser);
       if (user !== undefined) {
         sendCurrentUser(user).then(() => {
@@ -94,7 +92,6 @@ function App() {
           });
         });
       }
-      firstUserLogin = false;
     }
   }, [users, currentUser, dispatch]);
 

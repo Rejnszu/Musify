@@ -1,6 +1,6 @@
 import { playlistActions } from "../playlist-slice";
-import { authActions } from "../auth-slice";
-export const fetchPlaylists = (currentUser, playlists) => {
+
+export const fetchPlaylists = (currentUser) => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(
@@ -21,31 +21,15 @@ export const fetchPlaylists = (currentUser, playlists) => {
         );
 
         const currentUserPlaylists = currentUserData.userPlaylists;
-
         return currentUserPlaylists;
       })
       .then((data) => {
         if (!data) {
           dispatch(playlistActions.setPlayListsOnStart([]));
-
-          dispatch(
-            authActions.setUsersPlaylists({
-              currentUser: currentUser,
-              playlists: playlists,
-            })
-          );
-
           return;
         }
         if (data) {
           dispatch(playlistActions.setPlayListsOnStart(data));
-          dispatch(
-            authActions.setUsersPlaylists({
-              currentUser: currentUser,
-              playlists: data,
-            })
-          );
-
           return;
         }
       })

@@ -1,4 +1,3 @@
-import { authActions } from "../auth-slice";
 import { songsActions } from "../songsList-slice";
 
 export const fetchMusicData = (currentUser, songsList) => {
@@ -26,12 +25,6 @@ export const fetchMusicData = (currentUser, songsList) => {
       .then((data) => {
         if (data) {
           dispatch(songsActions.setSongList(data));
-          dispatch(
-            authActions.setUsersMusicList({
-              currentUser: currentUser,
-              songsList: data,
-            })
-          );
           dispatch(songsActions.changeLoadingStatus("loaded"));
           return;
         }
@@ -39,13 +32,6 @@ export const fetchMusicData = (currentUser, songsList) => {
         if (!data) {
           dispatch(songsActions.resetSongList());
           dispatch(songsActions.setSongList(songsList));
-
-          dispatch(
-            authActions.setUsersMusicList({
-              currentUser: currentUser,
-              songsList: songsList,
-            })
-          );
           dispatch(songsActions.changeLoadingStatus("loaded"));
           return;
         }

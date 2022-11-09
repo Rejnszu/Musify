@@ -18,16 +18,16 @@ export default function PlayerPage(props) {
   const initialFetchPlaylists = useSelector(
     (state) => state.authentication.initials.initialFetchPlaylists
   );
-  const playlists = useSelector((state) => state.playlist.playlists);
+
   useEffect(() => {
     if (initialFetchPlaylists) {
-      dispatch(fetchPlaylists(currentUser, playlists));
+      dispatch(fetchPlaylists(currentUser));
 
       dispatch(authActions.handleInitialFetchPlaylists(false));
 
       return;
     }
-  }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
+  }, [dispatch, currentUser, initialFetchPlaylists]);
   return (
     <AnimatedPages>
       <SelectPlaylistToPlay />
