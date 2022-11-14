@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 
 import ChangeUserName from "../components/SettingsChangers/ChangeUserName";

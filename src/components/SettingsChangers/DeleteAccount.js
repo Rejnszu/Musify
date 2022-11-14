@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import Button from "../UI/Button";
 import styles from "./DeleteAccount.module.css";
 import { motion } from "framer-motion";
@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/auth-slice";
 import { songsActions } from "../../redux/songsList-slice";
 import { playlistActions } from "../../redux/playlist-slice";
-import { deleteCurrentUser } from "../../redux/Actions/loginActions";
+import { deleteCurrentUser } from "../../Actions/loginActions";
 import { updateActions } from "../../redux/update-slice";
 import { useHistory } from "react-router-dom";
-import { resetPlayer } from "../../redux/Actions/playerActions";
+import { resetPlayer } from "../../Actions/playerActions";
 import Warning from "../UI/Warning";
 let modalManageState = false;
 
@@ -20,7 +20,12 @@ export default function DeleteAccount(props) {
   const passwordInputRef = useRef(null);
   const audio = useSelector((state) => state.player.audio);
   const [showModal, setShowModal] = useState(false);
-  const currentUser = useSelector((state) => state.authentication.currentUser);
+  const users = useSelector((state) => state.authentication.users);
+  const currentUserReference = sessionStorage.getItem("currentUser");
+  const currentUser = useMemo(
+    () => users.find((user) => user.userName === currentUserReference),
+    [currentUserReference, users]
+  );
   const [warning, setWarning] = useState(false);
   function toggleModalHandler() {
     if (!modalManageState) {

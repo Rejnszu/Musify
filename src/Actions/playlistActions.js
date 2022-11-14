@@ -1,4 +1,4 @@
-import { playlistActions } from "../playlist-slice";
+import { playlistActions } from "../redux/playlist-slice";
 
 export const fetchPlaylists = (currentUser) => {
   return async (dispatch) => {
@@ -21,6 +21,7 @@ export const fetchPlaylists = (currentUser) => {
         );
 
         const currentUserPlaylists = currentUserData.userPlaylists;
+
         return currentUserPlaylists;
       })
       .then((data) => {

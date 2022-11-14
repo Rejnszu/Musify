@@ -4,10 +4,7 @@ import Button from "../UI/Button";
 import styles from "./LoginForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Warning from "../UI/Warning";
-import {
-  getCurrentUser,
-  sendCurrentUser,
-} from "../../redux/Actions/loginActions";
+import { getCurrentUser, sendCurrentUser } from "../../Actions/loginActions";
 import { authActions } from "../../redux/auth-slice";
 
 export default function LoginForm(props) {

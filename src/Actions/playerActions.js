@@ -1,4 +1,4 @@
-import { playerActions } from "../player-slice";
+import { playerActions } from "../redux/player-slice";
 
 export const resetPlayer = (audio) => {
   if (audio) {

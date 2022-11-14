@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./RegisterForm.module.css";
 import Button from "../UI/Button";
-
-import { sendUserToDatabase } from "../../redux/Actions/authActions";
+import { sendUserToDatabase } from "../../Actions/authActions";
 import AnimatedItems from "../UI/AnimatedItems";
 import { authActions } from "../../redux/auth-slice";
 import { useDispatch, useSelector } from "react-redux";

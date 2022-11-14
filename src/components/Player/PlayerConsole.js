@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 import defaultMp3 from "../../mp3/coldplay.mp3";
 import { useLocation } from "react-router-dom";
-import { resetPlayer } from "../../redux/Actions/playerActions";
+import { resetPlayer } from "../../Actions/playerActions";
 import Button from "../UI/Button";
+
 let initialPageLoad = true;
 export default function PlayerConsole() {
   const location = useLocation();

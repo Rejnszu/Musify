@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../redux/auth-slice";
 import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
-import { fetchPlaylists } from "../redux/Actions/playlistActions";
+import { fetchPlaylists } from "../Actions/playlistActions";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 
 export default function PlayerPage(props) {

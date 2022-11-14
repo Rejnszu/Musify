@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeUserPassword.module.css";
 import Button from "../UI/Button";
-import { deleteCurrentUser } from "../../redux/Actions/loginActions";
+import { deleteCurrentUser } from "../../Actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";

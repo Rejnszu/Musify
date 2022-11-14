@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import { authActions } from "../redux/auth-slice";
-import { fetchPlaylists } from "../redux/Actions/playlistActions";
+import { fetchPlaylists } from "../Actions/playlistActions";
 import Playlist from "../components/playlists/Playlist";
 import EmptyList from "../components/UI/EmptyList";
 import PlaylistOverlay from "../components/UI/PlaylistOverlay";

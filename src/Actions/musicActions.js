@@ -1,4 +1,4 @@
-import { songsActions } from "../songsList-slice";
+import { songsActions } from "../redux/songsList-slice";
 
 export const fetchMusicData = (currentUser, songsList) => {
   return async (dispatch) => {

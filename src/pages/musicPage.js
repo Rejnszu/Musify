@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
 import { authActions } from "../redux/auth-slice";
-
 import CardListOverlay from "../components/UI/CardListOverlay";
 import MusicCard from "../components/MusicCard/MusicCard";
 import Hello from "../components/UI/Hello";
@@ -12,8 +10,8 @@ import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
-import { fetchMusicData } from "../redux/Actions/musicActions";
-import { fetchPlaylists } from "../redux/Actions/playlistActions";
+import { fetchMusicData } from "../Actions/musicActions";
+import { fetchPlaylists } from "../Actions/playlistActions";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 

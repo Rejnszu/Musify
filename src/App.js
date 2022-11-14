@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Route,
   Switch,
@@ -8,14 +8,14 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { updateAllData } from "./redux/Actions/updateActions";
+import { updateAllData } from "./Actions/updateActions";
 import { authActions } from "./redux/auth-slice";
-import { getUsersFromDatabase } from "./redux/Actions/authActions";
+import { getUsersFromDatabase } from "./Actions/authActions";
 import {
   deleteCurrentUser,
   sendCurrentUser,
   getCurrentUser,
-} from "./redux/Actions/loginActions";
+} from "./Actions/loginActions";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -31,9 +31,10 @@ import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
 import PlayerConsole from "./components/Player/PlayerConsole";
-import { resetPlayer } from "./redux/Actions/playerActions";
+import { resetPlayer } from "./Actions/playerActions";
 
 let firstPageLoad = true;
+let firstUserLogin = true;
 
 function App() {
   const history = useHistory();
@@ -45,10 +46,11 @@ function App() {
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
   const audio = useSelector((state) => state.player.audio);
-  const reduxCurrentUser = useSelector(
-    (state) => state.authentication.currentUser
+  const currentUserReference = sessionStorage.getItem("currentUser");
+  const currentUser = useMemo(
+    () => users.find((user) => user.userName === currentUserReference),
+    [currentUserReference, users]
   );
-  const currentUser = sessionStorage.getItem("currentUser");
   const [isLoggedLocal, setIsLoggedLocal] = useState("false");
 
   function logIn() {
@@ -61,14 +63,15 @@ function App() {
     dispatch(songsActions.resetSongList());
     dispatch(playlistActions.resetPlaylists());
     history.push("/Musify");
+    deleteCurrentUser(currentUser);
     sessionStorage.removeItem("currentUser");
-    deleteCurrentUser(reduxCurrentUser);
     dispatch(authActions.handleInitialFetchMusicList(true));
     dispatch(authActions.handleInitialFetchPlaylists(true));
     dispatch(authActions.handlerInitialUpdate(true));
     dispatch(resetPlayer(audio));
     firstPageLoad = true;
   }
+
   useEffect(() => {
     if (firstPageLoad) {
       getUsersFromDatabase().then((data) => {
@@ -83,17 +86,17 @@ function App() {
   }, [isLoggedLocal, dispatch]);
 
   useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === "true") {
-      const user = users.find((user) => user.userName === currentUser);
-      if (user !== undefined) {
-        sendCurrentUser(user).then(() => {
-          getCurrentUser(user).then((data) => {
+    if (sessionStorage.getItem("isLogged") === "true" && firstUserLogin) {
+      if (currentUser !== undefined) {
+        sendCurrentUser(currentUser).then(() => {
+          getCurrentUser(currentUser).then((data) => {
             dispatch(authActions.setCurrentUser(data));
           });
         });
       }
+      firstUserLogin = false;
     }
-  }, [users, currentUser, dispatch]);
+  }, [users, currentUserReference, dispatch, currentUser]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "false") {
