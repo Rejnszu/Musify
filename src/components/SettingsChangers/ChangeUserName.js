@@ -8,13 +8,15 @@ import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
 import Warning from "../UI/Warning";
 export default function ChangeUserName(props) {
-
   const [warning, setWarning] = useState(null);
   const users = useSelector((state) => state.authentication.users);
-  const currentUserReference = sessionStorage.getItem("currentUser");
+
   const currentUser = useMemo(
-    () => users.find((user) => user.userName === currentUserReference),
-    [currentUserReference, users]
+    () =>
+      users.find(
+        (user) => user.userName === sessionStorage.getItem("currentUser")
+      ),
+    [users]
   );
   const newUserNameRef = useRef(null);
   const confirmPasswordRef = useRef(null);

@@ -42,10 +42,12 @@ function App() {
   const users = useSelector((state) => state.authentication.users);
   const openModal = useSelector((state) => state.playlist.openModal);
   const audio = useSelector((state) => state.player.audio);
-  const currentUserReference = sessionStorage.getItem("currentUser");
   const currentUser = useMemo(
-    () => users.find((user) => user.userName === currentUserReference),
-    [currentUserReference, users]
+    () =>
+      users.find(
+        (user) => user.userName === sessionStorage.getItem("currentUser")
+      ),
+    [users]
   );
   const [isLoggedLocal, setIsLoggedLocal] = useState("false");
 
@@ -87,7 +89,7 @@ function App() {
         sendCurrentUser(currentUser);
       }
     }
-  }, [users, currentUserReference, dispatch, currentUser]);
+  }, [users, dispatch, currentUser]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "false") {

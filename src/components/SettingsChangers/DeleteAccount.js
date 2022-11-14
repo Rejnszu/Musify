@@ -21,10 +21,13 @@ export default function DeleteAccount(props) {
   const audio = useSelector((state) => state.player.audio);
   const [showModal, setShowModal] = useState(false);
   const users = useSelector((state) => state.authentication.users);
-  const currentUserReference = sessionStorage.getItem("currentUser");
+
   const currentUser = useMemo(
-    () => users.find((user) => user.userName === currentUserReference),
-    [currentUserReference, users]
+    () =>
+      users.find(
+        (user) => user.userName === sessionStorage.getItem("currentUser")
+      ),
+    [users]
   );
   const [warning, setWarning] = useState(false);
   function toggleModalHandler() {
