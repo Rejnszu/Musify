@@ -49,11 +49,10 @@ function App() {
       ),
     [users]
   );
-  const [isLoggedLocal, setIsLoggedLocal] = useState("false");
+  const isLogged = sessionStorage.getItem("isLogged");
 
   function logIn() {
     sessionStorage.setItem("isLogged", "true");
-    setIsLoggedLocal("true");
     history.push("/songs");
   }
   function logOut() {
@@ -81,7 +80,7 @@ function App() {
         firstPageLoad = false;
       });
     }
-  }, [isLoggedLocal, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "true" && firstUserLogin) {
@@ -90,13 +89,7 @@ function App() {
         firstUserLogin = false;
       }
     }
-  }, [users, dispatch, currentUser]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === "false") {
-      setIsLoggedLocal("false");
-    }
-  });
+  }, [dispatch, currentUser]);
 
   useEffect(() => {
     if (
@@ -120,7 +113,6 @@ function App() {
     if (sessionStorage.getItem("isLogged") === null) {
       sessionStorage.setItem("isLogged", "false");
     }
-    setIsLoggedLocal(sessionStorage.getItem("isLogged"));
   }, []);
 
   useEffect(() => {
@@ -146,12 +138,12 @@ function App() {
     <AnimatePresence exitBeforeEnter>
       <React.Fragment>
         <Switch location={location} key={location.pathname}>
-          {isLoggedLocal === "false" && (
+          {isLogged === "false" && (
             <Route path="/Musify">
               <WelcomePage logIn={logIn} />
             </Route>
           )}
-          {isLoggedLocal === "true" && (
+          {isLogged === "true" && (
             <React.Fragment>
               {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
               <AnimatedPages>

@@ -13,6 +13,7 @@ const PlaylistPage = () => {
   const dispatch = useDispatch();
   const isEmpty =
     useSelector((state) => state.playlist?.playlists).length === 0;
+
   const initialFetchPlaylists = useSelector(
     (state) => state.authentication.initials.initialFetchPlaylists
   );
