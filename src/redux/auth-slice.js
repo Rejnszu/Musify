@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialAuthState = {
   isLogged: false,
   users: [],
-  currentUser: undefined,
+  // Not used now, however if some bugs will appear I will know where to look
+  // currentUser: undefined,
   initials: {
     initialFetchMusicList: true,
     initialFetchPlaylists: true,
@@ -50,9 +51,10 @@ const authSlice = createSlice({
 
       state.users = [...otherUsers, currentUser];
     },
-    setCurrentUser(state, action) {
-      state.currentUser = action.payload;
-    },
+    // Now it doesn't have much purpose but maybe it will be usefull again
+    // setCurrentUser(state, action) {
+    //   state.currentUser = action.payload;
+    // },
     changeUserName(state, action) {
       let currentUser = state.users.find(
         (user) => user.userName === action.payload.currentUserName

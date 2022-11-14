@@ -11,11 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateAllData } from "./Actions/updateActions";
 import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./Actions/authActions";
-import {
-  deleteCurrentUser,
-  sendCurrentUser,
-  getCurrentUser,
-} from "./Actions/loginActions";
+import { deleteCurrentUser, sendCurrentUser } from "./Actions/loginActions";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -88,13 +84,8 @@ function App() {
   useEffect(() => {
     if (sessionStorage.getItem("isLogged") === "true" && firstUserLogin) {
       if (currentUser !== undefined) {
-        sendCurrentUser(currentUser).then(() => {
-          getCurrentUser(currentUser).then((data) => {
-            dispatch(authActions.setCurrentUser(data));
-          });
-        });
+        sendCurrentUser(currentUser);
       }
-      firstUserLogin = false;
     }
   }, [users, currentUserReference, dispatch, currentUser]);
 

@@ -28,18 +28,6 @@ const MusicPage = () => {
   const [openAddSong, setOpenAddSong] = useState(false);
   const [display, setDisplay] = useState("cards");
 
-  const setDisplayToList = () => {
-    setDisplay("list");
-  };
-  const setDisplayToCards = () => {
-    setDisplay("cards");
-  };
-  function openNewSongCreator() {
-    setOpenAddSong(true);
-  }
-  function closeNewSongCreator() {
-    setOpenAddSong(false);
-  }
   const isEmpty = filteredSongs.length === 0;
 
   function resetFilters() {
@@ -106,8 +94,8 @@ const MusicPage = () => {
   return (
     <AnimatedPages>
       <ChangeSongsDisplay
-        setCards={setDisplayToCards}
-        setList={setDisplayToList}
+        setCards={() => setDisplay("cards")}
+        setList={() => setDisplay("list")}
       />
       <Hello>{currentUser}</Hello>
       <ChooseFilters
@@ -156,10 +144,13 @@ const MusicPage = () => {
       {isEmpty && (
         <EmptyList> Couldn't find any song matching your filters!</EmptyList>
       )}
-      <Button styles="button--black-box-shadow" onClick={openNewSongCreator}>
+      <Button
+        styles="button--black-box-shadow"
+        onClick={() => setOpenAddSong(true)}
+      >
         Add your own song to playlist
       </Button>
-      {openAddSong && <AddSong closeAddSong={closeNewSongCreator} />}
+      {openAddSong && <AddSong closeAddSong={() => setOpenAddSong(false)} />}
     </AnimatedPages>
   );
 };

@@ -2,17 +2,15 @@ import React, { useRef, useState } from "react";
 import AnimatedItems from "../UI/AnimatedItems";
 import Button from "../UI/Button";
 import styles from "./LoginForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Warning from "../UI/Warning";
-import { getCurrentUser, sendCurrentUser } from "../../Actions/loginActions";
-import { authActions } from "../../redux/auth-slice";
+import { sendCurrentUser } from "../../Actions/loginActions";
 
 export default function LoginForm(props) {
   const users = useSelector((state) => state.authentication.users);
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const dispatch = useDispatch();
   const [warning, setWarning] = useState(null);
   function validateUser(name, password) {
     const currentUser = users.find((user) => user.userName === name);
@@ -30,11 +28,7 @@ export default function LoginForm(props) {
         (user) => user.userName === userNameRef.current.value
       );
 
-      sendCurrentUser(currentUser).then(() => {
-        getCurrentUser(currentUser).then((data) =>
-          dispatch(authActions.setCurrentUser(data))
-        );
-      });
+      sendCurrentUser(currentUser);
 
       sessionStorage.setItem("currentUser", userNameRef.current.value);
       props.logIn();

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeUserName.module.css";
 import Button from "../UI/Button";
@@ -8,9 +8,14 @@ import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
 import Warning from "../UI/Warning";
 export default function ChangeUserName(props) {
-  const currentUser = useSelector((state) => state.authentication.currentUser);
+
   const [warning, setWarning] = useState(null);
   const users = useSelector((state) => state.authentication.users);
+  const currentUserReference = sessionStorage.getItem("currentUser");
+  const currentUser = useMemo(
+    () => users.find((user) => user.userName === currentUserReference),
+    [currentUserReference, users]
+  );
   const newUserNameRef = useRef(null);
   const confirmPasswordRef = useRef(null);
   const dispatch = useDispatch();
