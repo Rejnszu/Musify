@@ -173,7 +173,7 @@ export default function Player(props) {
       <img
         className={styles["player__album-cover"]}
         src={currentSong?.img}
-        alt="album-cover"
+        alt={currentSong?.title}
       ></img>
       <p className={styles["player__song-title"]}>{currentSong?.title}</p>
       <p className={styles["player__song-artist"]}>{currentSong?.author}</p>

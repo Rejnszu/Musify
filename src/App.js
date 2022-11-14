@@ -87,6 +87,7 @@ function App() {
     if (sessionStorage.getItem("isLogged") === "true" && firstUserLogin) {
       if (currentUser !== undefined) {
         sendCurrentUser(currentUser);
+        firstUserLogin = false;
       }
     }
   }, [users, dispatch, currentUser]);
