@@ -7,7 +7,7 @@ export const fetchPlaylists = (currentUser) => {
         `https://musify-98a44-default-rtdb.firebaseio.com/users.json`
       );
       if (!response.ok) {
-        throw new Error("Something went wrong");
+        throw new Error("Something went wrong while fetching playlists");
       }
 
       const data = await response.json();
@@ -36,7 +36,7 @@ export const fetchPlaylists = (currentUser) => {
       })
 
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   };
 };

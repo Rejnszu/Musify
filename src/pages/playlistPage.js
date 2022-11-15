@@ -38,24 +38,26 @@ const PlaylistPage = () => {
 
   return (
     <AnimatedPages>
-      <CreatePlaylist />
-      {!isEmpty && (
-        <PlaylistOverlay>
-          <AnimatePresence>
-            {playlists.map((playlist, i) => {
-              return (
-                <Playlist
-                  items={playlist.items}
-                  id={playlist.id}
-                  key={playlist.id}
-                  name={playlist.name}
-                />
-              );
-            })}
-          </AnimatePresence>
-        </PlaylistOverlay>
-      )}
-      {isEmpty && <EmptyList>Couldn't find any playlists.</EmptyList>}
+      <main>
+        <CreatePlaylist />
+        {!isEmpty && (
+          <PlaylistOverlay>
+            <AnimatePresence>
+              {playlists.map((playlist, i) => {
+                return (
+                  <Playlist
+                    items={playlist.items}
+                    id={playlist.id}
+                    key={playlist.id}
+                    name={playlist.name}
+                  />
+                );
+              })}
+            </AnimatePresence>
+          </PlaylistOverlay>
+        )}
+        {isEmpty && <EmptyList>Couldn't find any playlists.</EmptyList>}
+      </main>
     </AnimatedPages>
   );
 };

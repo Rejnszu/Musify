@@ -51,10 +51,6 @@ function App() {
   );
   const isLogged = sessionStorage.getItem("isLogged");
 
-  function logIn() {
-    sessionStorage.setItem("isLogged", "true");
-    history.push("/songs");
-  }
   function logOut() {
     sessionStorage.setItem("isLogged", "false");
     dispatch(songsActions.resetSongList());
@@ -71,14 +67,18 @@ function App() {
 
   useEffect(() => {
     if (firstPageLoad) {
-      getUsersFromDatabase().then((data) => {
-        if (data === null) {
-          return;
-        }
-        dispatch(authActions.setUserListOnStart(data));
+      getUsersFromDatabase()
+        .then((data) => {
+          if (data === null) {
+            return;
+          }
+          dispatch(authActions.setUserListOnStart(data));
 
-        firstPageLoad = false;
-      });
+          firstPageLoad = false;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   }, [dispatch]);
 
@@ -140,7 +140,7 @@ function App() {
         <Switch location={location} key={location.pathname}>
           {isLogged === "false" && (
             <Route path="/Musify">
-              <WelcomePage logIn={logIn} />
+              <WelcomePage />
             </Route>
           )}
           {isLogged === "true" && (

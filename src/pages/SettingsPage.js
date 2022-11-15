@@ -23,7 +23,7 @@ const SettingsPage = () => {
 
   return (
     <AnimatedPages>
-      <div className={styles.settings}>
+      <main className={styles.settings}>
         <h2 className={styles["settings__title"]}>Your account Informations</h2>
 
         <ul className={styles["settings__list"]}>
@@ -79,7 +79,7 @@ const SettingsPage = () => {
             </div>
           </li>
         </ul>
-      </div>
+      </main>
     </AnimatedPages>
   );
 };

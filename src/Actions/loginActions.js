@@ -9,6 +9,9 @@ export const sendCurrentUser = async (currentUser) => {
       },
     }
   );
+  if (!response.ok) {
+    throw new Error("Couldn't send currentuser to database");
+  }
 };
 // Not used now, but better if it's stays here
 // export const getCurrentUser = async (currentUser) => {
@@ -20,7 +23,7 @@ export const sendCurrentUser = async (currentUser) => {
 // };
 
 export const deleteCurrentUser = async (currentUser) => {
-  await fetch(
+  const response = await fetch(
     `https://musify-98a44-default-rtdb.firebaseio.com/activeUser${currentUser.userName}.json`,
     {
       method: "DELETE",
@@ -30,4 +33,7 @@ export const deleteCurrentUser = async (currentUser) => {
       },
     }
   );
+  if (!response.ok) {
+    throw new Error("Couldn't delete currentuser from database");
+  }
 };

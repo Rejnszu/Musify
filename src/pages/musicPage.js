@@ -93,64 +93,66 @@ const MusicPage = () => {
 
   return (
     <AnimatedPages>
-      <ChangeSongsDisplay
-        setCards={() => setDisplay("cards")}
-        setList={() => setDisplay("list")}
-      />
-      <Hello>{currentUser}</Hello>
-      <ChooseFilters
-        filterSongsByName={filterSongsByName}
-        filterSongsByGenre={filterSongsByGenre}
-        reset={resetFilters}
-      ></ChooseFilters>
-      {loadingStatus === "loading" && <EmptyList>Loading songs...</EmptyList>}
-      {loadingStatus === "error" && (
-        <EmptyList>Couldn't fetch songs list!</EmptyList>
-      )}
-      {!isEmpty && display === "cards" && loadingStatus === "loaded" && (
-        <CardListOverlay>
-          {filteredSongs?.map((song, i) => {
-            return (
-              <MusicCard
-                key={i}
-                id={song.id}
-                img={song.img}
-                title={song.title}
-                author={song.author}
-                album={song.album}
-                genre={song.genre}
-              />
-            );
-          })}
-        </CardListOverlay>
-      )}
-      {!isEmpty && display === "list" && loadingStatus === "loaded" && (
-        <ItemsListOverlay>
-          {filteredSongs?.map((song, i) => {
-            return (
-              <MusicListItem
-                key={i}
-                id={song.id}
-                img={song.img}
-                title={song.title}
-                author={song.author}
-                album={song.album}
-                genre={song.genre}
-              />
-            );
-          })}
-        </ItemsListOverlay>
-      )}
-      {isEmpty && (
-        <EmptyList> Couldn't find any song matching your filters!</EmptyList>
-      )}
-      <Button
-        styles="button--black-box-shadow"
-        onClick={() => setOpenAddSong(true)}
-      >
-        Add your own song to playlist
-      </Button>
-      {openAddSong && <AddSong closeAddSong={() => setOpenAddSong(false)} />}
+      <main>
+        <ChangeSongsDisplay
+          setCards={() => setDisplay("cards")}
+          setList={() => setDisplay("list")}
+        />
+        <Hello>{currentUser}</Hello>
+        <ChooseFilters
+          filterSongsByName={filterSongsByName}
+          filterSongsByGenre={filterSongsByGenre}
+          reset={resetFilters}
+        ></ChooseFilters>
+        {loadingStatus === "loading" && <EmptyList>Loading songs...</EmptyList>}
+        {loadingStatus === "error" && (
+          <EmptyList>Couldn't fetch songs list!</EmptyList>
+        )}
+        {!isEmpty && display === "cards" && loadingStatus === "loaded" && (
+          <CardListOverlay>
+            {filteredSongs?.map((song, i) => {
+              return (
+                <MusicCard
+                  key={i}
+                  id={song.id}
+                  img={song.img}
+                  title={song.title}
+                  author={song.author}
+                  album={song.album}
+                  genre={song.genre}
+                />
+              );
+            })}
+          </CardListOverlay>
+        )}
+        {!isEmpty && display === "list" && loadingStatus === "loaded" && (
+          <ItemsListOverlay>
+            {filteredSongs?.map((song, i) => {
+              return (
+                <MusicListItem
+                  key={i}
+                  id={song.id}
+                  img={song.img}
+                  title={song.title}
+                  author={song.author}
+                  album={song.album}
+                  genre={song.genre}
+                />
+              );
+            })}
+          </ItemsListOverlay>
+        )}
+        {isEmpty && (
+          <EmptyList> Couldn't find any song matching your filters!</EmptyList>
+        )}
+        <Button
+          styles="button--black-box-shadow"
+          onClick={() => setOpenAddSong(true)}
+        >
+          Add your own song to playlist
+        </Button>
+        {openAddSong && <AddSong closeAddSong={() => setOpenAddSong(false)} />}
+      </main>
     </AnimatedPages>
   );
 };

@@ -12,11 +12,11 @@ export const updateAllData = (users) => {
         }
       );
       if (!response.ok) {
-        throw new Error("Something went wrong");
+        throw new Error("Something went wrong while upadating data");
       }
     };
     updateData().catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
   };
 };

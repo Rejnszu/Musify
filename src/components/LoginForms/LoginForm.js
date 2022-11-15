@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import AnimatedItems from "../UI/AnimatedItems";
 import Button from "../UI/Button";
 import styles from "./LoginForm.module.css";
@@ -7,11 +8,20 @@ import Warning from "../UI/Warning";
 import { sendCurrentUser } from "../../Actions/loginActions";
 
 export default function LoginForm(props) {
+  const history = useHistory();
   const users = useSelector((state) => state.authentication.users);
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
-
   const [warning, setWarning] = useState(null);
+
+  function logIn(currentUser) {
+    sendCurrentUser(currentUser);
+    sessionStorage.setItem("currentUser", userNameRef.current.value);
+    sessionStorage.setItem("isLogged", "true");
+    history.push("/songs");
+    setWarning(null);
+  }
+
   function validateUser(name, password) {
     const currentUser = users.find((user) => user.userName === name);
     return currentUser.userName === name && currentUser.password === password;
@@ -27,12 +37,7 @@ export default function LoginForm(props) {
       const currentUser = users.find(
         (user) => user.userName === userNameRef.current.value
       );
-
-      sendCurrentUser(currentUser);
-
-      sessionStorage.setItem("currentUser", userNameRef.current.value);
-      props.logIn();
-      setWarning(null);
+      logIn(currentUser);
       return;
     }
     setWarning("wrongPassword");

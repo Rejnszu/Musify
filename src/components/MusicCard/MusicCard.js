@@ -22,12 +22,6 @@ export default function MusicCard(props) {
     dispatch(songsActions.removeSongFromList(props.id));
     dispatch(updateActions.shouldUpdate());
   }
-  function openModal() {
-    setIsModalVisible(true);
-  }
-  function closeModal() {
-    setIsModalVisible(false);
-  }
 
   return (
     <div className={styles["music-card"]}>
@@ -45,7 +39,7 @@ export default function MusicCard(props) {
       </Button>
 
       <Button
-        onClick={openModal}
+        onClick={() => setIsModalVisible(true)}
         styles={styles["button--song-card-close"]}
         type={"button"}
       >
@@ -54,7 +48,7 @@ export default function MusicCard(props) {
       {isModalVisible && (
         <AreYouSureModal
           removeItem={removeSong}
-          closeModal={closeModal}
+          closeModal={() => setIsModalVisible(false)}
           text="Are you sure you want delete song?"
         />
       )}

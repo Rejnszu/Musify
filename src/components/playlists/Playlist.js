@@ -13,25 +13,19 @@ export default function Playlist(props) {
   const dispatch = useDispatch();
   const [isShowMoreActive, setIsShowMoreActive] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  function openModal() {
-    setIsModalVisible(true);
-  }
-  function closeModal() {
-    setIsModalVisible(false);
-  }
-  function showMoreHandler() {
-    setIsShowMoreActive((prevState) => !prevState);
-  }
+
   const isEmpty = props.items === undefined || props.items.length === 0;
+
   const removePlaylist = () => {
     dispatch(playlistActions.removePlaylist(props.id));
     dispatch(updateActions.shouldUpdate());
   };
+
   return (
     <AnimatedItems className={`${styles.playlist}`}>
       <p className={styles["playlist__title"]}>{props.name}</p>
       <Button
-        onClick={showMoreHandler}
+        onClick={() => setIsShowMoreActive((prevState) => !prevState)}
         styles={`${styles["button--show-more"]} ${
           isShowMoreActive ? styles.active : ""
         }`}
@@ -79,7 +73,7 @@ export default function Playlist(props) {
         )}
       </AnimatePresence>
       <Button
-        onClick={openModal}
+        onClick={() => setIsModalVisible(true)}
         styles={styles["button--playlist-close"]}
         type={"button"}
       >
@@ -88,7 +82,7 @@ export default function Playlist(props) {
       {isModalVisible && (
         <AreYouSureModal
           removeItem={removePlaylist}
-          closeModal={closeModal}
+          closeModal={() => setIsModalVisible(false)}
           text="Are you sure you want delete playlist?"
         />
       )}

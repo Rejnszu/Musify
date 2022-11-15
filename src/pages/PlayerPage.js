@@ -30,14 +30,16 @@ export default function PlayerPage(props) {
   }, [dispatch, currentUser, initialFetchPlaylists]);
   return (
     <AnimatedPages>
-      <SelectPlaylistToPlay />
-      <div className={styles["player__overlay"]}>
-        {currentSong !== undefined &&
-          selectedPlaylist !== undefined &&
-          selectedPlaylist !== "none" && (
-            <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
-          )}
-      </div>
+      <main>
+        <SelectPlaylistToPlay />
+        <div className={styles["player__overlay"]}>
+          {currentSong !== undefined &&
+            selectedPlaylist !== undefined &&
+            selectedPlaylist !== "none" && (
+              <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
+            )}
+        </div>
+      </main>
     </AnimatedPages>
   );
 }

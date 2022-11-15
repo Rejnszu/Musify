@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+
 import { AnimatePresence } from "framer-motion";
 import styles from "./WelcomePage.module.css";
 import AnimatedPages from "../components/UI/AnimatedPages";
@@ -13,6 +14,7 @@ export default function WelcomePage(props) {
   const displayFormsHandler = (value) => {
     setDisplayForms(value);
   };
+
   useEffect(() => {
     Array.from(welcomeAdvantageListRef.current?.children).forEach((node, i) => {
       setTimeout(() => {
@@ -23,7 +25,7 @@ export default function WelcomePage(props) {
 
   return (
     <AnimatedPages>
-      <div className={styles["welcome__page"]}>
+      <main className={styles["welcome__page"]}>
         <h2 className={styles["welcome__title"]}>Welcome to Musify!</h2>
         <div
           ref={welcomeAdvantageListRef}
@@ -43,7 +45,6 @@ export default function WelcomePage(props) {
             <LoginForm
               displayFormsHandler={displayFormsHandler}
               key={"login"}
-              logIn={props.logIn}
             />
           )}
           {displayForms === "register" && (
@@ -59,7 +60,7 @@ export default function WelcomePage(props) {
             />
           )}
         </AnimatePresence>
-      </div>
+      </main>
     </AnimatedPages>
   );
 }
