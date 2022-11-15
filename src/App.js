@@ -21,7 +21,7 @@ import PlayerPage from "./pages/PlayerPage";
 import NavigationMobile from "./components/Navigation/NavigationMobile";
 import NavigationDesktop from "./components/Navigation/NavigationDesktop";
 import Button from "./components/UI/Button";
-import AddToPlaylistModal from "./components/playlists/addToPlaylistModal/AddToPlaylistModal";
+
 import AnimatedPages from "./components/UI/AnimatedPages";
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
@@ -40,7 +40,7 @@ function App() {
   const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
-  const openModal = useSelector((state) => state.playlist.openModal);
+
   const audio = useSelector((state) => state.player.audio);
   const currentUser = useMemo(
     () =>
@@ -138,7 +138,7 @@ function App() {
     <AnimatePresence exitBeforeEnter>
       <React.Fragment>
         <Switch location={location} key={location.pathname}>
-          {isLogged === "false" && (
+          {(isLogged === "false" || isLogged === null) && (
             <Route path="/Musify">
               <WelcomePage />
             </Route>
@@ -168,7 +168,6 @@ function App() {
               <Route path="/player">
                 <PlayerPage isMobile={isMobile} />
               </Route>
-              {openModal && <AddToPlaylistModal />}
             </React.Fragment>
           )}
         </Switch>

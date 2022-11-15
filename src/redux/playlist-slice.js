@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialPlaylistState = {
   playlists: [],
-  openModal: false,
 };
 const playlistSlice = createSlice({
   name: "playlists",
@@ -72,12 +71,6 @@ const playlistSlice = createSlice({
       );
     },
 
-    openModal(state) {
-      state.openModal = true;
-    },
-    closeModal(state) {
-      state.openModal = false;
-    },
     setPlayListsOnStart(state, action) {
       state.playlists = [...action.payload];
     },

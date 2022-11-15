@@ -7,18 +7,15 @@ import Button from "../../UI/Button";
 import { playlistActions } from "../../../redux/playlist-slice";
 import AddToPlaylistItem from "./AddToPlaylistItem";
 
-export default function AddToPlaylistModal() {
+export default function AddToPlaylistModal(props) {
   const dispatch = useDispatch();
   const [selectedPlaylists, setSelectedPlaylists] = useState([]);
-  function closeModal() {
-    dispatch(playlistActions.closeModal());
-  }
 
   const playlists = useSelector((state) => state.playlist.playlists);
 
   const selectedSong = useSelector((state) => state.songsList.selectedSong);
 
-  const songExistInList = useMemo(
+  const playlistsWithoutSelectedSong = useMemo(
     () =>
       playlists.filter((playlist) => {
         if (playlist.items) {
@@ -42,7 +39,7 @@ export default function AddToPlaylistModal() {
       })
     );
 
-    closeModal();
+    props.closeModal();
   }
   function selectedPlaylistsAddHandler(playlist) {
     setSelectedPlaylists((previousSelectedPlaylists) => {
@@ -57,10 +54,10 @@ export default function AddToPlaylistModal() {
     });
   }
 
-  const isEmpty = songExistInList.length === 0;
+  const isEmpty = playlistsWithoutSelectedSong.length === 0;
 
   const Backdrop = () => {
-    return <div onClick={closeModal} className={styles.backdrop}></div>;
+    return <div onClick={props.closeModal} className={styles.backdrop}></div>;
   };
   return (
     <React.Fragment>
@@ -75,7 +72,7 @@ export default function AddToPlaylistModal() {
         {isEmpty && <EmptyList>No playlists found.</EmptyList>}
         <form className={styles["modal__playlist__list"]}>
           {!isEmpty &&
-            songExistInList.map((playlist, i) => {
+            playlistsWithoutSelectedSong.map((playlist, i) => {
               return (
                 <AddToPlaylistItem
                   playlist={playlist}
@@ -91,7 +88,7 @@ export default function AddToPlaylistModal() {
             <Button onClick={addSongToPlaylists}>Add To Playlist</Button>
           )}
         </form>
-        <Button onClick={closeModal}>Close</Button>
+        <Button onClick={props.closeModal}>Close</Button>
       </div>
     </React.Fragment>
   );

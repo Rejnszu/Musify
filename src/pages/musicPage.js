@@ -14,12 +14,13 @@ import { fetchMusicData } from "../Actions/musicActions";
 import { fetchPlaylists } from "../Actions/playlistActions";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
-
+import AddToPlaylistModal from "../components/playlists/addToPlaylistModal/AddToPlaylistModal";
 const MusicPage = () => {
   const dispatch = useDispatch();
   const { initialFetchMusicList, initialFetchPlaylists } = useSelector(
     (state) => state.authentication.initials
   );
+  const [openModal, setOpenModal] = useState(false);
   const songsList = useSelector((state) => state.songsList.songsList);
   const playlists = useSelector((state) => state.playlist.playlists);
   const currentUser = sessionStorage.getItem("currentUser");
@@ -120,6 +121,7 @@ const MusicPage = () => {
                   author={song.author}
                   album={song.album}
                   genre={song.genre}
+                  openModal={setOpenModal.bind(null, true)}
                 />
               );
             })}
@@ -137,6 +139,7 @@ const MusicPage = () => {
                   author={song.author}
                   album={song.album}
                   genre={song.genre}
+                  openModal={setOpenModal.bind(null, true)}
                 />
               );
             })}
@@ -152,6 +155,9 @@ const MusicPage = () => {
           Add your own song to playlist
         </Button>
         {openAddSong && <AddSong closeAddSong={() => setOpenAddSong(false)} />}
+        {openModal && (
+          <AddToPlaylistModal closeModal={setOpenModal.bind(null, false)} />
+        )}
       </main>
     </AnimatedPages>
   );
