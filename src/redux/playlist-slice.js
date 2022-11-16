@@ -26,18 +26,10 @@ const playlistSlice = createSlice({
       let selectedSong = action.payload.song;
       const newList = selectedPlaylists.map((obj) => {
         if (obj.items) {
-          if (obj.items.includes(selectedSong)) {
-            return { ...obj };
-          } else {
-            return { ...obj, items: [...obj.items, selectedSong] };
-          }
+          return { ...obj, items: [...obj.items, selectedSong] };
         } else {
           obj = { ...obj, items: [] };
-          if (obj.items.includes(selectedSong)) {
-            return { ...obj };
-          } else {
-            return { ...obj, items: [...obj.items, selectedSong] };
-          }
+          return { ...obj, items: [...obj.items, selectedSong] };
         }
       });
       const newListIds = newList.map((item) => item.id);

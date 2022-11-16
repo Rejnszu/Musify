@@ -30,7 +30,6 @@ import PlayerConsole from "./components/Player/PlayerConsole";
 import { resetPlayer } from "./Actions/playerActions";
 
 let firstPageLoad = true;
-let firstUserLogin = true;
 
 function App() {
   const history = useHistory();
@@ -83,13 +82,25 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === "true" && firstUserLogin) {
-      if (currentUser !== undefined) {
-        sendCurrentUser(currentUser);
-        firstUserLogin = false;
+    if (shouldUpdate) {
+      dispatch(updateAllData(users));
+
+      if (sessionStorage.getItem("isLogged") === "true") {
+        if (currentUser !== undefined) {
+          sendCurrentUser(currentUser);
+        }
       }
     }
-  }, [dispatch, currentUser]);
+    return () => {
+      dispatch(updateActions.shouldNotUpdate());
+    };
+  }, [users, dispatch]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("isLogged") === null) {
+      sessionStorage.setItem("isLogged", "false");
+    }
+  }, []);
 
   useEffect(() => {
     if (
@@ -108,21 +119,6 @@ function App() {
       history.push("/Musify");
     }
   }, [location]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === null) {
-      sessionStorage.setItem("isLogged", "false");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (shouldUpdate) {
-      dispatch(updateAllData(users));
-    }
-    return () => {
-      dispatch(updateActions.shouldNotUpdate());
-    };
-  }, [users, dispatch]);
 
   useEffect(() => {
     function checkIfMobile() {
