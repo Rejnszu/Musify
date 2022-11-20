@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styles from "./Playlist.module.css";
+import { AnimatePresence } from "framer-motion";
 import { useDispatch } from "react-redux";
-import PlaylistItem from "./PlaylistItem";
 import { playlistActions } from "../../redux/playlist-slice";
-import Button from "../UI/Button";
+import { updateActions } from "../../redux/update-slice";
 import { motion } from "framer-motion";
 import AreYouSureModal from "../UI/AreYouSureModal";
-import { AnimatePresence } from "framer-motion";
 import AnimatedItems from "../UI/AnimatedItems";
-import { updateActions } from "../../redux/update-slice";
+import Button from "../UI/Button";
+import PlaylistItem from "./PlaylistItem";
+
 export default function Playlist(props) {
   const dispatch = useDispatch();
   const [isShowMoreActive, setIsShowMoreActive] = useState(false);

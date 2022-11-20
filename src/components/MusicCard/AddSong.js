@@ -8,7 +8,6 @@ import { updateActions } from "../../redux/update-slice";
 
 let image;
 export default function AddSong(props) {
-  const songsList = useSelector((state) => state.songsList.songsList);
   const imageRef = useRef(null);
   const urlRef = useRef(null);
   const titleRef = useRef(null);

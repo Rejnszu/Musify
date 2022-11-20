@@ -10,7 +10,7 @@ const NavigationMobile = () => {
     setShowNavigation((prevState) => !prevState);
   }
 
-  // Styles added inline cause github have problems sometime with finding styles in modules....
+  // Styles added inline cause github have problems sometime with finding styles in modules
   const navigationStyles = {
     position: "absolute",
     top: 0,

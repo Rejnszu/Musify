@@ -23,6 +23,7 @@
   max-width: var(--max-width);
 }
 .settings__list li {
+  overflow: hidden;
 }
 .settings__intro {
   font-weight: 600;

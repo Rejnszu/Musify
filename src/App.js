@@ -9,9 +9,9 @@ import {
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAllData } from "./Actions/updateActions";
-import { authActions } from "./redux/auth-slice";
 import { getUsersFromDatabase } from "./Actions/authActions";
 import { deleteCurrentUser, sendCurrentUser } from "./Actions/loginActions";
+import { resetPlayer } from "./Actions/playerActions";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -21,13 +21,13 @@ import PlayerPage from "./pages/PlayerPage";
 import NavigationMobile from "./components/Navigation/NavigationMobile";
 import NavigationDesktop from "./components/Navigation/NavigationDesktop";
 import Button from "./components/UI/Button";
-
 import AnimatedPages from "./components/UI/AnimatedPages";
+import PlayerConsole from "./components/Player/PlayerConsole";
+
 import { songsActions } from "./redux/songsList-slice";
 import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
-import PlayerConsole from "./components/Player/PlayerConsole";
-import { resetPlayer } from "./Actions/playerActions";
+import { authActions } from "./redux/auth-slice";
 
 let firstPageLoad = true;
 

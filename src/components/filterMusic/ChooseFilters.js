@@ -3,6 +3,7 @@ import styles from "./ChooseFilters.module.css";
 import SongFilter from "./SongFilter";
 import FilterBygenre from "./FilterByGenre";
 import Button from "../UI/Button";
+
 function ChooseFilters(props) {
   const [choosenFilter, setChoosenFilter] = useState("name");
   const chooseFilterHandler = (e) => {

@@ -4,6 +4,7 @@
   font-weight: 700;
   font-size: 1.25rem;
   text-align: center;
+  padding: 0;
 }
 .current__user__name {
   color: var(--main-color);

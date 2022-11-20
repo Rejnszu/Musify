@@ -1,6 +1,5 @@
-import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
-
+import { AnimatePresence } from "framer-motion";
 import ChangeUserName from "../components/SettingsChangers/ChangeUserName";
 import ChangeUserPassword from "../components/SettingsChangers/ChangeUserPassword";
 import DeleteAccount from "../components/SettingsChangers/DeleteAccount";
@@ -28,55 +27,49 @@ const SettingsPage = () => {
 
         <ul className={styles["settings__list"]}>
           <li>
-            <div>
-              <p
-                className={styles["settings__intro"]}
-                onClick={getData}
-                data-change="userName"
-              >
-                Account Name
-                <i className="bi bi-arrow-bar-down" data-change="userName" />
-              </p>
-              <AnimatePresence exitBeforeEnter>
-                {displayChangers === "userName" && (
-                  <ChangeUserName animate="userName" />
-                )}
-              </AnimatePresence>
-            </div>
+            <p
+              className={styles["settings__intro"]}
+              onClick={getData}
+              data-change="userName"
+            >
+              Account Name
+              <i className="bi bi-arrow-bar-down" data-change="userName" />
+            </p>
+            <AnimatePresence exitBeforeEnter>
+              {displayChangers === "userName" && (
+                <ChangeUserName animate="userName" />
+              )}
+            </AnimatePresence>
           </li>
           <li>
-            <div>
-              <p
-                className={styles["settings__intro"]}
-                onClick={getData}
-                data-change="password"
-              >
-                Account Password
-                <i className="bi bi-arrow-bar-down" data-change="password" />
-              </p>
-              <AnimatePresence exitBeforeEnter>
-                {displayChangers === "password" && (
-                  <ChangeUserPassword animate="password" />
-                )}
-              </AnimatePresence>
-            </div>
+            <p
+              className={styles["settings__intro"]}
+              onClick={getData}
+              data-change="password"
+            >
+              Account Password
+              <i className="bi bi-arrow-bar-down" data-change="password" />
+            </p>
+            <AnimatePresence exitBeforeEnter>
+              {displayChangers === "password" && (
+                <ChangeUserPassword animate="password" />
+              )}
+            </AnimatePresence>
           </li>
           <li>
-            <div>
-              <p
-                className={styles["settings__intro"]}
-                onClick={getData}
-                data-change="delete"
-              >
-                Delete Account
-                <i className="bi bi-trash" data-change="delete" />
-              </p>
-              <AnimatePresence exitBeforeEnter>
-                {displayChangers === "delete" && (
-                  <DeleteAccount animate="delete" />
-                )}
-              </AnimatePresence>
-            </div>
+            <p
+              className={styles["settings__intro"]}
+              onClick={getData}
+              data-change="delete"
+            >
+              Delete Account
+              <i className="bi bi-trash" data-change="delete" />
+            </p>
+            <AnimatePresence exitBeforeEnter>
+              {displayChangers === "delete" && (
+                <DeleteAccount animate="delete" />
+              )}
+            </AnimatePresence>
           </li>
         </ul>
       </main>

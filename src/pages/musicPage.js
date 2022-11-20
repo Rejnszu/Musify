@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/auth-slice";
+import { fetchMusicData } from "../Actions/musicActions";
+import { fetchPlaylists } from "../Actions/playlistActions";
+
 import CardListOverlay from "../components/UI/CardListOverlay";
 import MusicCard from "../components/MusicCard/MusicCard";
 import Hello from "../components/UI/Hello";
@@ -10,11 +13,10 @@ import AnimatedPages from "../components/UI/AnimatedPages";
 import Button from "../components/UI/Button";
 import AddSong from "../components/MusicCard/AddSong";
 import ItemsListOverlay from "../components/UI/ItemsListOverlay";
-import { fetchMusicData } from "../Actions/musicActions";
-import { fetchPlaylists } from "../Actions/playlistActions";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 import AddToPlaylistModal from "../components/playlists/addToPlaylistModal/AddToPlaylistModal";
+
 const MusicPage = () => {
   const dispatch = useDispatch();
   const { initialFetchMusicList, initialFetchPlaylists } = useSelector(

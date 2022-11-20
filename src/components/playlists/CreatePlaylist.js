@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./CreatePlaylist.module.css";
-import { playlistActions } from "../../redux/playlist-slice";
 import { useDispatch } from "react-redux/es/exports";
-import { useSelector } from "react-redux/es/exports";
-import { useRef } from "react";
 import { updateActions } from "../../redux/update-slice";
+import { playlistActions } from "../../redux/playlist-slice";
 import Button from "../UI/Button";
+
 export default function CreatePlaylist() {
-  const playLists = useSelector((state) => state.playlist.playlists);
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const addPlaylist = (e) => {

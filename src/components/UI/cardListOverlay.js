@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./CardListOverlay.module.css";
-import { useRef } from "react";
 
 export default function CardListOverlay(props) {
   const overlayRef = useRef(null);

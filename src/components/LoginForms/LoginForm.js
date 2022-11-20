@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
-import AnimatedItems from "../UI/AnimatedItems";
-import Button from "../UI/Button";
 import styles from "./LoginForm.module.css";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Warning from "../UI/Warning";
 import { sendCurrentUser } from "../../Actions/loginActions";
+import Button from "../UI/Button";
+import AnimatedItems from "../UI/AnimatedItems";
+import Warning from "../UI/Warning";
 
 export default function LoginForm(props) {
   const history = useHistory();

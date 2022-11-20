@@ -80,4 +80,7 @@
   :root {
     --card-width: 80%;
   }
+  .music-card img {
+    min-height: 200px;
+  }
 }

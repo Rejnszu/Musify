@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AnimatedPages from "../components/UI/AnimatedPages";
-import { useEffect } from "react";
+import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 import { useDispatch, useSelector } from "react-redux";
-
+import { fetchPlaylists } from "../Actions/playlistActions";
 import { authActions } from "../redux/auth-slice";
 import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
-import { fetchPlaylists } from "../Actions/playlistActions";
-import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 
 export default function PlayerPage(props) {
   const dispatch = useDispatch();

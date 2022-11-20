@@ -1,12 +1,13 @@
 import React, { useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeUserName.module.css";
-import Button from "../UI/Button";
 import { deleteCurrentUser } from "../../Actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
 import Warning from "../UI/Warning";
+import Button from "../UI/Button";
+
 export default function ChangeUserName(props) {
   const [warning, setWarning] = useState(null);
   const users = useSelector((state) => state.authentication.users);

@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 import styles from "./SelectPlaylistToPlay.module.css";
 import defaultMp3 from "../../mp3/coldplay.mp3";
-import Select from "../MyOwnSelect/Select";
+import Select from "../CustomTileSelect/Select";
 
-export default function SelectPlaylistToPlay(props) {
+export default function SelectPlaylistToPlay() {
   const initialPageLoad = useSelector(
     (state) => state.player.initialPlayerSelectLoad
   );

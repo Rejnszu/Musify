@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./Player.module.css";
-import { useState } from "react";
-
-import defaultMp3 from "../../mp3/coldplay.mp3";
 import { playerActions } from "../../redux/player-slice";
+import defaultMp3 from "../../mp3/coldplay.mp3";
 
 export default function Player(props) {
   const initialPageLoad = useSelector(
@@ -36,6 +34,7 @@ export default function Player(props) {
     }
     return `${minutes}:${seconds}`;
   }
+
   function randomSongIndex() {
     let randomNumber;
     do {
@@ -43,6 +42,15 @@ export default function Player(props) {
     } while (randomNumber === songIndex);
     dispatch(playerActions.setSongIndex(randomNumber));
   }
+
+  const slightReset = () => {
+    clearInterval(playInterval);
+    setProgessBarWidth(0);
+    setTimeLeft(Math.floor(audio.duration));
+    setTimePassed(0);
+    setShowTimeLeft(false);
+    audio.currentTime = 0;
+  };
 
   const nextSong = () => {
     slightReset();
@@ -71,15 +79,6 @@ export default function Player(props) {
     }
   };
 
-  const slightReset = () => {
-    clearInterval(playInterval);
-    setProgessBarWidth(0);
-    setTimeLeft(Math.floor(audio.duration));
-    setTimePassed(0);
-    setShowTimeLeft(false);
-    audio.currentTime = 0;
-  };
-
   function playSong() {
     if (audio.duration - audio.currentTime === 0) {
       dispatch(playerActions.playerInitialLoadHandler(true));
@@ -89,9 +88,9 @@ export default function Player(props) {
       setTimeLeft(Math.floor(audio.duration - audio.currentTime));
     }
   }
+
   function changeSong() {
     audio.pause();
-
     dispatch(
       playerActions.setAudio(
         new Audio(
@@ -101,9 +100,9 @@ export default function Player(props) {
         )
       )
     );
-
     audio.load();
   }
+
   const isPlayingHandler = (e) => {
     const currentTarget = e.currentTarget;
     currentTarget.classList.add(`${styles.ripple}`);
@@ -170,11 +169,13 @@ export default function Player(props) {
 
   return (
     <div className={styles.player}>
-      <img
-        className={styles["player__album-cover"]}
-        src={currentSong?.img}
-        alt={currentSong?.title}
-      ></img>
+      <div className={styles["player__album-cover"]}>
+        <img
+          className={styles["album-cover__img"]}
+          src={currentSong?.img}
+          alt={currentSong?.title}
+        />
+      </div>
       <p className={styles["player__song-title"]}>{currentSong?.title}</p>
       <p className={styles["player__song-artist"]}>{currentSong?.author}</p>
       <div onClick={setSongPlayTime} className={styles["player__progress-bar"]}>

@@ -1,8 +1,6 @@
 import React, { useRef, useState, useMemo } from "react";
-import Button from "../UI/Button";
 import styles from "./DeleteAccount.module.css";
 import { motion } from "framer-motion";
-import AreYouSureModal from "../UI/AreYouSureModal";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/auth-slice";
 import { songsActions } from "../../redux/songsList-slice";
@@ -12,6 +10,9 @@ import { updateActions } from "../../redux/update-slice";
 import { useHistory } from "react-router-dom";
 import { resetPlayer } from "../../Actions/playerActions";
 import Warning from "../UI/Warning";
+import AreYouSureModal from "../UI/AreYouSureModal";
+import Button from "../UI/Button";
+
 let modalManageState = false;
 
 export default function DeleteAccount(props) {

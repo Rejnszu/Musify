@@ -14,6 +14,12 @@
 .player__album-cover {
   max-width: var(--max-width);
   max-height: 500px;
+}
+.album-cover__img {
+  max-width: 100%;
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
   border-radius: var(--main-border-radius);
   box-shadow: 0 0 15px 2px black;
 }
@@ -92,11 +98,16 @@
   font-size: clamp(0.8rem, 5vw, 1.3rem);
 }
 .player__buttons--main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: clamp(2rem, 10vw, 4rem);
   border-radius: 50%;
   transition: all 0.1s;
   position: relative;
   isolation: isolate;
+  width: clamp(50px, 5vw, 80px);
+  height: clamp(50px, 5vw, 80px);
 }
 .player__buttons--main::before {
   position: absolute;

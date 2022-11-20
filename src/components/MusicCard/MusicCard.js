@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./MusicCard.module.css";
-import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
-import AreYouSureModal from "../UI/AreYouSureModal";
 import { updateActions } from "../../redux/update-slice";
+import AreYouSureModal from "../UI/AreYouSureModal";
+import Button from "../UI/Button";
 
 export default function MusicCard(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
