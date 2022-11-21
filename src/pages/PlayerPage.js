@@ -4,7 +4,6 @@ import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlaylists } from "../Actions/playlistActions";
 import { authActions } from "../redux/auth-slice";
-import styles from "./PlayerPage.module.css";
 import Player from "../components/Player/Player";
 
 export default function PlayerPage(props) {
@@ -26,11 +25,18 @@ export default function PlayerPage(props) {
       return;
     }
   }, [dispatch, currentUser, initialFetchPlaylists]);
+
+  // Styles had to be applied this specific way, not from modules, not inline, because gh-pages have sometimes issues with styling
+  const styles = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
   return (
     <AnimatedPages>
       <main>
         <SelectPlaylistToPlay />
-        <div className={styles["player__overlay"]}>
+        <div style={styles}>
           {currentSong !== undefined &&
             selectedPlaylist !== undefined &&
             selectedPlaylist !== "none" && (
