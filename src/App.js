@@ -12,6 +12,7 @@ import { updateAllData } from "./Actions/updateActions";
 import { getUsersFromDatabase } from "./Actions/authActions";
 import { deleteCurrentUser, sendCurrentUser } from "./Actions/loginActions";
 import { resetPlayer } from "./Actions/playerActions";
+import { RoutesHandler } from "./Actions/AdditionalFunctions/RoutesHandler";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -103,21 +104,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (
-      sessionStorage.getItem("isLogged") === "true" &&
-      location.pathname !== "/songs" &&
-      location.pathname !== "/playlists" &&
-      location.pathname !== "/settings" &&
-      location.pathname !== "/player"
-    ) {
-      history.push("/songs");
-    }
-    if (
-      sessionStorage.getItem("isLogged") === "false" &&
-      location.pathname !== "/Musify"
-    ) {
-      history.push("/Musify");
-    }
+    RoutesHandler(location, history);
   }, [location]);
 
   useEffect(() => {
