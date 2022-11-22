@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ChooseFilters.module.css";
-import SongFilter from "./SongFilter";
+import FilterByName from "./FilterByName";
 import FilterBygenre from "./FilterByGenre";
 import Button from "../UI/Button";
 
@@ -42,7 +42,7 @@ function ChooseFilters(props) {
       </div>
       <div>
         {choosenFilter === "name" && (
-          <SongFilter filterSongsByName={props.filterSongsByName} />
+          <FilterByName filterSongsByName={props.filterSongsByName} />
         )}
         {choosenFilter === "genre" && (
           <FilterBygenre filterSongsByGenre={props.filterSongsByGenre} />

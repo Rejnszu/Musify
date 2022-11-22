@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./FilterByGenre.module.css";
 
-export default function FilterBy(props) {
+export default function FilterByGenre(props) {
   function filterByGenre(e) {
     props.filterSongsByGenre(e.target.value);
   }

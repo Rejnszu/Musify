@@ -10,8 +10,7 @@ import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAllData } from "./Actions/updateActions";
 import { getUsersFromDatabase } from "./Actions/authActions";
-import { deleteCurrentUser, sendCurrentUser } from "./Actions/loginActions";
-import { resetPlayer } from "./Actions/playerActions";
+import { sendCurrentUser } from "./Actions/loginActions";
 import { RoutesHandler } from "./Actions/AdditionalFunctions/RoutesHandler";
 
 import WelcomePage from "./pages/WelcomePage";
@@ -21,27 +20,24 @@ import SettingsPage from "./pages/SettingsPage";
 import PlayerPage from "./pages/PlayerPage";
 import NavigationMobile from "./components/Navigation/NavigationMobile";
 import NavigationDesktop from "./components/Navigation/NavigationDesktop";
-import Button from "./components/UI/Button";
+
 import AnimatedPages from "./components/UI/AnimatedPages";
 import PlayerConsole from "./components/Player/PlayerConsole";
 
-import { songsActions } from "./redux/songsList-slice";
-import { playlistActions } from "./redux/playlist-slice";
 import { updateActions } from "./redux/update-slice";
 import { authActions } from "./redux/auth-slice";
-
-let firstPageLoad = true;
+import LogOut from "./components/LoginForms/LogOut/LogOut";
 
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1300);
+  const [firstPageLoad, setFirstPageLoad] = useState(true);
   const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
 
-  const audio = useSelector((state) => state.player.audio);
   const currentUser = useMemo(
     () =>
       users.find(
@@ -50,20 +46,6 @@ function App() {
     [users]
   );
   const isLogged = sessionStorage.getItem("isLogged");
-
-  function logOut() {
-    sessionStorage.setItem("isLogged", "false");
-    dispatch(songsActions.resetSongList());
-    dispatch(playlistActions.resetPlaylists());
-    history.push("/Musify");
-    deleteCurrentUser(currentUser);
-    sessionStorage.removeItem("currentUser");
-    dispatch(authActions.handleInitialFetchMusicList(true));
-    dispatch(authActions.handleInitialFetchPlaylists(true));
-    dispatch(authActions.handlerInitialUpdate(true));
-    dispatch(resetPlayer(audio));
-    firstPageLoad = true;
-  }
 
   useEffect(() => {
     if (firstPageLoad) {
@@ -74,7 +56,7 @@ function App() {
           }
           dispatch(authActions.setUserListOnStart(data));
 
-          firstPageLoad = false;
+          setFirstPageLoad(false);
         })
         .catch((error) => {
           console.log(error.message);
@@ -130,9 +112,7 @@ function App() {
             <React.Fragment>
               {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
               <AnimatedPages>
-                <Button styles="button--log-out" onClick={logOut}>
-                  Log Out
-                </Button>
+                <LogOut onLogOut={setFirstPageLoad.bind(null, true)} />
                 {playerCurrentSong !== undefined &&
                   location.pathname !== "/player" && <PlayerConsole />}
               </AnimatedPages>
