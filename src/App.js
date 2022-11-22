@@ -23,10 +23,11 @@ import NavigationDesktop from "./components/Navigation/NavigationDesktop";
 
 import AnimatedPages from "./components/UI/AnimatedPages";
 import PlayerConsole from "./components/Player/PlayerConsole";
+import LogOut from "./components/LoginForms/LogOut/LogOut";
 
 import { updateActions } from "./redux/update-slice";
 import { authActions } from "./redux/auth-slice";
-import LogOut from "./components/LoginForms/LogOut/LogOut";
+
 
 function App() {
   const history = useHistory();

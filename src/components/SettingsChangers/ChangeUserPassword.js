@@ -10,7 +10,7 @@ import Button from "../UI/Button";
 
 export default function ChangeUserPassword(props) {
   const users = useSelector((state) => state.authentication.users);
-
+  const [showPassword, setShowPassword] = useState(false);
   const currentUser = useMemo(
     () =>
       users.find(
@@ -30,8 +30,10 @@ export default function ChangeUserPassword(props) {
   function togglePassword() {
     if (checkBoxRef.current.checked) {
       passwordRef.current.type = "text";
+      setShowPassword(true);
     } else {
       passwordRef.current.type = "password";
+      setShowPassword(false);
     }
   }
 
@@ -90,9 +92,12 @@ export default function ChangeUserPassword(props) {
               disabled
               className={styles["current__user__password"]}
             />
-            <br />
             <label className={styles["checkbox-label"]} htmlFor="checkbox">
-              Show current password
+              {showPassword ? (
+                <i className="bi bi-eye-slash-fill" />
+              ) : (
+                <i className="bi bi-eye-fill" />
+              )}
             </label>
             <input
               onChange={togglePassword}
