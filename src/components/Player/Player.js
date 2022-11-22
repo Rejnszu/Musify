@@ -8,6 +8,7 @@ export default function Player(props) {
   const initialPageLoad = useSelector(
     (state) => state.player.initialPlayerLoad
   );
+
   const dispatch = useDispatch();
   const {
     playInterval,
@@ -167,8 +168,23 @@ export default function Player(props) {
     audio.volume = musicBarWidth / 100;
   }, [audio, isPlaying]);
 
+  // Another place when all of sudden css styles stopped applying on gh-pages so I have to put them with style object, on local server everything works fine
+  const playerStyle = {
+    marginTop: "2rem",
+    display: "flex",
+    padding: "1.5rem 0.5rem",
+    flexDirection: "column",
+    width: "500px",
+    alignItems: "center",
+    maxWidth: "var(--max-width)",
+    borderRadius: "var(--main-border-radius",
+    backgroundColor: "var(--dimmed-background-black)",
+    rowGap: "1rem",
+    boxShadow: "var(--main-box-shadow)",
+  };
+
   return (
-    <div className={styles.player}>
+    <div style={playerStyle}>
       <div className={styles["player__album-cover"]}>
         <img
           className={styles["album-cover__img"]}

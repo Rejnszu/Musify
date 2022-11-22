@@ -1,4 +1,4 @@
-export const RoutesHandler = (location, history) => {
+export const routesHandler = (location, history) => {
   if (
     sessionStorage.getItem("isLogged") === "true" &&
     location.pathname !== "/songs" &&

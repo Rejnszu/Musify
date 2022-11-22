@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/auth-slice";
-import { fetchMusicData } from "../Actions/musicActions";
-import { fetchPlaylists } from "../Actions/playlistActions";
+import { fetchMusicData } from "../actions/musicActions";
+import { fetchPlaylists } from "../actions/playlistActions";
 
 import CardListOverlay from "../components/UI/CardListOverlay";
 import MusicCard from "../components/MusicCard/MusicCard";

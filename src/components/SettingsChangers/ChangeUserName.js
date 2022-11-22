@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeUserName.module.css";
-import { deleteCurrentUser } from "../../Actions/loginActions";
+import { deleteCurrentUser } from "../../actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";

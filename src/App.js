@@ -8,10 +8,10 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { updateAllData } from "./Actions/updateActions";
-import { getUsersFromDatabase } from "./Actions/authActions";
-import { sendCurrentUser } from "./Actions/loginActions";
-import { RoutesHandler } from "./Actions/AdditionalFunctions/RoutesHandler";
+import { updateAllData } from "./actions/updateActions";
+import { getUsersFromDatabase } from "./actions/authActions";
+import { sendCurrentUser } from "./actions/loginActions";
+import { routesHandler } from "./actions/additionalFunctions/routesHandler";
 
 import WelcomePage from "./pages/WelcomePage";
 import MusicPage from "./pages/MusicPage";
@@ -27,7 +27,6 @@ import LogOut from "./components/LoginForms/LogOut/LogOut";
 
 import { updateActions } from "./redux/update-slice";
 import { authActions } from "./redux/auth-slice";
-
 
 function App() {
   const history = useHistory();
@@ -87,7 +86,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    RoutesHandler(location, history);
+    routesHandler(location, history);
   }, [location]);
 
   useEffect(() => {

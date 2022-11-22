@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./RegisterForm.module.css";
-import { sendUserToDatabase } from "../../Actions/authActions";
+import { sendUserToDatabase } from "../../actions/authActions";
 import { authActions } from "../../redux/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import Warning from "../UI/Warning";

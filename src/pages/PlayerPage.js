@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPlaylists } from "../Actions/playlistActions";
+import { fetchPlaylists } from "../actions/playlistActions";
 import { authActions } from "../redux/auth-slice";
 import Player from "../components/Player/Player";
 

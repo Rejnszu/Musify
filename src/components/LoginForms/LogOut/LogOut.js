@@ -6,8 +6,8 @@ import { playlistActions } from "../../../redux/playlist-slice";
 import { authActions } from "../../../redux/auth-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { deleteCurrentUser } from "../../../Actions/loginActions";
-import { resetPlayer } from "../../../Actions/playerActions";
+import { deleteCurrentUser } from "../../../actions/loginActions";
+import { resetPlayer } from "../../../actions/playerActions";
 
 const LogOut = (props) => {
   const dispatch = useDispatch();
