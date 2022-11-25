@@ -1,30 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import AnimatedPages from "../components/UI/AnimatedPages";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPlaylists } from "../actions/playlistActions";
-import { authActions } from "../redux/auth-slice";
 import Player from "../components/Player/Player";
 
+import { useSelector } from "react-redux";
+import useFetchPlaylists from "../hooks/useFetchPlaylists";
+
 export default function PlayerPage(props) {
-  const dispatch = useDispatch();
+  const fetchPlaylists = useFetchPlaylists();
   const selectedPlaylist = useSelector((state) => state.player.songList);
   const currentSong = useSelector((state) => state.player.currentSong);
-
-  const currentUser = sessionStorage.getItem("currentUser");
-  const initialFetchPlaylists = useSelector(
-    (state) => state.authentication.initials.initialFetchPlaylists
-  );
-
-  useEffect(() => {
-    if (initialFetchPlaylists) {
-      dispatch(fetchPlaylists(currentUser));
-
-      dispatch(authActions.handleInitialFetchPlaylists(false));
-
-      return;
-    }
-  }, [dispatch, currentUser, initialFetchPlaylists]);
 
   // Styles had to be applied this specific way, not from modules, not inline, because gh-pages have sometimes issues with styling
   const styles = {

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
-import { authActions } from "../redux/auth-slice";
-import { fetchPlaylists } from "../actions/playlistActions";
+
+import useFetchPlaylists from "../hooks/useFetchPlaylists";
 import Playlist from "../components/playlists/Playlist";
 import EmptyList from "../components/UI/EmptyList";
 import PlaylistOverlay from "../components/UI/PlaylistOverlay";
@@ -10,31 +10,10 @@ import CreatePlaylist from "../components/playlists/CreatePlaylist";
 import AnimatedPages from "../components/UI/AnimatedPages";
 
 const PlaylistPage = () => {
-  const dispatch = useDispatch();
+  const fetchPlaylists = useFetchPlaylists();
   const isEmpty =
     useSelector((state) => state.playlist?.playlists).length === 0;
-
-  const initialFetchPlaylists = useSelector(
-    (state) => state.authentication.initials.initialFetchPlaylists
-  );
-  const currentUser = sessionStorage.getItem("currentUser");
-
   const playlists = useSelector((state) => state.playlist.playlists);
-
-  useEffect(() => {
-    if (initialFetchPlaylists) {
-      dispatch(fetchPlaylists(currentUser));
-
-      dispatch(authActions.handleInitialFetchPlaylists(false));
-      return;
-    }
-    dispatch(
-      authActions.setUsersPlaylists({
-        currentUser,
-        playlists,
-      })
-    );
-  }, [dispatch, currentUser, playlists, initialFetchPlaylists]);
 
   return (
     <AnimatedPages>

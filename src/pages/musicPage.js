@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../redux/auth-slice";
-import { fetchMusicData } from "../actions/musicActions";
-import { fetchPlaylists } from "../actions/playlistActions";
+import { useSelector } from "react-redux";
+
+import useFetchMusic from "../hooks/useFetchMusic";
+import useFetchPlaylists from "../hooks/useFetchPlaylists";
 
 import CardListOverlay from "../components/UI/CardListOverlay";
 import MusicCard from "../components/MusicCard/MusicCard";
@@ -18,13 +18,10 @@ import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 import AddToPlaylistModal from "../components/playlists/addToPlaylistModal/AddToPlaylistModal";
 
 const MusicPage = () => {
-  const dispatch = useDispatch();
-  const { initialFetchMusicList, initialFetchPlaylists } = useSelector(
-    (state) => state.authentication.initials
-  );
+  const fetchMusic = useFetchMusic();
+  const fetchPlaylists = useFetchPlaylists();
   const [openModal, setOpenModal] = useState(false);
   const songsList = useSelector((state) => state.songsList.songsList);
-  const playlists = useSelector((state) => state.playlist.playlists);
   const currentUser = sessionStorage.getItem("currentUser");
   const loadingStatus = useSelector((state) => state.songsList.loadingStatus);
   const [filteredSongs, setFilteredSongs] = useState(songsList);
@@ -59,36 +56,6 @@ const MusicPage = () => {
         songsList.filter((song) => song.genre.toLowerCase() === value)
       );
   }
-
-  useEffect(() => {
-    if (initialFetchMusicList) {
-      dispatch(fetchMusicData(currentUser, songsList));
-      dispatch(authActions.handleInitialFetchMusicList(false));
-
-      return;
-    }
-    dispatch(
-      authActions.setUsersMusicList({
-        currentUser,
-        songsList,
-      })
-    );
-  }, [currentUser, songsList, dispatch, initialFetchMusicList]);
-
-  useEffect(() => {
-    if (initialFetchPlaylists) {
-      dispatch(fetchPlaylists(currentUser));
-      dispatch(authActions.handleInitialFetchPlaylists(false));
-
-      return;
-    }
-    dispatch(
-      authActions.setUsersPlaylists({
-        currentUser,
-        playlists,
-      })
-    );
-  }, [playlists, currentUser, dispatch, initialFetchPlaylists]);
 
   useEffect(() => {
     setFilteredSongs(songsList);
