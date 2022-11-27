@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  Route,
-  Switch,
-  Redirect,
-  useLocation,
-  useHistory,
-} from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { updateAllData } from "./actions/updateActions";
@@ -13,28 +7,18 @@ import { getUsersFromDatabase } from "./actions/authActions";
 import { sendCurrentUser } from "./actions/loginActions";
 import { routesHandler } from "./actions/additionalFunctions/routesHandler";
 
-import WelcomePage from "./pages/WelcomePage";
-import MusicPage from "./pages/MusicPage";
-import PlaylistPage from "./pages/PlaylistPage";
-import SettingsPage from "./pages/SettingsPage";
-import PlayerPage from "./pages/PlayerPage";
-import NavigationMobile from "./components/Navigation/NavigationMobile";
-import NavigationDesktop from "./components/Navigation/NavigationDesktop";
-
-import AnimatedPages from "./components/UI/AnimatedPages";
-import PlayerConsole from "./components/Player/PlayerConsole";
-import LogOut from "./components/LoginForms/LogOut/LogOut";
-
 import { updateActions } from "./redux/update-slice";
 import { authActions } from "./redux/auth-slice";
+
+import LoggedInGroup from "./routeGroups/LoggedInGroup";
+import LoggedOutGroup from "./routeGroups/LoggedOutGroup";
 
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1300);
   const [firstPageLoad, setFirstPageLoad] = useState(true);
-  const playerCurrentSong = useSelector((state) => state.player.currentSong);
+
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
   const users = useSelector((state) => state.authentication.users);
 
@@ -45,7 +29,6 @@ function App() {
       ),
     [users]
   );
-  const isLogged = sessionStorage.getItem("isLogged");
 
   useEffect(() => {
     if (firstPageLoad) {
@@ -89,53 +72,13 @@ function App() {
     routesHandler(location, history);
   }, [location]);
 
-  useEffect(() => {
-    function checkIfMobile() {
-      setIsMobile(window.innerWidth < 1300);
-    }
-    window.addEventListener("resize", checkIfMobile);
-    return () => {
-      window.removeEventListener("resize", checkIfMobile);
-    };
-  });
-
   return (
-    <AnimatePresence exitBeforeEnter>
-      <React.Fragment>
-        <Switch location={location} key={location.pathname}>
-          {(isLogged === "false" || isLogged === null) && (
-            <Route path="/Musify">
-              <WelcomePage />
-            </Route>
-          )}
-          {isLogged === "true" && (
-            <React.Fragment>
-              {isMobile ? <NavigationMobile /> : <NavigationDesktop />}
-              <AnimatedPages>
-                <LogOut onLogOut={setFirstPageLoad.bind(null, true)} />
-                {playerCurrentSong !== undefined &&
-                  location.pathname !== "/player" && <PlayerConsole />}
-              </AnimatedPages>
-              <Route path="/" exact>
-                <Redirect to="/Musify/" />
-              </Route>
-              <Route path="/songs">
-                <MusicPage />
-              </Route>
-              <Route path="/playlists">
-                <PlaylistPage />
-              </Route>
-              <Route path="/settings">
-                <SettingsPage />
-              </Route>
-              <Route path="/player">
-                <PlayerPage isMobile={isMobile} />
-              </Route>
-            </React.Fragment>
-          )}
-        </Switch>
-      </React.Fragment>
-    </AnimatePresence>
+    <Switch location={location} key={location.pathname}>
+      <Route path="/Musify">
+        <LoggedOutGroup />
+      </Route>
+      <LoggedInGroup onLogOut={setFirstPageLoad.bind(null, true)} />
+    </Switch>
   );
 }
 

@@ -14,12 +14,13 @@ const PlaylistPage = () => {
   const isEmpty =
     useSelector((state) => state.playlist?.playlists).length === 0;
   const playlists = useSelector((state) => state.playlist.playlists);
+  const loadingStatus = useSelector((state) => state.playlist.loadingStatus);
 
   return (
     <AnimatedPages>
       <main>
         <CreatePlaylist />
-        {!isEmpty && (
+        {!isEmpty && loadingStatus === "loaded" && (
           <PlaylistOverlay>
             <AnimatePresence>
               {playlists.map((playlist, i) => {
@@ -35,7 +36,15 @@ const PlaylistPage = () => {
             </AnimatePresence>
           </PlaylistOverlay>
         )}
-        {isEmpty && <EmptyList>Couldn't find any playlists.</EmptyList>}
+        {loadingStatus === "loading" && (
+          <EmptyList>Loading playlists...</EmptyList>
+        )}
+        {isEmpty && loadingStatus === "loaded" && (
+          <EmptyList>Couldn't find any playlists.</EmptyList>
+        )}
+        {loadingStatus === "error" && (
+          <EmptyList>Couldn't fetch playlists.</EmptyList>
+        )}
       </main>
     </AnimatedPages>
   );

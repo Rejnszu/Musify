@@ -61,27 +61,28 @@
   z-index: -1;
   opacity: 0;
 }
+/* Styles to button suddenly stopped applying so had to make them important, will investigate in later */
 .button--play-reset {
-  position: absolute;
-  right: 3px;
-  top: -17px;
-  font-size: 1.1rem;
-  pointer-events: none;
-  opacity: 0;
-  padding: 7px;
-  transition: all 0.3s;
-  z-index: 10;
-  box-shadow: none;
-  background-color: transparent;
+  position: absolute !important;
+  right: 3px !important;
+  top: -17px !important;
+  font-size: 1.1rem !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  padding: 7px !important;
+  transition: all 0.3s !important;
+  z-index: 10 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
 }
 .player__console-wrapper:hover .button--play-reset {
-  opacity: 1;
-  pointer-events: all;
+  opacity: 1 !important;
+  pointer-events: all !important;
 }
 @media (max-width: 1300px) {
   .button--play-reset {
-    opacity: 1;
-    pointer-events: all;
+    opacity: 1 !important;
+    pointer-events: all !important;
   }
   .player__console-wrapper {
     margin-top: 3rem;

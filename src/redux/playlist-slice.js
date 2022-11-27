@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialPlaylistState = {
   playlists: [],
+  loadingStatus: null,
 };
 const playlistSlice = createSlice({
   name: "playlists",
@@ -68,6 +69,9 @@ const playlistSlice = createSlice({
     },
     resetPlaylists(state) {
       state.playlists = initialPlaylistState.playlists;
+    },
+    changeLoadingStatus(state, action) {
+      state.loadingStatus = action.payload;
     },
   },
 });

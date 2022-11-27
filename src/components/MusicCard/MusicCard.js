@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./MusicCard.module.css";
+import { Link, useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
 import { updateActions } from "../../redux/update-slice";
@@ -7,6 +8,7 @@ import AreYouSureModal from "../UI/AreYouSureModal";
 import Button from "../UI/Button";
 
 export default function MusicCard(props) {
+  const { url } = useRouteMatch();
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -44,6 +46,8 @@ export default function MusicCard(props) {
       >
         <i className="bi bi-x-lg"></i>
       </Button>
+      {/* More detailed informations for each song coming soon */}
+      {/* <Link to={`${url}/${props.id}`}>Check more</Link> */}
       {isModalVisible && (
         <AreYouSureModal
           removeItem={removeSong}
