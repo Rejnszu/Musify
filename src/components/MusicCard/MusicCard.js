@@ -50,7 +50,7 @@ export default function MusicCard(props) {
       </Button>
       {isMobile ? (
         <Link to={`${url}/${props.id}`} className={styles["more-info__mobile"]}>
-          <i class="bi bi-info-circle"></i>
+          <i className="bi bi-info-circle"></i>
         </Link>
       ) : (
         <Link
