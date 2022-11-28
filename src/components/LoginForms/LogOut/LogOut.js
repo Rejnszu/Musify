@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import styles from "./LogOut.module.css";
-import Button from "../../UI/Button";
+import Button from "../../UI/utils/Button";
 import { songsActions } from "../../../redux/songsList-slice";
 import { playlistActions } from "../../../redux/playlist-slice";
 import { authActions } from "../../../redux/auth-slice";

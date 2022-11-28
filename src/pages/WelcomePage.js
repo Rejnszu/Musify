@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 
 import { AnimatePresence } from "framer-motion";
 import styles from "./WelcomePage.module.css";
-import AnimatedPages from "../components/UI/AnimatedPages";
+import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 import LoginForm from "../components/LoginForms/LoginForm";
 import RegsiterForm from "../components/LoginForms/RegsiterForm";
 import SuccessfulRegister from "../components/LoginForms/SuccessfulRegister";

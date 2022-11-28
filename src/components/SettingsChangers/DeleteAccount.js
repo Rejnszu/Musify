@@ -9,9 +9,9 @@ import { deleteCurrentUser } from "../../actions/loginActions";
 import { updateActions } from "../../redux/update-slice";
 import { useHistory } from "react-router-dom";
 import { resetPlayer } from "../../actions/playerActions";
-import Warning from "../UI/Warning";
-import AreYouSureModal from "../UI/AreYouSureModal";
-import Button from "../UI/Button";
+import Warning from "../UI/utils/Warning";
+import AreYouSureModal from "../UI/utils/AreYouSureModal";
+import Button from "../UI/utils/Button";
 
 let modalManageState = false;
 

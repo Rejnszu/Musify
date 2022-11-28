@@ -1,6 +1,6 @@
 import React from "react";
-import AnimatedPages from "./AnimatedPages";
-import Button from "./Button";
+import AnimatedPages from "./FramerGenerals/AnimatedPages";
+import Button from "./utils/Button";
 import styles from "./ChangeSongDisplay.module.css";
 export default function ChangeSongsDisplay(props) {
   return (

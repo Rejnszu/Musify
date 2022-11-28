@@ -4,8 +4,8 @@ import styles from "./AddToPlaylistModal.module.css";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { playlistActions } from "../../../redux/playlist-slice";
 import AddToPlaylistItem from "./AddToPlaylistItem";
-import EmptyList from "../../UI/EmptyList";
-import Button from "../../UI/Button";
+import EmptyList from "../../UI/utils/EmptyList";
+import Button from "../../UI/utils/Button";
 
 export default function AddToPlaylistModal(props) {
   const dispatch = useDispatch();

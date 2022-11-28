@@ -13,7 +13,7 @@
   width: 100%;
   flex-direction: row;
   justify-content: space-around;
-
+  isolation: isolate;
   transition: all 0.5s;
   flex: 0 0 var(--card-width);
 }
@@ -27,6 +27,8 @@
   font-size: clamp(0.6rem, 5vw, 0.8rem);
   margin: 16px auto;
   overflow-wrap: anywhere;
+  text-decoration: none;
+  color: white;
 }
 .button--music-list-card {
   margin: 0 0 0 0.5rem;

@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./Player.module.css";
 import { playerActions } from "../../redux/player-slice";
 import defaultMp3 from "../../mp3/coldplay.mp3";
+import useMobile from "../../hooks/useMobile";
 
 export default function Player(props) {
+  const isMobile = useMobile(1300);
   const initialPageLoad = useSelector(
     (state) => state.player.initialPlayerLoad
   );
@@ -255,7 +257,7 @@ export default function Player(props) {
           <i className="fa-solid fa-repeat"></i>
         </button>
       </div>
-      {!props.isMobile && (
+      {!isMobile && (
         <div className={styles["player__volume-wrapper"]}>
           <button
             onClick={() => {

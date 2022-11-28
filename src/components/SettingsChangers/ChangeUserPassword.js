@@ -5,8 +5,8 @@ import { deleteCurrentUser } from "../../actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
-import Warning from "../UI/Warning";
-import Button from "../UI/Button";
+import Warning from "../UI/utils/Warning";
+import Button from "../UI/utils/Button";
 
 export default function ChangeUserPassword(props) {
   const users = useSelector((state) => state.authentication.users);

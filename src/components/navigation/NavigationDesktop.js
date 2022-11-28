@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./NavigationDesktop.module.css";
 import { NavLink } from "react-router-dom";
-import AnimatedPages from "../UI/AnimatedPages";
+import AnimatedPages from "../UI/FramerGenerals/AnimatedPages";
 const NavigationDesktop = () => {
   return (
     <AnimatedPages>

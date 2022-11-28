@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import styles from "./Select.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
-import EmptyList from "../UI/EmptyList";
+import EmptyList from "../UI/utils/EmptyList";
 
 export default function Select(props) {
   const dispatch = useDispatch();

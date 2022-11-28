@@ -3,9 +3,9 @@ import styles from "./RegisterForm.module.css";
 import { sendUserToDatabase } from "../../actions/authActions";
 import { authActions } from "../../redux/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
-import Warning from "../UI/Warning";
-import Button from "../UI/Button";
-import AnimatedItems from "../UI/AnimatedItems";
+import Warning from "../UI/utils/Warning";
+import Button from "../UI/utils/Button";
+import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
 
 export default function RegsiterForm(props) {
   const dispatch = useDispatch();

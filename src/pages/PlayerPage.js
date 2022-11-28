@@ -1,5 +1,5 @@
 import React from "react";
-import AnimatedPages from "../components/UI/AnimatedPages";
+import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 import SelectPlaylistToPlay from "../components/Player/SelectPlaylistToPlay";
 import Player from "../components/Player/Player";
 
@@ -25,7 +25,7 @@ export default function PlayerPage(props) {
           {currentSong !== undefined &&
             selectedPlaylist !== undefined &&
             selectedPlaylist !== "none" && (
-              <Player isMobile={props.isMobile} playlist={selectedPlaylist} />
+              <Player playlist={selectedPlaylist} />
             )}
         </div>
       </main>

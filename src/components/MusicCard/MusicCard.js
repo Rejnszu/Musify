@@ -4,11 +4,13 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
 import { updateActions } from "../../redux/update-slice";
-import AreYouSureModal from "../UI/AreYouSureModal";
-import Button from "../UI/Button";
+import AreYouSureModal from "../UI/utils/AreYouSureModal";
+import Button from "../UI/utils/Button";
+import useMobile from "../../hooks/useMobile";
 
 export default function MusicCard(props) {
   const { url } = useRouteMatch();
+  const isMobile = useMobile(800);
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -46,8 +48,18 @@ export default function MusicCard(props) {
       >
         <i className="bi bi-x-lg"></i>
       </Button>
-      {/* More detailed informations for each song coming soon */}
-      {/* <Link to={`${url}/${props.id}`}>Check more</Link> */}
+      {isMobile ? (
+        <Link to={`${url}/${props.id}`} className={styles["more-info__mobile"]}>
+          <i class="bi bi-info-circle"></i>
+        </Link>
+      ) : (
+        <Link
+          className={styles["more-info__desktop"]}
+          to={`${url}/${props.id}`}
+        >
+          More informations
+        </Link>
+      )}
       {isModalVisible && (
         <AreYouSureModal
           removeItem={removeSong}

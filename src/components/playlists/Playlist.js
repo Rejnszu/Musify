@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { playlistActions } from "../../redux/playlist-slice";
 import { updateActions } from "../../redux/update-slice";
 import { motion } from "framer-motion";
-import AreYouSureModal from "../UI/AreYouSureModal";
-import AnimatedItems from "../UI/AnimatedItems";
-import Button from "../UI/Button";
+import AreYouSureModal from "../UI/utils/AreYouSureModal";
+import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
+import Button from "../UI/utils/Button";
 import PlaylistItem from "./PlaylistItem";
 
 export default function Playlist(props) {

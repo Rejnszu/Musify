@@ -4,10 +4,10 @@ import { AnimatePresence } from "framer-motion";
 
 import useFetchPlaylists from "../hooks/useFetchPlaylists";
 import Playlist from "../components/playlists/Playlist";
-import EmptyList from "../components/UI/EmptyList";
-import PlaylistOverlay from "../components/UI/PlaylistOverlay";
+import EmptyList from "../components/UI/utils/EmptyList";
+import PlaylistOverlay from "../components/UI/Layout/PlaylistOverlay";
 import CreatePlaylist from "../components/playlists/CreatePlaylist";
-import AnimatedPages from "../components/UI/AnimatedPages";
+import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 
 const PlaylistPage = () => {
   const fetchPlaylists = useFetchPlaylists();

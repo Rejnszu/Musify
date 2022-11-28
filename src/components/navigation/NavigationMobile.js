@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./NavigationMobile.module.css";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import AnimatedPages from "../UI/AnimatedPages";
+import AnimatedPages from "../UI/FramerGenerals/AnimatedPages";
 const NavigationMobile = () => {
   const [showNavigation, setShowNavigation] = useState(false);
 

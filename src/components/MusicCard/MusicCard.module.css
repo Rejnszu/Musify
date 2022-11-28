@@ -13,13 +13,13 @@
   box-shadow: var(--main-box-shadow);
   display: flex;
   flex-direction: column;
-
+  isolation: isolate;
   flex: 0 0 var(--card-width);
   overflow-wrap: anywhere;
 }
 
 .music-card p {
-  margin-left: 1rem;
+  margin-left: clamp(0.5rem, 2vw, 1rem);
   margin-top: clamp(0.5rem, 2vw, 1rem);
   margin-bottom: clamp(0.5rem, 2vw, 1rem);
 }
@@ -31,40 +31,62 @@
 }
 .music-card__title {
   font-weight: 700;
-  font-size: clamp(0.6rem, 5vw, 1rem);
+  font-size: clamp(0.6rem, 3vw, 1rem);
 }
 .music-card__author {
   font-weight: 600;
-  font-size: clamp(0.5rem, 5vw, 0.9rem);
+  font-size: clamp(0.5rem, 3vw, 0.9rem);
 }
 .music-card__album {
   font-weight: 500;
-  font-size: clamp(0.4rem, 5vw, 0.8rem);
+  font-size: clamp(0.4rem, 3vw, 0.8rem);
 }
-.music-card__badge {
-  font-size: 2rem;
-  color: var(--main-color);
-  background-color: var(--dimmed-background-black);
-  border-radius: 5px;
-  width: 40px;
-  padding: 5px;
-  z-index: 150;
-  box-shadow: var(--main-box-shadow);
-  position: absolute;
-  top: -50px;
-  right: 5px;
-}
+
 .button--music-card {
   margin-top: auto !important;
 }
 
 .button--song-card-close {
   position: absolute;
-  right: 10px;
-  top: -10px;
+  right: 5px;
+  top: -12px;
   font-size: 1rem;
   padding: 0.5rem;
   background-color: var(--dimmed-background-black-1);
+}
+
+.more-info__desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-decoration: none;
+  text-align: center;
+  z-index: -1;
+  transition: transform 0.3s;
+  background-color: var(--dimmed-background-black);
+  border-radius: var(--main-border-radius);
+  color: var(--main-color);
+  padding: 0.5rem 0;
+  height: 60px;
+  font-weight: 700;
+}
+.music-card:hover .more-info__desktop {
+  transform: translateY(-35px);
+}
+.more-info__mobile {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  font-size: 1.5rem;
+  color: var(--main-color);
+  background-color: var(--dimmed-background-black-1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
 }
 @media (max-width: 1300px) {
   :root {

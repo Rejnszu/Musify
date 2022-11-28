@@ -3,7 +3,7 @@ import styles from "./CreatePlaylist.module.css";
 import { useDispatch } from "react-redux/es/exports";
 import { updateActions } from "../../redux/update-slice";
 import { playlistActions } from "../../redux/playlist-slice";
-import Button from "../UI/Button";
+import Button from "../UI/utils/Button";
 
 export default function CreatePlaylist() {
   const dispatch = useDispatch();

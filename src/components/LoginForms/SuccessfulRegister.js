@@ -1,6 +1,6 @@
 import React from "react";
-import AnimatedItems from "../UI/AnimatedItems";
-import Button from "../UI/Button";
+import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
+import Button from "../UI/utils/Button";
 import styles from "./SuccessfulRegister.module.css";
 export default function SuccessfulRegister(props) {
   return (

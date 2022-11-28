@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../UI/Button";
+import Button from "../UI/utils/Button";
 import styles from "./PlaylistItem.module.css";
 import { playlistActions } from "../../redux/playlist-slice";
 import { useDispatch } from "react-redux/es/exports";

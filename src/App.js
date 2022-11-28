@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Route, Switch, useLocation, useHistory } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { Route, Switch, useLocation } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import { updateAllData } from "./actions/updateActions";
 import { getUsersFromDatabase } from "./actions/authActions";
 import { sendCurrentUser } from "./actions/loginActions";
-import { routesHandler } from "./actions/additionalFunctions/routesHandler";
 
 import { updateActions } from "./redux/update-slice";
 import { authActions } from "./redux/auth-slice";
@@ -14,7 +13,6 @@ import LoggedInGroup from "./routeGroups/LoggedInGroup";
 import LoggedOutGroup from "./routeGroups/LoggedOutGroup";
 
 function App() {
-  const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const [firstPageLoad, setFirstPageLoad] = useState(true);
@@ -68,16 +66,12 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    routesHandler(location, history);
-  }, [location]);
-
   return (
     <Switch location={location} key={location.pathname}>
-      <Route path="/Musify">
+      <Route>
         <LoggedOutGroup />
+        <LoggedInGroup onLogOut={setFirstPageLoad.bind(null, true)} />
       </Route>
-      <LoggedInGroup onLogOut={setFirstPageLoad.bind(null, true)} />
     </Switch>
   );
 }

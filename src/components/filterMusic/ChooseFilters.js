@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./ChooseFilters.module.css";
 import FilterByName from "./FilterByName";
 import FilterBygenre from "./FilterByGenre";
-import Button from "../UI/Button";
+import Button from "../UI/utils/Button";
 
 function ChooseFilters(props) {
   const [choosenFilter, setChoosenFilter] = useState("name");

@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import ChangeUserName from "../components/SettingsChangers/ChangeUserName";
 import ChangeUserPassword from "../components/SettingsChangers/ChangeUserPassword";
 import DeleteAccount from "../components/SettingsChangers/DeleteAccount";
-import AnimatedPages from "../components/UI/AnimatedPages";
+import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 
 import styles from "./SettingPage.module.css";
 const SettingsPage = () => {
