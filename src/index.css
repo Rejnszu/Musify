@@ -9,7 +9,7 @@
   --main-color: rgb(0, 255, 171);
   --dimmed-background-black: rgba(0, 0, 0, 0.6);
   --dimmed-background-black-1: rgba(0, 0, 0, 0.8);
-  --main-box-shadow: 2px 2px 5px black;
+  --main-box-shadow: 4px 4px 0px var(--dimmed-background-black-1);
   --main-border-radius: 10px;
   --main-border-radius--smaller: 4px;
   --max-width: 95%;

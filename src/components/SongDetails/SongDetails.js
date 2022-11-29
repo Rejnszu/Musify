@@ -2,11 +2,15 @@ import React from "react";
 import styles from "./SongDetails.module.css";
 import { useSelector } from "react-redux";
 import { useParams, useHistory, Link } from "react-router-dom";
-import AnimatedPages from "../UI/FramerGenerals/AnimatedPages";
+import { useSongDuration } from "../../hooks/useSongDuration";
+import defaultMp3 from "../../assets/mp3/coldplay.mp3";
+
+import AnimatedSwipe from "../UI/FramerGenerals/AnimatedSwipe";
 import EmptyList from "../UI/utils/EmptyList";
 import Button from "../UI/utils/Button";
 import useFetchMusic from "../../hooks/useFetchMusic";
 import Swiper from "../UI/Layout/Swiper";
+
 const SongDetails = () => {
   const history = useHistory();
   const fetchMusic = useFetchMusic();
@@ -18,11 +22,31 @@ const SongDetails = () => {
   const nextSong = songsList[currentIndex + 1];
   const prevSong = songsList[currentIndex - 1];
 
+  const nextSongPush = `${nextSong?.id ? nextSong.id : songsList[0].id}`;
+  const prevSongPush = `${
+    prevSong?.id ? prevSong.id : songsList[songsList.length - 1].id
+  }`;
+  const duration = useSongDuration(
+    song?.mp3Name
+      ? require(`../../assets/mp3/${song?.mp3Name}.mp3`)
+      : defaultMp3
+  );
+
+  const showNextSong = () => {
+    history.push(nextSongPush);
+  };
+  const showPreviousSong = () => {
+    history.push(prevSongPush);
+  };
+
   if (!song) {
     return (
       <EmptyList>
         Song doesnt Exist
-        <Button styles={styles["button--404"]} onClick={() => history.goBack()}>
+        <Button
+          styles={styles["button--404"]}
+          onClick={() => history.push("/songs")}
+        >
           Go back
         </Button>
       </EmptyList>
@@ -30,27 +54,23 @@ const SongDetails = () => {
   }
 
   return (
-    <AnimatedPages>
-      <Swiper
-        actionLeft={() =>
-          history.push(`${nextSong?.id ? nextSong.id : song.id}`)
-        }
-        actionRight={() =>
-          history.push(`${prevSong?.id ? prevSong.id : song.id}`)
-        }
+    <Swiper
+      actionLeft={() => showNextSong()}
+      actionRight={() => showPreviousSong}
+    >
+      <Link
+        className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}
+        to={nextSongPush}
       >
-        <Link
-          className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}
-          to={`${nextSong?.id ? nextSong.id : song.id}`}
-        >
-          <i className="bi bi-caret-right-fill"></i>
-        </Link>
-        <Link
-          className={`${styles["scroll-button"]} ${styles["scroll-button--left"]}`}
-          to={`${prevSong?.id ? prevSong.id : song.id}`}
-        >
-          <i className="bi bi-caret-left-fill"></i>
-        </Link>
+        <i className="bi bi-caret-right-fill"></i>
+      </Link>
+      <Link
+        className={`${styles["scroll-button"]} ${styles["scroll-button--left"]}`}
+        to={prevSongPush}
+      >
+        <i className="bi bi-caret-left-fill"></i>
+      </Link>
+      <AnimatedSwipe>
         <div className={styles["details"]}>
           <div className={styles["details__image"]}>
             <img src={song.img} alt={song.img} />
@@ -64,13 +84,16 @@ const SongDetails = () => {
               <span>Album:</span> {song.album}
             </p>
             <p className={styles["description__item"]}>
-              <span>Genre</span>: {song.genre}
+              <span>Genre:</span> {song.genre}
+            </p>
+            <p className={styles["description__item"]}>
+              <span>Duration:</span> {duration}
             </p>
           </div>
         </div>
-        <Button onClick={() => history.goBack()}>Go back</Button>
-      </Swiper>
-    </AnimatedPages>
+      </AnimatedSwipe>
+      <Button onClick={() => history.push("/songs")}>Go back</Button>
+    </Swiper>
   );
 };
 

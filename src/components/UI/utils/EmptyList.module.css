@@ -7,7 +7,7 @@
   padding: 1rem 0;
   color: var(--main-color);
   background-color: var(--dimmed-background-black);
-  box-shadow: var(--main-box-shadow);
+
   display: flex;
   justify-content: center;
   align-items: center;

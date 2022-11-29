@@ -4,6 +4,7 @@
   padding: 1rem;
   border-radius: var(--main-border-radius--smaller);
   max-width: var(--max-width);
+  box-shadow: var(--main-box-shadow);
 }
 .select__default-value {
   border-radius: var(--main-border-radius--smaller);

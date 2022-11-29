@@ -24,15 +24,14 @@ const LoggedInGroup = (props) => {
     isLogged === "true" && (
       <React.Fragment>
         <Navigation />
+        <LogOut onLogOut={props.onLogOut} />
 
-        <AnimatedPages>
-          <LogOut onLogOut={props.onLogOut} />
-          {playerCurrentSong !== undefined &&
-            location.pathname !== "/player" && <PlayerConsole />}
-        </AnimatedPages>
+        {playerCurrentSong !== undefined && location.pathname !== "/player" && (
+          <PlayerConsole />
+        )}
 
         <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
+          <Switch>
             <Route path={["/", "/Musify"]} exact>
               <Redirect to="/songs" />
             </Route>

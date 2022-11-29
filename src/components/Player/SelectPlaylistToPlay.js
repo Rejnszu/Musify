@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
 import styles from "./SelectPlaylistToPlay.module.css";
-import defaultMp3 from "../../mp3/coldplay.mp3";
+import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 import Select from "../CustomTileSelect/Select";
 
 export default function SelectPlaylistToPlay() {
@@ -42,7 +42,7 @@ export default function SelectPlaylistToPlay() {
         playerActions.setAudio(
           new Audio(
             currentSong?.mp3Name
-              ? require(`../../mp3/${currentSong?.mp3Name}.mp3`)
+              ? require(`../../assets/mp3/${currentSong?.mp3Name}.mp3`)
               : defaultMp3
           )
         )

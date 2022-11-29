@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./Player.module.css";
 import { playerActions } from "../../redux/player-slice";
-import defaultMp3 from "../../mp3/coldplay.mp3";
+import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 import useMobile from "../../hooks/useMobile";
 
-export default function Player(props) {
+export default function Player() {
   const isMobile = useMobile(1300);
   const initialPageLoad = useSelector(
     (state) => state.player.initialPlayerLoad
@@ -98,7 +98,7 @@ export default function Player(props) {
       playerActions.setAudio(
         new Audio(
           currentSong.mp3Name
-            ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
+            ? require(`../../assets/mp3/${currentSong.mp3Name}.mp3`)
             : defaultMp3
         )
       )

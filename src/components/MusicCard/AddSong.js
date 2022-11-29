@@ -3,7 +3,7 @@ import Button from "../UI/utils/Button";
 import styles from "./AddSong.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
-import EmptyImage from "../../images/pusty.png";
+import EmptyImage from "../../assets/images/pusty.png";
 import { updateActions } from "../../redux/update-slice";
 
 let image;

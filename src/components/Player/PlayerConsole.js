@@ -5,7 +5,7 @@ import { playerActions } from "../../redux/player-slice";
 import { useLocation } from "react-router-dom";
 import { resetPlayer } from "../../actions/playerActions";
 import Button from "../UI/utils/Button";
-import defaultMp3 from "../../mp3/coldplay.mp3";
+import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 let initialPageLoad = true;
 
 export default function PlayerConsole() {
@@ -73,7 +73,7 @@ export default function PlayerConsole() {
       playerActions.setAudio(
         new Audio(
           currentSong.mp3Name
-            ? require(`../../mp3/${currentSong.mp3Name}.mp3`)
+            ? require(`../../assets/mp3/${currentSong.mp3Name}.mp3`)
             : defaultMp3
         )
       )

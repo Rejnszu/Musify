@@ -6,6 +6,7 @@
   border-radius: var(--main-border-radius);
   overflow-wrap: anywhere;
   padding: 30px 10px 0px 10px;
+  box-shadow: var(--main-box-shadow);
 }
 
 .playlist__title {
