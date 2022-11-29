@@ -10,7 +10,7 @@ import useMobile from "../../hooks/useMobile";
 
 export default function MusicCard(props) {
   const { url } = useRouteMatch();
-  const isMobile = useMobile(800);
+  const isMobile = useMobile(1200);
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -29,9 +29,8 @@ export default function MusicCard(props) {
   return (
     <div className={styles["music-card"]}>
       <img src={props.img} alt={props.title} />
-      <p className={styles["music-card__title"]}>Title: {props.title}</p>
-      <p className={styles["music-card__author"]}>Author: {props.author}</p>
-      <p className={styles["music-card__album"]}>Album: {props.album}</p>
+      <p className={styles["music-card__title"]}>{props.title}</p>
+      <p className={styles["music-card__author"]}>{props.author}</p>
 
       <Button
         type={"button"}

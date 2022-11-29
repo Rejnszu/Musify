@@ -4,7 +4,7 @@ import NavigationDesktop from "./NavigationDesktop";
 import useMobile from "../../hooks/useMobile";
 
 const Navigation = () => {
-  const isMobile = useMobile(1300);
+  const isMobile = useMobile(1200);
   return isMobile ? <NavigationMobile /> : <NavigationDesktop />;
 };
 

@@ -56,7 +56,7 @@ const SongDetails = () => {
   return (
     <Swiper
       actionLeft={() => showNextSong()}
-      actionRight={() => showPreviousSong}
+      actionRight={() => showPreviousSong()}
     >
       <Link
         className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}

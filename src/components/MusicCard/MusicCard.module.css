@@ -1,12 +1,9 @@
-:root {
-  --card-width: calc(16.666666666% - 30px);
-}
 .music-card {
+  --card-width: calc(15% - 30px);
   position: relative;
   background-color: var(--dimmed-background-black);
   border-radius: var(--main-border-radius);
 
-  min-height: clamp(15rem, 10vw, 27rem);
   color: white;
   text-align: left;
   transition: transform 0.5s;
@@ -16,12 +13,13 @@
   isolation: isolate;
   flex: 0 0 var(--card-width);
   overflow-wrap: anywhere;
+  gap: 20px;
 }
 
 .music-card p {
-  margin-left: clamp(0.5rem, 2vw, 1rem);
-  margin-top: clamp(0.5rem, 2vw, 1rem);
-  margin-bottom: clamp(0.5rem, 2vw, 1rem);
+  margin: 0 0.2rem 0 0.4rem;
+
+  padding-left: 5px;
 }
 .music-card img {
   width: 100%;
@@ -31,15 +29,11 @@
 }
 .music-card__title {
   font-weight: 700;
-  font-size: clamp(0.6rem, 3vw, 1rem);
+  font-size: clamp(0.6rem, 3vw, 0.9rem);
 }
 .music-card__author {
   font-weight: 600;
-  font-size: clamp(0.5rem, 3vw, 0.9rem);
-}
-.music-card__album {
-  font-weight: 500;
-  font-size: clamp(0.4rem, 3vw, 0.8rem);
+  font-size: clamp(0.5rem, 3vw, 0.8rem);
 }
 
 .button--music-card {
@@ -88,18 +82,28 @@
   width: 25px;
   height: 25px;
 }
-@media (max-width: 1300px) {
-  :root {
-    --card-width: calc(33.3333333% - 30px);
+@media (min-width: 2200px) {
+  .music-card {
+    --card-width: calc(10% - 30px);
+  }
+}
+@media (max-width: 1500px) {
+  .music-card {
+    --card-width: calc(25% - 30px);
+  }
+}
+@media (max-width: 1000px) {
+  .music-card {
+    --card-width: calc(33% - 30px);
   }
 }
 @media (max-width: 800px) {
-  :root {
+  .music-card {
     --card-width: calc(50% - 30px);
   }
 }
 @media (max-width: 500px) {
-  :root {
+  .music-card {
     --card-width: 80%;
   }
   .music-card img {

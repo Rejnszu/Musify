@@ -46,7 +46,7 @@
   font-weight: 700;
   font-size: 1.25rem;
   padding-left: 5px;
-  /* color: var(--dimmed-background-black); */
+
   border-left: 6px solid var(--dimmed-background-black-1);
 }
 
