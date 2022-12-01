@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { updateAllData } from "./actions/updateActions";
@@ -14,7 +13,7 @@ import LoggedOutGroup from "./routeGroups/LoggedOutGroup";
 
 function App() {
   const dispatch = useDispatch();
-  const location = useLocation();
+
   const [firstPageLoad, setFirstPageLoad] = useState(true);
 
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
@@ -67,12 +66,10 @@ function App() {
   }, []);
 
   return (
-    <Switch location={location} key={location.pathname}>
-      <Route>
-        <LoggedOutGroup />
-        <LoggedInGroup onLogOut={setFirstPageLoad.bind(null, true)} />
-      </Route>
-    </Switch>
+    <React.Fragment>
+      <LoggedOutGroup />
+      <LoggedInGroup onLogOut={setFirstPageLoad.bind(null, true)} />
+    </React.Fragment>
   );
 }
 

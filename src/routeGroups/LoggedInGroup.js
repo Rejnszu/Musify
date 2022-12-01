@@ -1,9 +1,7 @@
 import React from "react";
-import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { Route, Navigate, useLocation, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AnimatePresence } from "framer-motion";
 
-import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 import EmptyList from "../components/UI/utils/EmptyList";
 import PlayerConsole from "../components/Player/PlayerConsole";
 import LogOut from "../components/LoginForms/LogOut/LogOut";
@@ -30,31 +28,29 @@ const LoggedInGroup = (props) => {
           <PlayerConsole />
         )}
 
-        <AnimatePresence exitBeforeEnter>
-          <Switch>
-            <Route path={["/", "/Musify"]} exact>
-              <Redirect to="/songs" />
-            </Route>
-            <Route path="/songs" exact>
-              <MusicPage />
-            </Route>
-            <Route path="/songs/:songId">
-              <SongDetails />
-            </Route>
-            <Route path="/playlists">
-              <PlaylistPage />
-            </Route>
-            <Route path="/settings">
-              <SettingsPage />
-            </Route>
-            <Route path="/player">
-              <PlayerPage />
-            </Route>
-            <Route path="*">
-              <EmptyList>Page not found</EmptyList>
-            </Route>
-          </Switch>
-        </AnimatePresence>
+        <Routes key={location.pathname}>
+          {["/", "/Musify"].map((path) => {
+            return (
+              <Route
+                path={path}
+                key={path}
+                element={<Navigate replace to="/songs" />}
+              />
+            );
+          })}
+
+          <Route path="/songs" element={<MusicPage />} />
+
+          <Route path="/songs/:songId" element={<SongDetails />} />
+
+          <Route path="/playlists" element={<PlaylistPage />} />
+
+          <Route path="/settings" element={<SettingsPage />} />
+
+          <Route path="/player" element={<PlayerPage />} />
+
+          <Route path="*" element={<EmptyList>Page not found</EmptyList>} />
+        </Routes>
       </React.Fragment>
     )
   );

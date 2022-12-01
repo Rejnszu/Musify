@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./MusicListItem.module.css";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
 import { updateActions } from "../../redux/update-slice";
@@ -10,7 +10,6 @@ import Button from "../UI/utils/Button";
 export default function MusicListItem(props) {
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { url } = useRouteMatch();
 
   const dispatch = useDispatch();
   const addSong = () => {
@@ -33,10 +32,7 @@ export default function MusicListItem(props) {
       >
         <i className="bi bi-plus"></i>
       </Button>
-      <Link
-        to={`${url}/${props.id}`}
-        className={styles["music-list-card__title"]}
-      >
+      <Link to={`${props.id}`} className={styles["music-list-card__title"]}>
         {props.title}
       </Link>
       <Button

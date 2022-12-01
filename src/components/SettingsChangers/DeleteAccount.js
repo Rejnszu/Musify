@@ -7,7 +7,7 @@ import { songsActions } from "../../redux/songsList-slice";
 import { playlistActions } from "../../redux/playlist-slice";
 import { deleteCurrentUser } from "../../actions/loginActions";
 import { updateActions } from "../../redux/update-slice";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { resetPlayer } from "../../actions/playerActions";
 import Warning from "../UI/utils/Warning";
 import AreYouSureModal from "../UI/utils/AreYouSureModal";
@@ -16,7 +16,7 @@ import Button from "../UI/utils/Button";
 let modalManageState = false;
 
 export default function DeleteAccount(props) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const passwordInputRef = useRef(null);
   const audio = useSelector((state) => state.player.audio);
@@ -50,7 +50,7 @@ export default function DeleteAccount(props) {
       dispatch(playlistActions.resetPlaylists());
       deleteCurrentUser(currentUser);
       dispatch(updateActions.shouldUpdate());
-      history.push("/Musify");
+      navigate("/Musify");
       dispatch(resetPlayer(audio));
       modalManageState = false;
       setWarning(false);

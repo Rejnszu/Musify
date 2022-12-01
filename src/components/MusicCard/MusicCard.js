@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./MusicCard.module.css";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
 import { updateActions } from "../../redux/update-slice";
@@ -9,7 +9,6 @@ import Button from "../UI/utils/Button";
 import useMobile from "../../hooks/useMobile";
 
 export default function MusicCard(props) {
-  const { url } = useRouteMatch();
   const isMobile = useMobile(1200);
   const songsList = useSelector((state) => state.songsList.songsList);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -48,14 +47,11 @@ export default function MusicCard(props) {
         <i className="bi bi-x-lg"></i>
       </Button>
       {isMobile ? (
-        <Link to={`${url}/${props.id}`} className={styles["more-info__mobile"]}>
+        <Link to={`${props.id}`} className={styles["more-info__mobile"]}>
           <i className="bi bi-info-circle"></i>
         </Link>
       ) : (
-        <Link
-          className={styles["more-info__desktop"]}
-          to={`${url}/${props.id}`}
-        >
+        <Link className={styles["more-info__desktop"]} to={`${props.id}`}>
           More informations
         </Link>
       )}

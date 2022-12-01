@@ -1,17 +1,16 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import WelcomePage from "../pages/WelcomePage";
 const LoggedOutGroup = () => {
   const isLogged = sessionStorage.getItem("isLogged");
+  const location = useLocation();
   return (
     (isLogged === "false" || isLogged === null) && (
       <React.Fragment>
-        <Route path="/Musify" exact>
-          <WelcomePage />
-        </Route>
-        <Route path="*">
-          <Redirect to="/Musify" />
-        </Route>
+        <Routes key={location.pathname}>
+          <Route path="/Musify" element={<WelcomePage />} />
+          <Route path="*" element={<Navigate replace to="/Musify" />} />
+        </Routes>
       </React.Fragment>
     )
   );

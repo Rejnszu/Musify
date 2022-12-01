@@ -5,13 +5,13 @@ import { songsActions } from "../../../redux/songsList-slice";
 import { playlistActions } from "../../../redux/playlist-slice";
 import { authActions } from "../../../redux/auth-slice";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { deleteCurrentUser } from "../../../actions/loginActions";
 import { resetPlayer } from "../../../actions/playerActions";
 
 const LogOut = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const audio = useSelector((state) => state.player.audio);
   const users = useSelector((state) => state.authentication.users);
   const currentUser = useMemo(
@@ -25,7 +25,7 @@ const LogOut = (props) => {
     sessionStorage.setItem("isLogged", "false");
     dispatch(songsActions.resetSongList());
     dispatch(playlistActions.resetPlaylists());
-    history.push("/Musify");
+    navigate("/Musify");
     deleteCurrentUser(currentUser);
     sessionStorage.removeItem("currentUser");
     dispatch(authActions.handleInitialFetchMusicList(true));

@@ -29,11 +29,11 @@
 }
 .music-card__title {
   font-weight: 700;
-  font-size: clamp(0.6rem, 3vw, 0.9rem);
+  font-size: clamp(0.7rem, 3vw, 0.9rem);
 }
 .music-card__author {
   font-weight: 600;
-  font-size: clamp(0.5rem, 3vw, 0.8rem);
+  font-size: clamp(0.6rem, 3vw, 0.8rem);
 }
 
 .button--music-card {

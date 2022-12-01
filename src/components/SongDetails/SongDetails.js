@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SongDetails.module.css";
 import { useSelector } from "react-redux";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSongDuration } from "../../hooks/useSongDuration";
 import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 
@@ -12,18 +12,19 @@ import useFetchMusic from "../../hooks/useFetchMusic";
 import Swiper from "../UI/Layout/Swiper";
 
 const SongDetails = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const fetchMusic = useFetchMusic();
   const songsList = useSelector((state) => state.songsList.songsList);
   const { songId } = useParams();
 
   const song = songsList.find((song) => song.id === Number(songId));
+
   const currentIndex = songsList.indexOf(song);
   const nextSong = songsList[currentIndex + 1];
   const prevSong = songsList[currentIndex - 1];
 
-  const nextSongPush = `${nextSong?.id ? nextSong.id : songsList[0].id}`;
-  const prevSongPush = `${
+  const nextSongPush = `/songs/${nextSong?.id ? nextSong.id : songsList[0].id}`;
+  const prevSongPush = `/songs/${
     prevSong?.id ? prevSong.id : songsList[songsList.length - 1].id
   }`;
   const duration = useSongDuration(
@@ -33,10 +34,10 @@ const SongDetails = () => {
   );
 
   const showNextSong = () => {
-    history.push(nextSongPush);
+    navigate(nextSongPush);
   };
   const showPreviousSong = () => {
-    history.push(prevSongPush);
+    navigate(prevSongPush);
   };
 
   if (!song) {
@@ -45,7 +46,7 @@ const SongDetails = () => {
         Song doesnt Exist
         <Button
           styles={styles["button--404"]}
-          onClick={() => history.push("/songs")}
+          onClick={() => navigate("/songs")}
         >
           Go back
         </Button>
@@ -92,7 +93,7 @@ const SongDetails = () => {
           </div>
         </div>
       </AnimatedSwipe>
-      <Button onClick={() => history.push("/songs")}>Go back</Button>
+      <Button onClick={() => navigate("/songs")}>Go back</Button>
     </Swiper>
   );
 };

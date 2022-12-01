@@ -47,7 +47,9 @@ const NavigationMobile = () => {
               <li>
                 <NavLink
                   onClick={toggleNavigation}
-                  activeClassName={styles.active}
+                  className={(navData) =>
+                    navData.isActive ? styles.active : ""
+                  }
                   to="/songs"
                 >
                   All music
@@ -56,7 +58,9 @@ const NavigationMobile = () => {
               <li>
                 <NavLink
                   onClick={toggleNavigation}
-                  activeClassName={styles.active}
+                  className={(navData) =>
+                    navData.isActive ? styles.active : ""
+                  }
                   to="/playlists"
                 >
                   Your playlists
@@ -65,7 +69,9 @@ const NavigationMobile = () => {
               <li>
                 <NavLink
                   onClick={toggleNavigation}
-                  activeClassName={styles.active}
+                  className={(navData) =>
+                    navData.isActive ? styles.active : ""
+                  }
                   to="/player"
                 >
                   Player
@@ -74,7 +80,9 @@ const NavigationMobile = () => {
               <li>
                 <NavLink
                   onClick={toggleNavigation}
-                  activeClassName={styles.active}
+                  className={(navData) =>
+                    navData.isActive ? styles.active : ""
+                  }
                   to="/settings"
                 >
                   Settings
