@@ -4,6 +4,7 @@ import LoggedInGroup from "./routeGroups/LoggedInGroup";
 import LoggedOutGroup from "./routeGroups/LoggedOutGroup";
 import useUpdate from "./hooks/useUpdate";
 import { useGetUsersDataQuery } from "./redux/api/dataApiSlice";
+
 function App() {
   const { data } = useGetUsersDataQuery();
   const update = useUpdate();
