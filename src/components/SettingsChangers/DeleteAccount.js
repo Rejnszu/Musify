@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/auth-slice";
 import { songsActions } from "../../redux/songsList-slice";
 import { playlistActions } from "../../redux/playlist-slice";
-import { deleteCurrentUser } from "../../actions/loginActions";
 import { updateActions } from "../../redux/update-slice";
 import { useNavigate } from "react-router-dom";
 import { resetPlayer } from "../../actions/playerActions";
+import { useDeleteCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
+
 import Warning from "../UI/utils/Warning";
 import AreYouSureModal from "../UI/utils/AreYouSureModal";
 import Button from "../UI/utils/Button";
@@ -22,7 +23,7 @@ export default function DeleteAccount(props) {
   const audio = useSelector((state) => state.player.audio);
   const [showModal, setShowModal] = useState(false);
   const users = useSelector((state) => state.authentication.users);
-
+  const [deleteCurrentUser] = useDeleteCurrentUserMutation();
   const currentUser = useMemo(
     () =>
       users.find(

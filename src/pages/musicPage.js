@@ -18,12 +18,12 @@ import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 import AddToPlaylistModal from "../components/playlists/addToPlaylistModal/AddToPlaylistModal";
 
 const MusicPage = () => {
-  const fetchMusic = useFetchMusic();
+  const [isError, isLoading] = useFetchMusic();
   const fetchPlaylists = useFetchPlaylists();
   const [openModal, setOpenModal] = useState(false);
   const songsList = useSelector((state) => state.songsList.songsList);
   const currentUser = sessionStorage.getItem("currentUser");
-  const loadingStatus = useSelector((state) => state.songsList.loadingStatus);
+
   const [filteredSongs, setFilteredSongs] = useState(songsList);
   const [openAddSong, setOpenAddSong] = useState(false);
   const [display, setDisplay] = useState("cards");
@@ -74,11 +74,9 @@ const MusicPage = () => {
           filterSongsByGenre={filterSongsByGenre}
           reset={resetFilters}
         ></ChooseFilters>
-        {loadingStatus === "loading" && <EmptyList>Loading songs...</EmptyList>}
-        {loadingStatus === "error" && (
-          <EmptyList>Couldn't fetch songs list!</EmptyList>
-        )}
-        {!isEmpty && display === "cards" && loadingStatus === "loaded" && (
+        {isLoading && <EmptyList>Loading songs...</EmptyList>}
+        {isError && <EmptyList>Couldn't fetch songs list!</EmptyList>}
+        {!isEmpty && display === "cards" && !isLoading && !isError && (
           <CardListOverlay>
             {filteredSongs?.map((song, i) => {
               return (
@@ -96,7 +94,7 @@ const MusicPage = () => {
             })}
           </CardListOverlay>
         )}
-        {!isEmpty && display === "list" && loadingStatus === "loaded" && (
+        {!isEmpty && display === "list" && !isLoading && !isError && (
           <ItemsListOverlay>
             {filteredSongs?.map((song, i) => {
               return (

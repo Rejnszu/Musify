@@ -1,21 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styles from "./LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { sendCurrentUser } from "../../actions/loginActions";
 import Button from "../UI/utils/Button";
 import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
 import Warning from "../UI/utils/Warning";
-
+import { useCreateCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
+import { useGetUsersDataQuery } from "../../redux/api/dataApiSlice";
 export default function LoginForm(props) {
+  const { refetch } = useGetUsersDataQuery();
   const navigate = useNavigate();
   const users = useSelector((state) => state.authentication.users);
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
   const [warning, setWarning] = useState(null);
+  const [createCurrentUser] = useCreateCurrentUserMutation();
 
   function logIn(currentUser) {
-    sendCurrentUser(currentUser);
+    createCurrentUser(currentUser);
     sessionStorage.setItem("currentUser", userNameRef.current.value);
     sessionStorage.setItem("isLogged", "true");
     navigate("/songs");
@@ -43,6 +45,9 @@ export default function LoginForm(props) {
     setWarning("wrongPassword");
   }
 
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <AnimatedItems>
       <form onSubmit={logInHandler} className={styles["login-form"]}>

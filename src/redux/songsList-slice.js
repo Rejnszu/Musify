@@ -121,7 +121,7 @@ const initialSongsState = {
     },
   ],
   selectedSong: undefined,
-  loadingStatus: null,
+
   genreOptions: [
     { value: "all", name: "All" },
     { value: "rock", name: "Rock" },
@@ -159,9 +159,6 @@ const songsSlice = createSlice({
     },
     resetSongList(state) {
       state.songsList = initialSongsState.songsList;
-    },
-    changeLoadingStatus(state, action) {
-      state.loadingStatus = action.payload;
     },
   },
 });

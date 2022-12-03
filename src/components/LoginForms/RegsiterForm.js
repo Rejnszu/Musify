@@ -3,6 +3,7 @@ import styles from "./RegisterForm.module.css";
 import { sendUserToDatabase } from "../../actions/authActions";
 import { authActions } from "../../redux/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
+import { useUpdateDataMutation } from "../../redux/api/dataApiSlice";
 import Warning from "../UI/utils/Warning";
 import Button from "../UI/utils/Button";
 import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
@@ -15,6 +16,7 @@ export default function RegsiterForm(props) {
   const [warning, setWarning] = useState(null);
   const users = useSelector((state) => state.authentication.users);
   const [isInitialRegister, setIsInitialRegister] = useState(true);
+  const [updateData] = useUpdateDataMutation();
   const createUser = (e) => {
     e.preventDefault();
     const newUser = {
@@ -60,7 +62,8 @@ export default function RegsiterForm(props) {
       setIsInitialRegister(false);
       return;
     }
-    sendUserToDatabase(users);
+    updateData(users);
+    // sendUserToDatabase(users);
 
     return () => {
       setIsInitialRegister(true);

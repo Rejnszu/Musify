@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeUserPassword.module.css";
-import { deleteCurrentUser } from "../../actions/loginActions";
+
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../../redux/update-slice";
 import { authActions } from "../../redux/auth-slice";
@@ -56,8 +56,6 @@ export default function ChangeUserPassword(props) {
       return;
     }
     if (oldUserPassword.current.value === currentUser.password) {
-      deleteCurrentUser(currentUser);
-
       setWarning(null);
       dispatch(
         authActions.changeUserPassword({

@@ -22,7 +22,7 @@ const LoggedInGroup = (props) => {
     isLogged === "true" && (
       <React.Fragment>
         <Navigation />
-        <LogOut onLogOut={props.onLogOut} />
+        <LogOut />
 
         {playerCurrentSong !== undefined && location.pathname !== "/player" && (
           <PlayerConsole />

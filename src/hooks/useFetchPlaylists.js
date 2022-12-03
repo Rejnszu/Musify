@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/auth-slice";
-import { fetchPlaylists } from "../actions/playlistActions";
+
+import { useGetPlaylistDataQuery } from "../redux/api/dataApiSlice";
 const useFetchPlaylists = () => {
   const dispatch = useDispatch();
   const currentUser = sessionStorage.getItem("currentUser");
@@ -9,9 +10,17 @@ const useFetchPlaylists = () => {
     (state) => state.authentication.initials
   );
   const playlists = useSelector((state) => state.playlist.playlists);
+  const { isError, isLoading, isSuccess, refetch } = useGetPlaylistDataQuery(
+    {
+      currentUser: currentUser,
+    },
+    { skip: !initialFetchPlaylists }
+  );
   useEffect(() => {
-    if (initialFetchPlaylists) {
-      dispatch(fetchPlaylists(currentUser));
+    refetch();
+  }, []);
+  useEffect(() => {
+    if (isSuccess) {
       dispatch(authActions.handleInitialFetchPlaylists(false));
 
       return;
@@ -22,7 +31,8 @@ const useFetchPlaylists = () => {
         playlists,
       })
     );
-  }, [playlists, currentUser, dispatch, initialFetchPlaylists]);
+  }, [playlists, currentUser, dispatch, isSuccess]);
+  return [isError, isLoading];
 };
 
 export default useFetchPlaylists;

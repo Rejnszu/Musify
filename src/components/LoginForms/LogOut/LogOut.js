@@ -6,14 +6,16 @@ import { playlistActions } from "../../../redux/playlist-slice";
 import { authActions } from "../../../redux/auth-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteCurrentUser } from "../../../actions/loginActions";
 import { resetPlayer } from "../../../actions/playerActions";
+
+import { useDeleteCurrentUserMutation } from "../../../redux/api/currentUserApiSlice";
 
 const LogOut = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const audio = useSelector((state) => state.player.audio);
   const users = useSelector((state) => state.authentication.users);
+  const [deleteCurrentUser] = useDeleteCurrentUserMutation();
   const currentUser = useMemo(
     () =>
       users.find(
@@ -32,7 +34,6 @@ const LogOut = (props) => {
     dispatch(authActions.handleInitialFetchPlaylists(true));
     dispatch(authActions.handlerInitialUpdate(true));
     dispatch(resetPlayer(audio));
-    props.onLogOut();
   }
   return (
     <Button styles={styles["button--log-out"]} onClick={logOut}>

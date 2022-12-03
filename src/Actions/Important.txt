@@ -1,0 +1,1 @@
+Whole actions folder is currently not used since everything was moved to RTK querys, however it will stay here for a while, in case saome bugs appear.
