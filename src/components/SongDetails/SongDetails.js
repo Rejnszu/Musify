@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SongDetails.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSongDuration } from "../../hooks/useSongDuration";
 import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 
+import { songsActions } from "../../redux/songsList-slice";
+import { updateActions } from "../../redux/update-slice";
+import AddToPlaylistModal from "../playlists/addToPlaylistModal/AddToPlaylistModal";
 import AnimatedSwipe from "../UI/FramerGenerals/AnimatedSwipe";
 import EmptyList from "../UI/utils/EmptyList";
 import Button from "../UI/utils/Button";
@@ -12,12 +15,20 @@ import useFetchMusic from "../../hooks/useFetchMusic";
 import Swiper from "../UI/Layout/Swiper";
 
 const SongDetails = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const fetchMusic = useFetchMusic();
   const songsList = useSelector((state) => state.songsList.songsList);
   const { songId } = useParams();
 
   const song = songsList.find((song) => song.id === Number(songId));
+
+  const [openModal, setOpenModal] = useState(false);
+  const addSong = () => {
+    setOpenModal(true);
+    dispatch(songsActions.selectSongAddToPlaylist(song));
+    dispatch(updateActions.shouldUpdate());
+  };
 
   const currentIndex = songsList.indexOf(song);
   const nextSong = songsList[currentIndex + 1];
@@ -74,6 +85,13 @@ const SongDetails = () => {
       <AnimatedSwipe>
         <div className={styles["details"]}>
           <div className={styles["details__image"]}>
+            <Button
+              onClick={addSong}
+              type={"button"}
+              styles={styles["button--playlist-add"]}
+            >
+              <i className="bi bi-folder-plus"></i>
+            </Button>
             <img src={song.img} alt={song.img} />
           </div>
           <div className={styles["details__description"]}>
@@ -94,6 +112,9 @@ const SongDetails = () => {
         </div>
       </AnimatedSwipe>
       <Button onClick={() => navigate("/songs")}>Go back</Button>
+      {openModal && (
+        <AddToPlaylistModal closeModal={setOpenModal.bind(null, false)} />
+      )}
     </Swiper>
   );
 };

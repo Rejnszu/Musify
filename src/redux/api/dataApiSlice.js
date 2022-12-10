@@ -14,6 +14,7 @@ export const dataApiSlice = createApi({
       async onQueryStarted(undefined, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+
           dispatch(authActions.setUserListOnStart(data));
         } catch (err) {
           console.log(err.message);

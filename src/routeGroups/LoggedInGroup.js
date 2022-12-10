@@ -15,7 +15,7 @@ import PlayerPage from "../pages/PlayerPage";
 
 import { useDeleteCurrentUserMutation } from "../redux/api/currentUserApiSlice";
 
-const LoggedInGroup = (props) => {
+const LoggedInGroup = () => {
   const isLogged = sessionStorage.getItem("isLogged");
   const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const location = useLocation();
