@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import LoggedInGroup from "./routeGroups/LoggedInGroup";
 import LoggedOutGroup from "./routeGroups/LoggedOutGroup";
@@ -9,11 +9,8 @@ function App() {
   const { data } = useGetUsersDataQuery();
   const update = useUpdate();
 
-  useEffect(() => {
-    if (sessionStorage.getItem("isLogged") === null) {
-      sessionStorage.setItem("isLogged", "false");
-    }
-  }, []);
+  if (sessionStorage.getItem("isLogged") === null)
+    sessionStorage.setItem("isLogged", "false");
 
   return (
     <React.Fragment>

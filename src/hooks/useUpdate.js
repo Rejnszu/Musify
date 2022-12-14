@@ -20,10 +20,11 @@ const useUpdate = () => {
   useEffect(() => {
     if (shouldUpdate) {
       updateData(users);
-      if (sessionStorage.getItem("isLogged") === "true") {
-        if (currentUser !== undefined) {
-          createCurrentUser(currentUser);
-        }
+      if (
+        sessionStorage.getItem("isLogged") === "true" &&
+        currentUser !== undefined
+      ) {
+        createCurrentUser(currentUser);
       }
     }
     return () => {

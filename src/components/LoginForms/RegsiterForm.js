@@ -63,7 +63,6 @@ export default function RegsiterForm(props) {
       return;
     }
     updateData(users);
-    // sendUserToDatabase(users);
 
     return () => {
       setIsInitialRegister(true);

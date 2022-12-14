@@ -52,7 +52,7 @@ const playerSlice = createSlice({
       state.initialPlayerLoad = action.payload;
     },
     setNowPlayingPlaylist(state, action) {
-      state.nowPlayingPlayList = action.payload;
+      state.nowPlayingPlaylist = action.payload;
     },
   },
 });

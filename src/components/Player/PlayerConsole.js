@@ -9,6 +9,7 @@ import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 let initialPageLoad = true;
 
 export default function PlayerConsole() {
+  console.log(initialPageLoad);
   const location = useLocation();
   const dispatch = useDispatch();
   const {
@@ -66,6 +67,7 @@ export default function PlayerConsole() {
       nextSong();
     }
   }
+
   function changeSong() {
     audio.pause();
 
@@ -102,7 +104,8 @@ export default function PlayerConsole() {
 
   useEffect(() => {
     return () => (initialPageLoad = true);
-  }, [location]);
+  }, []);
+
   useEffect(() => {
     if (isPlaying) {
       audio.play();
