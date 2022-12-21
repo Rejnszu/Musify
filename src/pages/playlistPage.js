@@ -8,18 +8,27 @@ import EmptyList from "../components/UI/utils/EmptyList";
 import PlaylistOverlay from "../components/UI/Layout/PlaylistOverlay";
 import CreatePlaylist from "../components/playlists/CreatePlaylist";
 import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
+import Loader from "../components/UI/utils/Loader";
 
 const PlaylistPage = () => {
   const [isError, isLoading] = useFetchPlaylists();
   const isEmpty =
     useSelector((state) => state.playlist?.playlists).length === 0;
   const playlists = useSelector((state) => state.playlist.playlists);
+  
+  if (isError) {
+    return <EmptyList>Couldn't fetch playlists.</EmptyList>;
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <AnimatedPages>
       <main>
         <CreatePlaylist />
-        {!isEmpty && !isLoading && !isError && (
+        {isEmpty && <EmptyList>Couldn't find any playlists.</EmptyList>}
+        {!isEmpty && (
           <PlaylistOverlay>
             <AnimatePresence>
               {playlists.map((playlist, i) => {
@@ -35,11 +44,6 @@ const PlaylistPage = () => {
             </AnimatePresence>
           </PlaylistOverlay>
         )}
-        {isLoading && <EmptyList>Loading playlists...</EmptyList>}
-        {isEmpty && !isError && !isLoading && (
-          <EmptyList>Couldn't find any playlists.</EmptyList>
-        )}
-        {isError && <EmptyList>Couldn't fetch playlists.</EmptyList>}
       </main>
     </AnimatedPages>
   );

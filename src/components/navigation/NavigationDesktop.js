@@ -33,6 +33,14 @@ const NavigationDesktop = () => {
         <li>
           <NavLink
             className={(navData) => (navData.isActive ? styles.active : "")}
+            to="/charts"
+          >
+            Top Charts
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={(navData) => (navData.isActive ? styles.active : "")}
             to="/settings"
           >
             Settings

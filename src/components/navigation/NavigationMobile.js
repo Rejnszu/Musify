@@ -83,6 +83,17 @@ const NavigationMobile = () => {
                   className={(navData) =>
                     navData.isActive ? styles.active : ""
                   }
+                  to="/charts"
+                >
+                  Top Charts
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  onClick={toggleNavigation}
+                  className={(navData) =>
+                    navData.isActive ? styles.active : ""
+                  }
                   to="/settings"
                 >
                   Settings

@@ -2,15 +2,12 @@ import React, { useEffect } from "react";
 import styles from "./PlayerConsole.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
-import { useLocation } from "react-router-dom";
 import { resetPlayer } from "../../actions/playerActions";
 import Button from "../UI/utils/Button";
 import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 let initialPageLoad = true;
 
 export default function PlayerConsole() {
-  console.log(initialPageLoad);
-  const location = useLocation();
   const dispatch = useDispatch();
   const {
     currentSong,

@@ -14,6 +14,7 @@ import SettingsPage from "../pages/SettingsPage";
 import PlayerPage from "../pages/PlayerPage";
 
 import { useDeleteCurrentUserMutation } from "../redux/api/currentUserApiSlice";
+import TopChartsPage from "../pages/TopChartsPage";
 
 const LoggedInGroup = () => {
   const isLogged = sessionStorage.getItem("isLogged");
@@ -53,17 +54,12 @@ const LoggedInGroup = () => {
               />
             );
           })}
-
           <Route path="/songs" element={<MusicPage />} />
-
           <Route path="/songs/:songId" element={<SongDetails />} />
-
           <Route path="/playlists" element={<PlaylistPage />} />
-
           <Route path="/settings" element={<SettingsPage />} />
-
-          <Route path="/player" element={<PlayerPage />} />
-
+          <Route path="/player" element={<PlayerPage />} />{" "}
+          <Route path="/charts" element={<TopChartsPage />} />
           <Route path="*" element={<EmptyList>Page not found</EmptyList>} />
         </Routes>
       </React.Fragment>

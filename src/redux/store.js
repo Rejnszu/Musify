@@ -6,6 +6,7 @@ import updateReducer from "./update-slice.js";
 import playerReducer from "./player-slice.js";
 import { dataApiSlice } from "./api/dataApiSlice";
 import { currentUserApiSlice } from "./api/currentUserApiSlice";
+import { songsApiSlice } from "./api/songsApi";
 const store = configureStore({
   reducer: {
     songsList: songsReducer,
@@ -15,11 +16,16 @@ const store = configureStore({
     player: playerReducer,
     [dataApiSlice.reducerPath]: dataApiSlice.reducer,
     [currentUserApiSlice.reducerPath]: currentUserApiSlice.reducer,
+    [songsApiSlice.reducerPath]: songsApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(currentUserApiSlice.middleware, dataApiSlice.middleware),
+    }).concat(
+      currentUserApiSlice.middleware,
+      dataApiSlice.middleware,
+      songsApiSlice.middleware
+    ),
 });
 
 export default store;

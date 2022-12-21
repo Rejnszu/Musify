@@ -16,6 +16,7 @@ import ItemsListOverlay from "../components/UI/Layout/ItemsListOverlay";
 import ChooseFilters from "../components/FilterMusic/ChooseFilters";
 import ChangeSongsDisplay from "../components/UI/ChangeSongsDisplay";
 import AddToPlaylistModal from "../components/playlists/addToPlaylistModal/AddToPlaylistModal";
+import Loader from "../components/UI/utils/Loader";
 
 const MusicPage = () => {
   const [isError, isLoading] = useFetchMusic();
@@ -61,6 +62,13 @@ const MusicPage = () => {
     setFilteredSongs(songsList);
   }, [songsList]);
 
+  if (isError) {
+    return <EmptyList>Couldn't fetch songs list!</EmptyList>;
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <AnimatedPages>
       <main>
@@ -74,9 +82,8 @@ const MusicPage = () => {
           filterSongsByGenre={filterSongsByGenre}
           reset={resetFilters}
         ></ChooseFilters>
-        {isLoading && <EmptyList>Loading songs...</EmptyList>}
-        {isError && <EmptyList>Couldn't fetch songs list!</EmptyList>}
-        {!isEmpty && display === "cards" && !isLoading && !isError && (
+
+        {!isEmpty && display === "cards" && (
           <CardListOverlay>
             {filteredSongs?.map((song, i) => {
               return (
@@ -94,7 +101,7 @@ const MusicPage = () => {
             })}
           </CardListOverlay>
         )}
-        {!isEmpty && display === "list" && !isLoading && !isError && (
+        {!isEmpty && display === "list" && (
           <ItemsListOverlay>
             {filteredSongs?.map((song, i) => {
               return (

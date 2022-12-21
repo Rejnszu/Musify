@@ -1,0 +1,26 @@
+.charts__item {
+  background-color: var(--dimmed-background-black);
+  border-radius: var(--main-border-radius);
+  font-size: 0.8rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--main-box-shadow);
+
+  height: 250px;
+  justify-content: space-around;
+  p {
+    margin: 0;
+  }
+}
+.item__image-wrapper {
+  margin: 0 auto;
+  img {
+    border-radius: var(--main-border-radius);
+    width: 174px;
+    height: 174px;
+  }
+}
+.item__text-wrapper {
+  padding-left: 15px;
+}
