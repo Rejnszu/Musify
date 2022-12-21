@@ -28,11 +28,7 @@ body {
     rgba(0, 101, 91, 1) 100%
   );
 }
-h2 {
-  color: var(--main-color);
-  font-weight: 700;
-  text-align: center;
-}
+
 .button--log-out {
   margin: 2rem 3.5rem 0 auto !important;
 }

@@ -6,6 +6,7 @@ import DeleteAccount from "../components/SettingsChangers/DeleteAccount";
 import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 
 import styles from "./SettingPage.module.css";
+import Header from "../components/UI/utils/Header";
 const SettingsPage = () => {
   const [displayChangers, setDisplayChangers] = useState(null);
 
@@ -23,7 +24,7 @@ const SettingsPage = () => {
   return (
     <AnimatedPages>
       <main className={styles.settings}>
-        <h2 className={styles["settings__title"]}>Your account Informations</h2>
+        <Header>Your account Informations</Header>
 
         <ul className={styles["settings__list"]}>
           <li>

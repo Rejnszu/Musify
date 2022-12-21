@@ -4,7 +4,7 @@ const API_KEY = "b7354f00f3cc7b0c6c6094f2885f11ff";
 export const songsApiSlice = createApi({
   reducerPath: "songsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://ws.audioscrobbler.com/2.0/`,
+    baseUrl: `https://ws.audioscrobbler.com/2.0/`,
   }),
   endpoints: (builder) => ({
     getTopSongs: builder.query({

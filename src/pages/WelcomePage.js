@@ -6,7 +6,7 @@ import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 import LoginForm from "../components/LoginForms/LoginForm";
 import RegsiterForm from "../components/LoginForms/RegsiterForm";
 import SuccessfulRegister from "../components/LoginForms/SuccessfulRegister";
-
+import Header from "../components/UI/utils/Header";
 export default function WelcomePage(props) {
   const welcomeAdvantageListRef = useRef(null);
   const [displayForms, setDisplayForms] = useState("login");
@@ -26,7 +26,7 @@ export default function WelcomePage(props) {
   return (
     <AnimatedPages>
       <main className={styles["welcome__page"]}>
-        <h2 className={styles["welcome__title"]}>Welcome to Musify!</h2>
+        <Header>Welcome to Musify!</Header>
         <div
           ref={welcomeAdvantageListRef}
           className={styles["welcome__advantage-list"]}

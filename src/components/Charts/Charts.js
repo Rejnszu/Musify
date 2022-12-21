@@ -6,9 +6,7 @@ import EmptyList from "../UI/utils/EmptyList";
 import { useGetTopSongsQuery } from "../../redux/api/songsApi";
 
 const Charts = () => {
-  const { data, isError, isLoading } = useGetTopSongsQuery(20, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isError, isLoading } = useGetTopSongsQuery(25);
 
   const charts = data?.tracks.track;
 

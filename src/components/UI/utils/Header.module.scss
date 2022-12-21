@@ -1,0 +1,17 @@
+.header {
+  max-width: var(--max-width);
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem auto;
+
+  h1 {
+    text-align: center;
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    background-color: var(--dimmed-background-black);
+    padding: 0.5rem 1rem;
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--main-box-shadow);
+    color: var(--main-color);
+    font-weight: 700;
+  }
+}

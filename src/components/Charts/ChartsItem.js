@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ChartsItem.module.scss";
 import { useGetSongsDetailsQuery } from "../../redux/api/songsApi";
-import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
+import AnimatedChartTile from "../UI/FramerGenerals/AnimatedChartTIle";
 import EmptyImage from "../../assets/images/pusty.png";
 const ChartsItem = (props) => {
   const { name, artist } = props;
@@ -13,7 +13,7 @@ const ChartsItem = (props) => {
   const song = data?.track;
   const songName = song?.name;
   const songArtist = song?.artist.name;
-  console.log(song);
+
   if (song?.album?.image[2] !== undefined) {
     image = Object.values(song?.album?.image[2])[0];
   }
@@ -28,7 +28,7 @@ const ChartsItem = (props) => {
     return;
   }
   return (
-    <AnimatedItems>
+    <AnimatedChartTile>
       <li className={styles["charts__item"]}>
         <div className={styles["item__image-wrapper"]}>
           <img src={image || EmptyImage} alt={songName} loading="lazy" />
@@ -38,7 +38,7 @@ const ChartsItem = (props) => {
           <p>{songArtist}</p>
         </div>
       </li>
-    </AnimatedItems>
+    </AnimatedChartTile>
   );
 };
 

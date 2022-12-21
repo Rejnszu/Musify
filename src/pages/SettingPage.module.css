@@ -3,16 +3,7 @@
   flex-direction: column;
   align-items: center;
 }
-.settings__title {
-  font-size: clamp(1.25rem, 5vw, 2rem);
-  background-color: var(--dimmed-background-black);
-  display: inline-block;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  border-radius: var(--main-border-radius);
-  box-shadow: var(--main-box-shadow);
-  max-width: var(--max-width);
-}
+
 .settings__list {
   list-style: none;
   background-color: var(--dimmed-background-black);
