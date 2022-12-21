@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Musify/static/css/main.83a6cf19.css",
-    "main.js": "/Musify/static/js/main.b00dabec.js",
+    "main.css": "/Musify/static/css/main.9202e5f8.css",
+    "main.js": "/Musify/static/js/main.349754ab.js",
     "static/media/masterofthepuppets.mp3": "/Musify/static/media/masterofthepuppets.54c4d7332c4f8e68b75e.mp3",
     "static/media/looseyourself.mp3": "/Musify/static/media/looseyourself.a7a6e9b5b4f3f5bd0667.mp3",
     "static/media/numb.mp3": "/Musify/static/media/numb.adfc45e66d167fb9ffe9.mp3",
@@ -17,11 +17,11 @@
     "static/media/wreckingball.mp3": "/Musify/static/media/wreckingball.bdcc3e25648ce346100a.mp3",
     "static/media/pokerface.mp3": "/Musify/static/media/pokerface.8e01af876ea05f3ec733.mp3",
     "index.html": "/Musify/index.html",
-    "main.83a6cf19.css.map": "/Musify/static/css/main.83a6cf19.css.map",
-    "main.b00dabec.js.map": "/Musify/static/js/main.b00dabec.js.map"
+    "main.9202e5f8.css.map": "/Musify/static/css/main.9202e5f8.css.map",
+    "main.349754ab.js.map": "/Musify/static/js/main.349754ab.js.map"
   },
   "entrypoints": [
-    "static/css/main.83a6cf19.css",
-    "static/js/main.b00dabec.js"
+    "static/css/main.9202e5f8.css",
+    "static/js/main.349754ab.js"
   ]
 }
