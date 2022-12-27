@@ -2,9 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./FilterByGenre.module.css";
 
-export default function FilterByGenre(props) {
+export default function FilterByGenre({ setFilteredSongs, songsList }) {
   function filterByGenre(e) {
-    props.filterSongsByGenre(e.target.value);
+    if (e.target.value === "all") {
+      setFilteredSongs(songsList);
+    } else
+      setFilteredSongs(
+        songsList.filter((song) => song.genre.toLowerCase() === e.target.value)
+      );
   }
 
   const genreOptions = useSelector((state) => state.songsList.genreOptions);

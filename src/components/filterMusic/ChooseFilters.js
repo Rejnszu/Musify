@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styles from "./ChooseFilters.module.css";
 import FilterByName from "./FilterByName";
 import FilterBygenre from "./FilterByGenre";
 import Button from "../UI/utils/Button";
 
-function ChooseFilters(props) {
+function ChooseFilters({ setFilteredSongs }) {
+  const songsList = useSelector((state) => state.songsList.songsList);
   const [choosenFilter, setChoosenFilter] = useState("name");
   const chooseFilterHandler = (e) => {
     setChoosenFilter(e.target.textContent);
-    props.reset();
+    setFilteredSongs(songsList);
   };
+  useEffect(() => {
+    setFilteredSongs(songsList);
+  }, [songsList]);
 
   const filterTitleStyles = {
     textAlign: "center",
@@ -30,7 +35,7 @@ function ChooseFilters(props) {
           } ${"button--black-box-shadow"}`}
         >
           name
-        </Button>{" "}
+        </Button>
         <Button
           onClick={chooseFilterHandler}
           styles={`${
@@ -42,10 +47,16 @@ function ChooseFilters(props) {
       </div>
       <div>
         {choosenFilter === "name" && (
-          <FilterByName filterSongsByName={props.filterSongsByName} />
+          <FilterByName
+            setFilteredSongs={setFilteredSongs}
+            songsList={songsList}
+          />
         )}
         {choosenFilter === "genre" && (
-          <FilterBygenre filterSongsByGenre={props.filterSongsByGenre} />
+          <FilterBygenre
+            setFilteredSongs={setFilteredSongs}
+            songsList={songsList}
+          />
         )}
       </div>
       ;

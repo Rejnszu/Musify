@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import useFetchMusic from "../hooks/useFetchMusic";
@@ -31,37 +31,6 @@ const MusicPage = () => {
 
   const isEmpty = filteredSongs.length === 0;
 
-  function resetFilters() {
-    setFilteredSongs(songsList);
-  }
-
-  function filterSongsByName(value) {
-    if (value.trim().length === 0) {
-      setFilteredSongs(songsList);
-    } else {
-      setFilteredSongs(
-        songsList.filter(
-          (song) =>
-            song.title.toLowerCase().includes(value) ||
-            song.author.toLowerCase().includes(value) ||
-            song.album.toLowerCase().includes(value)
-        )
-      );
-    }
-  }
-  function filterSongsByGenre(value) {
-    if (value === "all") {
-      setFilteredSongs(songsList);
-    } else
-      setFilteredSongs(
-        songsList.filter((song) => song.genre.toLowerCase() === value)
-      );
-  }
-
-  useEffect(() => {
-    setFilteredSongs(songsList);
-  }, [songsList]);
-
   if (isError) {
     return <EmptyList>Couldn't fetch songs list!</EmptyList>;
   }
@@ -77,11 +46,7 @@ const MusicPage = () => {
           setList={() => setDisplay("list")}
         />
         <Hello>{currentUser}</Hello>
-        <ChooseFilters
-          filterSongsByName={filterSongsByName}
-          filterSongsByGenre={filterSongsByGenre}
-          reset={resetFilters}
-        ></ChooseFilters>
+        <ChooseFilters setFilteredSongs={setFilteredSongs}></ChooseFilters>
 
         {!isEmpty && display === "cards" && (
           <CardListOverlay>
