@@ -1,9 +1,10 @@
 .charts {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   list-style: none;
   margin: 2rem auto;
   padding: 0;
-  max-width: 60%;
+  max-width: 90%;
+  position: relative;
 }

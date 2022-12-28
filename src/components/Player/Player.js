@@ -4,7 +4,7 @@ import styles from "./Player.module.css";
 import { playerActions } from "../../redux/player-slice";
 import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 import useMobile from "../../hooks/useMobile";
-
+import timeFormatter from "../../helpersFunctions/timeFormatters";
 export default function Player() {
   const isMobile = useMobile(1300);
   const initialPageLoad = useSelector(
@@ -28,15 +28,6 @@ export default function Player() {
 
   const [progessBarWidth, setProgessBarWidth] = useState(0);
   const [musicBarWidth, setMusicBarWidth] = useState((audio.volume / 1) * 100);
-
-  function timeFormatter(time) {
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    return `${minutes}:${seconds}`;
-  }
 
   function randomSongIndex() {
     let randomNumber;

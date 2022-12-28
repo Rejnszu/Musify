@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Button from "../UI/utils/Button";
 import styles from "./AddSong.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";
-import EmptyImage from "../../assets/images/pusty.png";
+import NoteImage from "../../assets/images/note.jpg";
 import { updateActions } from "../../redux/update-slice";
 
 let image;
 export default function AddSong(props) {
+  const [blockAddingSong, setBlockAddingSong] = useState(false);
   const imageRef = useRef(null);
   const urlRef = useRef(null);
   const titleRef = useRef(null);
@@ -19,7 +20,7 @@ export default function AddSong(props) {
 
   function getImage(file) {
     if (file === undefined) {
-      image = EmptyImage;
+      image = NoteImage;
       return;
     }
     function setImage() {
@@ -45,7 +46,7 @@ export default function AddSong(props) {
       dispatch(
         songsActions.addSongToList({
           img: image,
-          url: urlRef.current.value === 0 ? "Unknown" : urlRef.current.value,
+
           title:
             titleRef.current.value.length === 0
               ? "Unknown"
@@ -67,14 +68,27 @@ export default function AddSong(props) {
       dispatch(updateActions.shouldUpdate());
     }, 100);
   }
-
+  const checkImageSize = () => {
+    if (imageRef.current.files[0].size > 550000) {
+      setBlockAddingSong(true);
+    } else {
+      setBlockAddingSong(false);
+    }
+  };
   return (
     <div className={styles["add-song__modal"]}>
       <form onSubmit={addNewSong} className={styles["add-song__form"]}>
         <label htmlFor="input-image">Add Image</label>
-        <input ref={imageRef} type="file" accept="image/*" id="input-image" />
-        <label htmlFor="input-url">Add song URL</label>
-        <input ref={urlRef} id="input-url" />
+        <input
+          onChange={checkImageSize}
+          ref={imageRef}
+          type="file"
+          accept="image/*"
+          id="input-image"
+        />
+        {blockAddingSong && (
+          <p className={styles.warning}>Image size is too big. Change image.</p>
+        )}
         <label htmlFor="input-title">Add Title</label>
         <input required ref={titleRef} id="input-title" />
         <label htmlFor="input-author">Add Author</label>
@@ -100,7 +114,9 @@ export default function AddSong(props) {
           <Button onClick={props.closeAddSong} type="button">
             Close
           </Button>
-          <Button type="submit">Add Song</Button>
+          <Button disabled={blockAddingSong} type="submit">
+            Add Song
+          </Button>
         </div>
       </form>
     </div>

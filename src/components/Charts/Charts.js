@@ -20,7 +20,12 @@ const Charts = () => {
     <ul className={styles.charts}>
       {charts?.map((track, i) => {
         return (
-          <ChartsItem name={track.name} artist={track.artist.name} key={i} />
+          <ChartsItem
+            position={i + 1}
+            name={track.name}
+            artist={track.artist.name}
+            key={i}
+          />
         );
       })}
     </ul>

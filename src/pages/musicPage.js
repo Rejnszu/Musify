@@ -21,12 +21,13 @@ import Loader from "../components/UI/utils/Loader";
 const MusicPage = () => {
   const [isError, isLoading] = useFetchMusic();
   const fetchPlaylists = useFetchPlaylists();
-  const [openModal, setOpenModal] = useState(false);
+  const [openAddToPlaylistModal, setOpenAddToPlaylistModal] = useState(false);
+  const [openAddSongModal, setOpenAddSongModal] = useState(false);
   const songsList = useSelector((state) => state.songsList.songsList);
   const currentUser = sessionStorage.getItem("currentUser");
 
   const [filteredSongs, setFilteredSongs] = useState(songsList);
-  const [openAddSong, setOpenAddSong] = useState(false);
+
   const [display, setDisplay] = useState("cards");
 
   const isEmpty = filteredSongs.length === 0;
@@ -60,7 +61,7 @@ const MusicPage = () => {
                   author={song.author}
                   album={song.album}
                   genre={song.genre}
-                  openModal={setOpenModal.bind(null, true)}
+                  openModal={setOpenAddToPlaylistModal.bind(null, true)}
                 />
               );
             })}
@@ -78,7 +79,7 @@ const MusicPage = () => {
                   author={song.author}
                   album={song.album}
                   genre={song.genre}
-                  openModal={setOpenModal.bind(null, true)}
+                  openModal={setOpenAddToPlaylistModal.bind(null, true)}
                 />
               );
             })}
@@ -89,13 +90,17 @@ const MusicPage = () => {
         )}
         <Button
           styles="button--black-box-shadow"
-          onClick={() => setOpenAddSong(true)}
+          onClick={() => setOpenAddSongModal(true)}
         >
           Add your own song to playlist
         </Button>
-        {openAddSong && <AddSong closeAddSong={() => setOpenAddSong(false)} />}
-        {openModal && (
-          <AddToPlaylistModal closeModal={setOpenModal.bind(null, false)} />
+        {openAddSongModal && (
+          <AddSong closeAddSong={() => setOpenAddSongModal(false)} />
+        )}
+        {openAddToPlaylistModal && (
+          <AddToPlaylistModal
+            closeModal={setOpenAddToPlaylistModal.bind(null, false)}
+          />
         )}
       </main>
     </AnimatedPages>

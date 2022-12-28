@@ -45,3 +45,8 @@
   border-radius: var(--main-border-radius--smaller);
   padding: 0.5rem 1.5rem;
 }
+
+.warning {
+  color: red;
+  font-weight: 700;
+}

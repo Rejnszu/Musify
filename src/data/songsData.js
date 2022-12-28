@@ -128,6 +128,8 @@ export const defaultGenres = [
   { value: "blues", name: "Blues" },
   { value: "trap", name: "Trap" },
   { value: "elektro", name: "Elektro" },
-  { value: "techno", name: "techno" },
+  { value: "techno", name: "Techno" },
+  { value: "rnb", name: "RnB" },
+  { value: "christmas", name: "Christmas" },
   { value: "unknown", name: "Unknown" },
 ];

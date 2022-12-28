@@ -30,9 +30,11 @@ const LoggedInGroup = () => {
       ),
     [users]
   );
-  window.addEventListener("beforeunload", () => {
-    deleteCurrentUser(currentUser);
-  });
+  if (isLogged === "true") {
+    window.addEventListener("beforeunload", () => {
+      deleteCurrentUser(currentUser);
+    });
+  }
 
   return (
     isLogged === "true" && (

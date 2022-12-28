@@ -9,7 +9,7 @@ const useFetchMusic = () => {
   const { initialFetchMusicList } = useSelector(
     (state) => state.authentication.initials
   );
-  const currentUser = sessionStorage.getItem("currentUser");
+  const currentUser = sessionStorage?.getItem("currentUser");
   const songsList = useSelector((state) => state.songsList.songsList);
 
   const { isError, isLoading, isSuccess, refetch } = useGetMusicDataQuery(
