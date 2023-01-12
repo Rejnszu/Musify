@@ -12,10 +12,8 @@ import Loader from "../components/UI/utils/Loader";
 
 const PlaylistPage = () => {
   const [isError, isLoading] = useFetchPlaylists();
-  const isEmpty =
-    useSelector((state) => state.playlist?.playlists).length === 0;
   const playlists = useSelector((state) => state.playlist.playlists);
-  
+  const isEmpty = playlists.length === 0;
   if (isError) {
     return <EmptyList>Couldn't fetch playlists.</EmptyList>;
   }

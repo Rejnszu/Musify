@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./ChartsItem.module.scss";
-import { useGetSongsDetailsQuery } from "../../redux/api/songsApi";
+import { useGetSongsDetailsQuery } from "../../redux/api/songsApiSlice";
 import NoteImage from "../../assets/images/note.jpg";
-import timeFormatter from "../../helpersFunctions/timeFormatters";
+import timeFormatter from "../../utils/timeFormatters";
 import useFetchMusic from "../../hooks/useFetchMusic";
 import { useDispatch, useSelector } from "react-redux";
 import { songsActions } from "../../redux/songsList-slice";

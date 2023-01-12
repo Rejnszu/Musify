@@ -1,22 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./RegisterForm.module.css";
-import { sendUserToDatabase } from "../../actions/authActions";
-import { authActions } from "../../redux/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
-import { useUpdateDataMutation } from "../../redux/api/dataApiSlice";
+
+import {
+  useCreateUserMutation,
+  useGetUsersQuery,
+} from "../../redux/api/userDataApiSlice";
 import Warning from "../UI/utils/Warning";
 import Button from "../UI/utils/Button";
 import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
 
 export default function RegsiterForm(props) {
-  const dispatch = useDispatch();
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
   const repeatPasswordRef = useRef(null);
   const [warning, setWarning] = useState(null);
-  const users = useSelector((state) => state.authentication.users);
-  const [isInitialRegister, setIsInitialRegister] = useState(true);
-  const [updateData] = useUpdateDataMutation();
+
+  const { data } = useGetUsersQuery();
+  const [createNewUser] = useCreateUserMutation();
+
   const createUser = (e) => {
     e.preventDefault();
     const newUser = {
@@ -39,11 +40,10 @@ export default function RegsiterForm(props) {
       setWarning("admin2");
       return;
     }
-    if (users.some((user) => user.userName === newUser.userName)) {
+    if (data && data[newUser.userName]) {
       setWarning("exist");
       return;
     }
-
     if (newUser.password.length < 5) {
       setWarning("short");
       return;
@@ -54,20 +54,8 @@ export default function RegsiterForm(props) {
     }
 
     props.displayFormsHandler("success");
-    dispatch(authActions.addNewUser(newUser));
+    createNewUser(newUser);
   };
-
-  useEffect(() => {
-    if (isInitialRegister) {
-      setIsInitialRegister(false);
-      return;
-    }
-    updateData(users);
-
-    return () => {
-      setIsInitialRegister(true);
-    };
-  }, [users]);
 
   return (
     <AnimatedItems>

@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/auth-slice";
 
-import { useGetMusicDataQuery } from "../redux/api/dataApiSlice";
-
+import { useGetUserMusicDataQuery } from "../redux/api/userDataApiSlice";
+import { userActions } from "../redux/user-slice";
 const useFetchMusic = () => {
   const dispatch = useDispatch();
   const { initialFetchMusicList } = useSelector(
@@ -12,8 +12,8 @@ const useFetchMusic = () => {
   const currentUser = sessionStorage?.getItem("currentUser");
   const songsList = useSelector((state) => state.songsList.songsList);
 
-  const { isError, isLoading, isSuccess, refetch } = useGetMusicDataQuery(
-    { currentUser: currentUser, songsList: songsList },
+  const { isError, isLoading, isSuccess, refetch } = useGetUserMusicDataQuery(
+    { user: currentUser, songsList: songsList },
     {
       skip: !initialFetchMusicList,
     }
@@ -31,7 +31,9 @@ const useFetchMusic = () => {
         songsList,
       })
     );
+    dispatch(userActions.setUserMusicList(songsList));
   }, [songsList, currentUser, dispatch, isSuccess]);
+
   useEffect(() => {
     refetch();
   }, []);

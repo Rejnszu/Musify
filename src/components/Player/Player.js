@@ -4,7 +4,7 @@ import styles from "./Player.module.css";
 import { playerActions } from "../../redux/player-slice";
 import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 import useMobile from "../../hooks/useMobile";
-import timeFormatter from "../../helpersFunctions/timeFormatters";
+import timeFormatter from "../../utils/timeFormatters";
 export default function Player() {
   const isMobile = useMobile(1300);
   const initialPageLoad = useSelector(

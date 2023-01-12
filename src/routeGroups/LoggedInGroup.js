@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Route, Navigate, useLocation, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import EmptyList from "../components/UI/utils/EmptyList";
 import PlayerConsole from "../components/Player/PlayerConsole";
@@ -12,24 +11,25 @@ import MusicPage from "../pages/MusicPage";
 import PlaylistPage from "../pages/PlaylistPage";
 import SettingsPage from "../pages/SettingsPage";
 import PlayerPage from "../pages/PlayerPage";
-
+import { useSelector } from "react-redux";
 import { useDeleteCurrentUserMutation } from "../redux/api/currentUserApiSlice";
+
 import TopChartsPage from "../pages/TopChartsPage";
+
+import { useGetUserQuery } from "../redux/api/userDataApiSlice";
 
 const LoggedInGroup = () => {
   const isLogged = sessionStorage.getItem("isLogged");
   const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const location = useLocation();
-
+  const user = useSelector((state) => state.user.user);
   const [deleteCurrentUser] = useDeleteCurrentUserMutation();
-  const users = useSelector((state) => state.authentication.users);
-  const currentUser = useMemo(
-    () =>
-      users.find(
-        (user) => user.userName === sessionStorage.getItem("currentUser")
-      ),
-    [users]
-  );
+  const currentUser = sessionStorage.getItem("currentUser");
+
+  const getUser = useGetUserQuery(currentUser, {
+    skip: !(isLogged === "true" && user.userName === undefined),
+  });
+
   if (isLogged === "true") {
     window.addEventListener("beforeunload", () => {
       deleteCurrentUser(currentUser);

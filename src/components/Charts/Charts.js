@@ -3,7 +3,7 @@ import styles from "./Charts.module.scss";
 import Loader from "../UI/utils/Loader";
 import ChartsItem from "./ChartsItem";
 import EmptyList from "../UI/utils/EmptyList";
-import { useGetTopSongsQuery } from "../../redux/api/songsApi";
+import { useGetTopSongsQuery } from "../../redux/api/songsApiSlice";
 
 const Charts = () => {
   const { data, isError, isLoading } = useGetTopSongsQuery(25);

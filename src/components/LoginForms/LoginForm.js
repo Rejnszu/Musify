@@ -1,53 +1,63 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/user-slice";
 import Button from "../UI/utils/Button";
 import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
 import Warning from "../UI/utils/Warning";
 import { useCreateCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
-import { useGetUsersDataQuery } from "../../redux/api/dataApiSlice";
+import { fetchUser } from "../../utils/loginUser";
+
 export default function LoginForm(props) {
-  const { refetch } = useGetUsersDataQuery();
   const navigate = useNavigate();
-  const users = useSelector((state) => state.authentication.users);
+  const dispatch = useDispatch();
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
   const [warning, setWarning] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [createCurrentUser] = useCreateCurrentUserMutation();
 
   function logIn(currentUser) {
     createCurrentUser(currentUser);
-    sessionStorage.setItem("currentUser", userNameRef.current.value);
+    sessionStorage.setItem("currentUser", currentUser.userName);
     sessionStorage.setItem("isLogged", "true");
+    dispatch(userActions.setUser(currentUser));
     navigate("/songs");
     setWarning(null);
+    setIsLoading(false);
   }
 
-  function validateUser(name, password) {
-    const currentUser = users.find((user) => user.userName === name);
-    return currentUser.userName === name && currentUser.password === password;
+  function validateUser(name, password, data) {
+    const user = data;
+    return user.userName === name && user.password === password;
   }
+
   function logInHandler(e) {
     e.preventDefault();
-    if (!users.some((user) => user.userName === userNameRef.current.value)) {
-      setWarning("userDontExist");
-      return;
-    }
+    setWarning(false);
+    setIsLoading(true);
+    fetchUser(userNameRef.current.value).then((data) => {
+      if (!data) {
+        setWarning("userDontExist");
+        setIsLoading(false);
+        return;
+      }
 
-    if (validateUser(userNameRef.current.value, passwordRef.current.value)) {
-      const currentUser = users.find(
-        (user) => user.userName === userNameRef.current.value
-      );
-      logIn(currentUser);
-      return;
-    }
-    setWarning("wrongPassword");
+      if (
+        validateUser(userNameRef.current.value, passwordRef.current.value, data)
+      ) {
+        const user = data;
+        logIn(user);
+
+        return;
+      }
+
+      setWarning("wrongPassword");
+      setIsLoading(false);
+    });
   }
 
-  useEffect(() => {
-    refetch();
-  }, []);
   return (
     <AnimatedItems>
       <form onSubmit={logInHandler} className={styles["login-form"]}>
@@ -57,6 +67,11 @@ export default function LoginForm(props) {
         <label htmlFor="password">Password</label>
         <input ref={passwordRef} type="password" id="password" />
         {warning === "wrongPassword" && <Warning>Wrong Password.</Warning>}
+        {isLoading && (
+          <div className={styles["spinner-container"]}>
+            <div className={styles["loading-spinner"]}></div>
+          </div>
+        )}
         <Button type="submit">Sign in</Button>
         <Button
           onClick={props.displayFormsHandler.bind(null, "register")}

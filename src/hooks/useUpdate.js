@@ -1,36 +1,27 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { updateActions } from "../redux/update-slice";
 import { useSelector, useDispatch } from "react-redux";
-import { useUpdateDataMutation } from "../redux/api/dataApiSlice";
 import { useCreateCurrentUserMutation } from "../redux/api/currentUserApiSlice";
+import { useUpdateUserMutation } from "../redux/api/userDataApiSlice";
 const useUpdate = () => {
   const dispatch = useDispatch();
-  const [updateData] = useUpdateDataMutation();
+  const user = useSelector((state) => state.user.user);
+
+  const [updateUser] = useUpdateUserMutation();
   const [createCurrentUser] = useCreateCurrentUserMutation();
   const shouldUpdate = useSelector((state) => state.update.shouldUpdate);
-  const users = useSelector((state) => state.authentication.users);
-  const currentUser = useMemo(
-    () =>
-      users.find(
-        (user) => user.userName === sessionStorage.getItem("currentUser")
-      ),
-    [users]
-  );
 
   useEffect(() => {
     if (shouldUpdate) {
-      updateData(users);
-      if (
-        sessionStorage.getItem("isLogged") === "true" &&
-        currentUser !== undefined
-      ) {
-        createCurrentUser(currentUser);
+      updateUser(user);
+      if (sessionStorage.getItem("isLogged") === "true" && user !== undefined) {
+        createCurrentUser(user);
       }
     }
     return () => {
       dispatch(updateActions.shouldNotUpdate());
     };
-  }, [users]);
+  }, [user]);
 };
 
 export default useUpdate;

@@ -9,7 +9,9 @@ import { updateActions } from "../../redux/update-slice";
 import { useNavigate } from "react-router-dom";
 import { resetPlayer } from "../../actions/playerActions";
 import { useDeleteCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
-
+import { useDeleteUserMutation } from "../../redux/api/userDataApiSlice";
+import { songsApiSlice } from "../../redux/api/songsApiSlice";
+import { usersApiSlice } from "../../redux/api/userDataApiSlice";
 import Warning from "../UI/utils/Warning";
 import AreYouSureModal from "../UI/utils/AreYouSureModal";
 import Button from "../UI/utils/Button";
@@ -22,15 +24,11 @@ export default function DeleteAccount(props) {
   const passwordInputRef = useRef(null);
   const audio = useSelector((state) => state.player.audio);
   const [showModal, setShowModal] = useState(false);
-  const users = useSelector((state) => state.authentication.users);
+
   const [deleteCurrentUser] = useDeleteCurrentUserMutation();
-  const currentUser = useMemo(
-    () =>
-      users.find(
-        (user) => user.userName === sessionStorage.getItem("currentUser")
-      ),
-    [users]
-  );
+  const [deleteUser] = useDeleteUserMutation();
+
+  const user = useSelector((state) => state.user.user);
   const [warning, setWarning] = useState(false);
   function toggleModalHandler() {
     if (!modalManageState) {
@@ -43,13 +41,15 @@ export default function DeleteAccount(props) {
     }
   }
   function deleteAccount() {
-    if (passwordInputRef.current.value === currentUser.password) {
-      dispatch(authActions.deleteAccount(currentUser));
+    if (passwordInputRef.current.value === user.password) {
       sessionStorage.setItem("isLogged", "false");
       sessionStorage.removeItem("currentUser");
       dispatch(songsActions.resetSongList());
       dispatch(playlistActions.resetPlaylists());
-      deleteCurrentUser(currentUser);
+      dispatch(usersApiSlice.util.resetApiState());
+      dispatch(songsApiSlice.util.resetApiState());
+      deleteCurrentUser(user);
+      deleteUser(user);
       dispatch(updateActions.shouldUpdate());
       navigate("/Musify");
       dispatch(resetPlayer(audio));
