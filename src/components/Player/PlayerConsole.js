@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./PlayerConsole.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../../redux/player-slice";
-import { resetPlayer } from "../../actions/playerActions";
+
 import Button from "../UI/utils/Button";
 import defaultMp3 from "../../assets/mp3/coldplay.mp3";
 let initialPageLoad = true;
@@ -119,7 +119,12 @@ export default function PlayerConsole() {
       <div className={styles["player__console-wrapper"]}>
         <Button
           styles={styles["button--play-reset"]}
-          onClick={() => dispatch(resetPlayer(audio))}
+          onClick={() => {
+            if (audio) {
+              audio.pause();
+            }
+            dispatch(playerActions.playerReset());
+          }}
         >
           X
         </Button>

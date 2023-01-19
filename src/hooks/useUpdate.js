@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { updateActions } from "../redux/update-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { useCreateCurrentUserMutation } from "../redux/api/currentUserApiSlice";
