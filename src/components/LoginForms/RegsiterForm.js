@@ -23,7 +23,6 @@ export default function RegsiterForm(props) {
     const newUser = {
       userName: userNameRef.current?.value,
       password: passwordRef.current?.value,
-      repeatPassword: repeatPasswordRef.current?.value,
       musicList: [],
       userPlaylists: [],
       uniqueId: Date.now() + Math.floor(Math.random() * 1000),
@@ -48,7 +47,7 @@ export default function RegsiterForm(props) {
       setWarning("short");
       return;
     }
-    if (newUser.password !== newUser.repeatPassword) {
+    if (newUser.password !== repeatPasswordRef.current?.value) {
       setWarning("repeat");
       return;
     }

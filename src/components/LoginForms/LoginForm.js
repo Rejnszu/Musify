@@ -7,7 +7,8 @@ import Button from "../UI/utils/Button";
 import AnimatedItems from "../UI/FramerGenerals/AnimatedItems";
 import Warning from "../UI/utils/Warning";
 import { useCreateCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
-import { fetchUser } from "../../utils/loginUser";
+import { checkIfUserExist } from "../../utils/checkIfUserExist";
+import Spinner from "../UI/utils/Spinner";
 
 export default function LoginForm(props) {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function LoginForm(props) {
     e.preventDefault();
     setWarning(false);
     setIsLoading(true);
-    fetchUser(userNameRef.current.value).then((data) => {
+    checkIfUserExist(userNameRef.current.value).then((data) => {
       if (!data) {
         setWarning("userDontExist");
         setIsLoading(false);
@@ -67,11 +68,7 @@ export default function LoginForm(props) {
         <label htmlFor="password">Password</label>
         <input ref={passwordRef} type="password" id="password" />
         {warning === "wrongPassword" && <Warning>Wrong Password.</Warning>}
-        {isLoading && (
-          <div className={styles["spinner-container"]}>
-            <div className={styles["loading-spinner"]}></div>
-          </div>
-        )}
+        {isLoading && <Spinner />}
         <Button type="submit">Sign in</Button>
         <Button
           onClick={props.displayFormsHandler.bind(null, "register")}

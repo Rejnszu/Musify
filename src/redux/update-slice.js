@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialUpdateState = {
   shouldUpdate: false,
+  initials: {
+    initialFetchMusicList: true,
+    initialFetchPlaylists: true,
+  },
 };
 const updateSlice = createSlice({
   name: "update",
@@ -11,6 +15,18 @@ const updateSlice = createSlice({
     },
     shouldUpdate(state) {
       state.shouldUpdate = true;
+    },
+    handleInitialFetchMusicList(state, action) {
+      state.initials = {
+        ...state.initials,
+        initialFetchMusicList: action.payload,
+      };
+    },
+    handleInitialFetchPlaylists(state, action) {
+      state.initials = {
+        ...state.initials,
+        initialFetchPlaylists: action.payload,
+      };
     },
   },
 });

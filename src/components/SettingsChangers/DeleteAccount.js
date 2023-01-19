@@ -1,20 +1,15 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./DeleteAccount.module.css";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../redux/auth-slice";
-import { songsActions } from "../../redux/songsList-slice";
-import { playlistActions } from "../../redux/playlist-slice";
 import { updateActions } from "../../redux/update-slice";
 import { useNavigate } from "react-router-dom";
-import { resetPlayer } from "../../actions/playerActions";
-import { useDeleteCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
-import { useDeleteUserMutation } from "../../redux/api/userDataApiSlice";
-import { songsApiSlice } from "../../redux/api/songsApiSlice";
-import { usersApiSlice } from "../../redux/api/userDataApiSlice";
+
 import Warning from "../UI/utils/Warning";
 import AreYouSureModal from "../UI/utils/AreYouSureModal";
 import Button from "../UI/utils/Button";
+import Spinner from "../UI/utils/Spinner";
+import useDeleteUser from "../../hooks/useDeleteUser";
 
 let modalManageState = false;
 
@@ -22,13 +17,13 @@ export default function DeleteAccount(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const passwordInputRef = useRef(null);
-  const audio = useSelector((state) => state.player.audio);
+
   const [showModal, setShowModal] = useState(false);
 
-  const [deleteCurrentUser] = useDeleteCurrentUserMutation();
-  const [deleteUser] = useDeleteUserMutation();
+  const [onDeleteUser, isLoading, isSuccess] = useDeleteUser();
 
   const user = useSelector((state) => state.user.user);
+  
   const [warning, setWarning] = useState(false);
   function toggleModalHandler() {
     if (!modalManageState) {
@@ -42,26 +37,21 @@ export default function DeleteAccount(props) {
   }
   function deleteAccount() {
     if (passwordInputRef.current.value === user.password) {
-      sessionStorage.setItem("isLogged", "false");
       sessionStorage.removeItem("currentUser");
-      dispatch(songsActions.resetSongList());
-      dispatch(playlistActions.resetPlaylists());
-      dispatch(usersApiSlice.util.resetApiState());
-      dispatch(songsApiSlice.util.resetApiState());
-      deleteCurrentUser(user);
-      deleteUser(user);
+      onDeleteUser(user);
       dispatch(updateActions.shouldUpdate());
-      navigate("/Musify");
-      dispatch(resetPlayer(audio));
-      modalManageState = false;
-      setWarning(false);
       toggleModalHandler();
     } else {
       setWarning(true);
       modalManageState = true;
     }
   }
-
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(0);
+      sessionStorage.setItem("isLogged", "false");
+    }
+  }, [isSuccess, navigate]);
   return (
     <motion.div
       key={props.animate}
@@ -82,6 +72,7 @@ export default function DeleteAccount(props) {
             <label htmlFor="confirm">Enter your password.</label>
             <input ref={passwordInputRef} id="confirm"></input>
             {warning && <Warning>Wrong password.</Warning>}
+            {isLoading && <Spinner styles={styles["spinner--deleting"]} />}
           </div>
         </AreYouSureModal>
       )}

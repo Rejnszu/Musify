@@ -1,55 +1,45 @@
-import React, { useRef, useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
 import styles from "./ChangeUserName.module.css";
-// import { deleteCurrentUser } from "../../actions/loginActions";
-import { useDeleteCurrentUserMutation } from "../../redux/api/currentUserApiSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { updateActions } from "../../redux/update-slice";
-import { authActions } from "../../redux/auth-slice";
 import Warning from "../UI/utils/Warning";
 import Button from "../UI/utils/Button";
 
+import { motion } from "framer-motion";
+import { checkIfUserExist } from "../../utils/checkIfUserExist";
+import { userActions } from "../../redux/user-slice";
+
+import { useDispatch, useSelector } from "react-redux";
+import { updateActions } from "../../redux/update-slice";
+import useDeleteUser from "../../hooks/useDeleteUser";
+
 export default function ChangeUserName(props) {
   const [warning, setWarning] = useState(null);
-  const users = useSelector((state) => state.authentication.users);
 
-  const currentUser = useMemo(
-    () =>
-      users.find(
-        (user) => user.userName === sessionStorage.getItem("currentUser")
-      ),
-    [users]
-  );
-  const [deleteCurrentUser] = useDeleteCurrentUserMutation();
+  const user = useSelector((state) => state.user.user);
+  const [onDeleteUser] = useDeleteUser();
   const newUserNameRef = useRef(null);
   const confirmPasswordRef = useRef(null);
   const dispatch = useDispatch();
   const [success, setSuccess] = useState(false);
-  const changeUserName = (e) => {
+  const changeUserName = async (e) => {
     e.preventDefault();
-
-    if (newUserNameRef.current.value === currentUser.userName) {
-      setWarning("repeatUserName");
-      return;
-    }
-    if (users.some((user) => user.userName === newUserNameRef.current.value)) {
-      setWarning("userNameExist");
-      return;
-    }
-    if (confirmPasswordRef.current.value !== currentUser.password) {
+    if (confirmPasswordRef.current.value !== user.password) {
       setWarning("password");
       return;
     }
-    if (confirmPasswordRef.current.value === currentUser.password) {
-      deleteCurrentUser(currentUser);
+    if (newUserNameRef.current.value === user.userName) {
+      setWarning("repeatUserName");
+      return;
+    }
+    if (await checkIfUserExist(newUserNameRef.current.value)) {
+      setWarning("userNameExist");
+      return;
+    }
+
+    if (confirmPasswordRef.current.value === user.password) {
+      onDeleteUser(user);
       sessionStorage.setItem("currentUser", newUserNameRef.current.value);
       setWarning(null);
-      dispatch(
-        authActions.changeUserName({
-          currentUserName: currentUser.userName,
-          newUserName: newUserNameRef.current.value,
-        })
-      );
+      dispatch(userActions.changeUserName(newUserNameRef.current.value));
       dispatch(updateActions.shouldUpdate());
       newUserNameRef.current.value = "";
       confirmPasswordRef.current.value = "";
@@ -71,7 +61,7 @@ export default function ChangeUserName(props) {
           <p className={styles["current__user"]}>
             Your current account name:{" "}
             <span className={styles["current__user__name"]}>
-              {currentUser?.userName}
+              {user.userName}
             </span>
           </p>
 

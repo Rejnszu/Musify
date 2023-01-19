@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../redux/auth-slice";
-
 import { useGetUserMusicDataQuery } from "../redux/api/userDataApiSlice";
 import { userActions } from "../redux/user-slice";
+import { updateActions } from "../redux/update-slice";
 const useFetchMusic = () => {
   const dispatch = useDispatch();
   const { initialFetchMusicList } = useSelector(
-    (state) => state.authentication.initials
+    (state) => state.update.initials
   );
   const currentUser = sessionStorage?.getItem("currentUser");
   const songsList = useSelector((state) => state.songsList.songsList);
 
-  const { isError, isLoading, isSuccess, refetch } = useGetUserMusicDataQuery(
+  const { isError, isLoading, isSuccess } = useGetUserMusicDataQuery(
     { user: currentUser, songsList: songsList },
     {
       skip: !initialFetchMusicList,
@@ -21,22 +20,15 @@ const useFetchMusic = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(authActions.handleInitialFetchMusicList(false));
+      dispatch(updateActions.handleInitialFetchMusicList(false));
 
       return;
     }
-    dispatch(
-      authActions.setUsersMusicList({
-        currentUser,
-        songsList,
-      })
-    );
+
     dispatch(userActions.setUserMusicList(songsList));
   }, [songsList, currentUser, dispatch, isSuccess]);
 
-  useEffect(() => {
-    refetch();
-  }, []);
+
   return [isError, isLoading];
 };
 

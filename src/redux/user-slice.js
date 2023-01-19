@@ -3,7 +3,6 @@ const initialUserState = {
   user: {
     userName: undefined,
     password: undefined,
-    repeatPassword: undefined,
     musicList: [],
     userPlaylists: [],
     uniqueId: undefined,
@@ -16,7 +15,12 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.user = { ...action.payload };
     },
-
+    changeUserName(state, action) {
+      state.user = { ...state.user, userName: action.payload };
+    },
+    changeUserPassword(state, action) {
+      state.user = { ...state.user, password: action.payload };
+    },
     setUserMusicList(state, action) {
       state.user = { ...state.user, musicList: action.payload };
     },

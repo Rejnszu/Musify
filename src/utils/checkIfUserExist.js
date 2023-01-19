@@ -1,4 +1,4 @@
-export const fetchUser = async (user) => {
+export const checkIfUserExist = async (user) => {
   if (user.trim() === "") {
     return;
   }

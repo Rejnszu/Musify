@@ -1,14 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 
 import { AnimatePresence } from "framer-motion";
-import styles from "./WelcomePage.module.css";
+import styles from "./HomePage.module.css";
 import AnimatedPages from "../components/UI/FramerGenerals/AnimatedPages";
 import LoginForm from "../components/LoginForms/LoginForm";
 import RegsiterForm from "../components/LoginForms/RegsiterForm";
 import SuccessfulRegister from "../components/LoginForms/SuccessfulRegister";
 import Header from "../components/UI/utils/Header";
-export default function WelcomePage(props) {
-  const welcomeAdvantageListRef = useRef(null);
+export default function HomePage(props) {
+  const homeAdvantageListRef = useRef(null);
   const [displayForms, setDisplayForms] = useState("login");
 
   const displayFormsHandler = (value) => {
@@ -16,7 +16,7 @@ export default function WelcomePage(props) {
   };
 
   useEffect(() => {
-    Array.from(welcomeAdvantageListRef.current?.children).forEach((node, i) => {
+    Array.from(homeAdvantageListRef.current?.children).forEach((node, i) => {
       setTimeout(() => {
         node.classList.add(styles.active);
       }, i * 300);
@@ -25,20 +25,20 @@ export default function WelcomePage(props) {
 
   return (
     <AnimatedPages>
-      <main className={styles["welcome__page"]}>
-        <Header>Welcome to Musify!</Header>
+      <main className={styles["home__page"]}>
+        <Header>home to Musify!</Header>
         <div
-          ref={welcomeAdvantageListRef}
-          className={styles["welcome__advantage-list"]}
+          ref={homeAdvantageListRef}
+          className={styles["home__advantage-list"]}
         >
-          <p className={styles["welcome__advantage"]}>
+          <p className={styles["home__advantage"]}>
             A place where you can fulfill all your music dreams!
           </p>
-          <p className={styles["welcome__advantage"]}>
+          <p className={styles["home__advantage"]}>
             All the functionality you need in one place!
           </p>
 
-          <p className={styles["welcome__advantage"]}>Try it out for free!</p>
+          <p className={styles["home__advantage"]}>Try it out for free!</p>
         </div>
         <AnimatePresence exitBeforeEnter>
           {displayForms === "login" && (

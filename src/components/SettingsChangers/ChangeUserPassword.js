@@ -1,25 +1,17 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeUserPassword.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../../redux/update-slice";
-import { authActions } from "../../redux/auth-slice";
+import { userActions } from "../../redux/user-slice";
 import Warning from "../UI/utils/Warning";
 import Button from "../UI/utils/Button";
 
 export default function ChangeUserPassword(props) {
-  const users = useSelector((state) => state.authentication.users);
   const [showPassword, setShowPassword] = useState(false);
-  const currentUser = useMemo(
-    () =>
-      users.find(
-        (user) => user.userName === sessionStorage.getItem("currentUser")
-      ),
-    [users]
-  );
   const [warning, setWarning] = useState(null);
-
+  const user = useSelector((state) => state.user.user);
   const newUserPassword = useRef(null);
   const oldUserPassword = useRef(null);
   const checkBoxRef = useRef(null);
@@ -47,23 +39,18 @@ export default function ChangeUserPassword(props) {
     ) {
       return;
     }
-    if (newUserPassword.current.value === currentUser.password) {
+    if (newUserPassword.current.value === user.password) {
       setWarning("repeatedPassword");
       return;
     }
 
-    if (oldUserPassword.current.value !== currentUser.password) {
+    if (oldUserPassword.current.value !== user.password) {
       setWarning("password");
       return;
     }
-    if (oldUserPassword.current.value === currentUser.password) {
+    if (oldUserPassword.current.value === user.password) {
       setWarning(null);
-      dispatch(
-        authActions.changeUserPassword({
-          currentUserName: currentUser.userName,
-          password: newUserPassword.current.value,
-        })
-      );
+      dispatch(userActions.changeUserPassword(newUserPassword.current.value));
       dispatch(updateActions.shouldUpdate());
       newUserPassword.current.value = "";
       oldUserPassword.current.value = "";
@@ -87,7 +74,7 @@ export default function ChangeUserPassword(props) {
             <input
               ref={passwordRef}
               type="password"
-              value={currentUser?.password}
+              value={user.password}
               disabled
               className={styles["current__user__password"]}
             />

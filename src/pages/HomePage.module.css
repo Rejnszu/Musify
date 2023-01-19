@@ -1,13 +1,13 @@
-.welcome__page {
+.home__page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.welcome__advantage-list {
+.home__advantage-list {
   align-self: flex-start;
 }
-.welcome__advantage {
+.home__advantage {
   color: var(--main-color);
   font-weight: 700;
   font-size: clamp(1rem, 3vw, 1.5rem);
@@ -22,7 +22,7 @@
   transition: all 0.5s;
   transform: translateX(-100%);
 }
-.welcome__advantage.active {
+.home__advantage.active {
   opacity: 1;
   transform: translateX(0);
 }

@@ -47,7 +47,6 @@ export const usersApiSlice = createApi({
       async onQueryStarted(obj, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
           if (data.musicList) {
             dispatch(songsActions.setSongList(data.musicList));
             dispatch(userActions.setUserMusicList(data.musicList));
