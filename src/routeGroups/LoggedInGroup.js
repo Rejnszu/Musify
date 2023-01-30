@@ -11,17 +11,18 @@ import MusicPage from "../pages/MusicPage";
 import PlaylistPage from "../pages/PlaylistPage";
 import SettingsPage from "../pages/SettingsPage";
 import PlayerPage from "../pages/PlayerPage";
-import { useSelector } from "react-redux";
-import { useDeleteCurrentUserMutation } from "../redux/api/currentUserApiSlice";
-
 import TopChartsPage from "../pages/TopChartsPage";
 
+import { useSelector } from "react-redux";
+import { useDeleteCurrentUserMutation } from "../redux/api/currentUserApiSlice";
 import { useGetUserQuery } from "../redux/api/userDataApiSlice";
+
 
 const LoggedInGroup = () => {
   const isLogged = sessionStorage.getItem("isLogged");
   const playerCurrentSong = useSelector((state) => state.player.currentSong);
   const location = useLocation();
+
   const user = useSelector((state) => state.user.user);
   const [deleteCurrentUser] = useDeleteCurrentUserMutation();
   const currentUser = sessionStorage.getItem("currentUser");
@@ -35,7 +36,7 @@ const LoggedInGroup = () => {
       deleteCurrentUser(currentUser);
     });
   }
-
+ 
   return (
     isLogged === "true" && (
       <React.Fragment>

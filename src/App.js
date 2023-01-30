@@ -3,18 +3,18 @@ import React from "react";
 import LoggedInGroup from "./routeGroups/LoggedInGroup";
 import LoggedOutGroup from "./routeGroups/LoggedOutGroup";
 import useUpdate from "./hooks/useUpdate";
+import SecureGuard from "./pages/SecureGuard";
 
 function App() {
   const update = useUpdate();
-
-  if (sessionStorage.getItem("isLogged") === null)
-    sessionStorage.setItem("isLogged", "false");
+  const isLogged = sessionStorage.getItem("isLogged");
+  if (isLogged === null) sessionStorage.setItem("isLogged", "false");
 
   return (
-    <React.Fragment>
+    <SecureGuard>
       <LoggedOutGroup />
       <LoggedInGroup />
-    </React.Fragment>
+    </SecureGuard>
   );
 }
 

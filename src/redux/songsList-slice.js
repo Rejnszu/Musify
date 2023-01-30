@@ -4,6 +4,7 @@ const initialSongsState = {
   songsList: defaultSongsData,
   selectedSong: undefined,
   genreOptions: defaultGenres,
+  songsLayout: { display: "cards", direction: "vertical" },
 };
 
 const songsSlice = createSlice({
@@ -27,6 +28,9 @@ const songsSlice = createSlice({
     },
     resetSongList(state) {
       state.songsList = initialSongsState.songsList;
+    },
+    setSongsLayout(state, action) {
+      state.songsLayout = { ...action.payload };
     },
   },
 });

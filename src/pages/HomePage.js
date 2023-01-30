@@ -26,7 +26,7 @@ export default function HomePage(props) {
   return (
     <AnimatedPages>
       <main className={styles["home__page"]}>
-        <Header>home to Musify!</Header>
+        <Header>Welcome to Musify!</Header>
         <div
           ref={homeAdvantageListRef}
           className={styles["home__advantage-list"]}

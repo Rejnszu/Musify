@@ -24,11 +24,10 @@ const MusicPage = () => {
   const [openAddToPlaylistModal, setOpenAddToPlaylistModal] = useState(false);
   const [openAddSongModal, setOpenAddSongModal] = useState(false);
   const songsList = useSelector((state) => state.songsList.songsList);
+  const songsLayout = useSelector((state) => state.songsList.songsLayout);
   const currentUser = sessionStorage.getItem("currentUser");
 
   const [filteredSongs, setFilteredSongs] = useState(songsList);
-
-  const [display, setDisplay] = useState("cards");
 
   const isEmpty = filteredSongs.length === 0;
 
@@ -42,15 +41,12 @@ const MusicPage = () => {
   return (
     <AnimatedPages>
       <main>
-        <ChangeSongsDisplay
-          setCards={() => setDisplay("cards")}
-          setList={() => setDisplay("list")}
-        />
+        <ChangeSongsDisplay />
         <Hello>{currentUser}</Hello>
         <ChooseFilters setFilteredSongs={setFilteredSongs}></ChooseFilters>
 
-        {!isEmpty && display === "cards" && (
-          <CardListOverlay>
+        {!isEmpty && songsLayout.display === "cards" && (
+          <CardListOverlay direction={songsLayout.direction}>
             {filteredSongs?.map((song, i) => {
               return (
                 <MusicCard
@@ -67,7 +63,7 @@ const MusicPage = () => {
             })}
           </CardListOverlay>
         )}
-        {!isEmpty && display === "list" && (
+        {!isEmpty && songsLayout.display === "list" && (
           <ItemsListOverlay>
             {filteredSongs?.map((song, i) => {
               return (

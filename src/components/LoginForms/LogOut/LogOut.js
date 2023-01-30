@@ -11,7 +11,6 @@ const LogOut = () => {
   function logOut() {
     deleteCurrentUser(user);
     sessionStorage.setItem("isLogged", "false");
-    sessionStorage.removeItem("currentUser");
   }
   return (
     <a href="/Musify">

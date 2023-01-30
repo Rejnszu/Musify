@@ -23,7 +23,7 @@ export default function DeleteAccount(props) {
   const [onDeleteUser, isLoading, isSuccess] = useDeleteUser();
 
   const user = useSelector((state) => state.user.user);
-  
+
   const [warning, setWarning] = useState(false);
   function toggleModalHandler() {
     if (!modalManageState) {
@@ -37,7 +37,6 @@ export default function DeleteAccount(props) {
   }
   function deleteAccount() {
     if (passwordInputRef.current.value === user.password) {
-      sessionStorage.removeItem("currentUser");
       onDeleteUser(user);
       dispatch(updateActions.shouldUpdate());
       toggleModalHandler();

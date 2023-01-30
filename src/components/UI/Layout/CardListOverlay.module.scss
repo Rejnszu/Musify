@@ -1,7 +1,7 @@
 .wrapper {
   position: relative;
 }
-.overlay {
+.overlay.horizontal {
   max-width: var(--max-width);
   scrollbar-width: none;
   margin: 0 auto;
@@ -10,6 +10,16 @@
   gap: 30px;
   justify-content: flex-start;
   overflow-x: scroll;
+  padding: 5rem 2rem;
+}
+.overlay.vertical {
+  max-width: var(--max-width);
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  column-gap: 30px;
+  row-gap: 50px;
+  justify-content: flex-start;
   padding: 5rem 2rem;
 }
 .overlay::-webkit-scrollbar {
@@ -35,7 +45,7 @@
 .scroll-button--right {
   right: 10px;
 }
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
   .scroll-button {
     display: none;
   }

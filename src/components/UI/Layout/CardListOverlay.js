@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import styles from "./CardListOverlay.module.css";
+import styles from "./CardListOverlay.module.scss";
 
 export default function CardListOverlay(props) {
   const overlayRef = useRef(null);
@@ -25,21 +25,28 @@ export default function CardListOverlay(props) {
 
   return (
     <div className={styles.wrapper}>
-      <button
-        type="button"
-        onClick={scrollLeft}
-        className={`${styles["scroll-button"]} ${styles["scroll-button--left"]}`}
+      {props.direction !== "vertical" && (
+        <React.Fragment>
+          <button
+            type="button"
+            onClick={scrollLeft}
+            className={`${styles["scroll-button"]} ${styles["scroll-button--left"]}`}
+          >
+            <i className="bi bi-caret-left-fill"></i>
+          </button>
+          <button
+            type="button"
+            onClick={scrollRight}
+            className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}
+          >
+            <i className="bi bi-caret-right-fill"></i>
+          </button>
+        </React.Fragment>
+      )}
+      <div
+        ref={overlayRef}
+        className={`${styles.overlay} ${styles[props.direction]}`}
       >
-        <i className="bi bi-caret-left-fill"></i>
-      </button>
-      <button
-        type="button"
-        onClick={scrollRight}
-        className={`${styles["scroll-button"]} ${styles["scroll-button--right"]}`}
-      >
-        <i className="bi bi-caret-right-fill"></i>
-      </button>
-      <div ref={overlayRef} className={styles.overlay}>
         {props.children}
       </div>
     </div>
